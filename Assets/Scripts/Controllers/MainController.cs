@@ -9,6 +9,7 @@ public class MainController : MonoBehaviour
     public Player player;
     public GameObject playerGO;
     public InputController InputController;
+    public UIController UIController;
     public bool doUpdate = false;
     #endregion
 
@@ -28,7 +29,7 @@ public class MainController : MonoBehaviour
     }
 
     #region metody
-    public void PauseGame(bool pause = true) {
+    public void PauseGameTime(bool pause = true) {
         InputController.doUpdate = !pause;
         doUpdate = !pause;
     }

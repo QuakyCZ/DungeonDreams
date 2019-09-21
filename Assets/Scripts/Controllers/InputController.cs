@@ -6,9 +6,12 @@ using UnityEngine.SceneManagement;
 public class InputController : MonoBehaviour
 {
     public MainController mainController;
+
     Player player;
     public bool doUpdate = false;
     public float speed;
+
+    public GameObject menu;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,14 +21,19 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-	    if(doUpdate){
+        if (doUpdate) {
             Move();
 
             if (Input.GetKeyDown( KeyCode.Escape )) {
-                ShowMainMenu();
+                mainController.UIController.ShowMenu();
             }
 
-	    }
+        }
+        else {
+            if (Input.GetKeyDown( KeyCode.Escape )) {
+                mainController.UIController.ShowMenu( false );
+            }
+        }
     }
 
     void Move() {
@@ -40,9 +48,5 @@ public class InputController : MonoBehaviour
 
         player.Move( movementVector );
 
-    }
-
-    void ShowMainMenu() {
-        SceneManager.LoadScene( "MainMenu", LoadSceneMode.Single );
     }
 }
