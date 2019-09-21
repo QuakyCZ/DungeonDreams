@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
     public GameObject menu;
     public MainController mainController;
+    public TextMeshProUGUI progress;
+    public Button playButton;
+    public Button exitButton;
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,7 +23,9 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown( KeyCode.Escape )) {
+            ShowMenu( mainController.doUpdate );
+        }
     }
 
     public void ShowMenu(bool enable = true) {
@@ -26,8 +34,13 @@ public class UIController : MonoBehaviour
     }
 
     public void ButtonPlayGame() {
-        SceneManager.LoadScene( "SampleScene", LoadSceneMode.Single );
+        
+        playButton.interactable = false;
+        exitButton.interactable = false;
+        StartCoroutine( LoadAsyncOperation() );
     }
+
+    
 
     public void ExitToMainMenu() {
         SceneManager.LoadScene( "MainMenu", LoadSceneMode.Single );
@@ -37,4 +50,15 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
 
+
+
+
+    IEnumerator LoadAsyncOperation() {
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync( "SampleScene", LoadSceneMode.Single );
+        progress.enabled = true;
+        while (gameLevel.progress < 1) {
+            progress.text = Mathf.FloorToInt(gameLevel.progress*100).ToString();
+            yield return new WaitForEndOfFrame();
+        }
+    }
 }

@@ -78,32 +78,26 @@
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
- <Reference Include="Unity.2D.Tilemap.Extras.Editor">
- <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Unity.2D.Tilemap.Extras">
- <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.dll</HintPath>
- </Reference>
- <Reference Include="Unity.TextMeshPro">
- <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Tilemap.Extras.Editor">
+ <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.CollabProxy.Editor">
+ <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
@@ -113,6 +107,12 @@
  </Reference>
  <Reference Include="Unity.2D.Tilemap.Editor">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.2D.Tilemap.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.2D.Tilemap.Extras">
+ <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.2D.Tilemap.Extras.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.TextMeshPro">
+ <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
  <HintPath>F:/Dokumenty/Tom/Unity/Dungeon Dreams/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>

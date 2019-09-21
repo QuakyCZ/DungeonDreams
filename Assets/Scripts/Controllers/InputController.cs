@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
     public float speed;
 
     public GameObject menu;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,30 +22,29 @@ public class InputController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        
         if (doUpdate) {
-            Move();
-
-            if (Input.GetKeyDown( KeyCode.Escape )) {
-                mainController.UIController.ShowMenu();
-            }
-
+            Move();  
         }
-        else {
-            if (Input.GetKeyDown( KeyCode.Escape )) {
-                mainController.UIController.ShowMenu( false );
-            }
-        }
+        
+        
     }
 
+    /// <summary>
+    /// This method moves the player.
+    /// </summary>
     void Move() {
         float horizontal = Input.GetAxisRaw( "Horizontal" );
         float vertical = Input.GetAxisRaw( "Vertical" );
+
+        // Pokud sčítáš 2 vektory, jejich výslednice bude větší -> zmenši ji.
         if (horizontal != 0 && vertical != 0) {
             horizontal /= 1.5f;
             vertical /= 1.5f;
         }
-
-        Vector3 movementVector = new Vector3( horizontal, vertical,0 ).normalized * Time.deltaTime * speed;
+        
+        // Do not change this line!!!
+        Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * speed;
 
         player.Move( movementVector );
 
