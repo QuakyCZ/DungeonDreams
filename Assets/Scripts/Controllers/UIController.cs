@@ -57,7 +57,7 @@ public class UIController : MonoBehaviour
         AsyncOperation gameLevel = SceneManager.LoadSceneAsync( "SampleScene", LoadSceneMode.Single );
         progress.enabled = true;
         while (gameLevel.progress < 1) {
-            progress.text = Mathf.FloorToInt(gameLevel.progress*100).ToString();
+            progress.text = Mathf.FloorToInt(gameLevel.progress*100).ToString() + "%";
             yield return new WaitForEndOfFrame();
         }
     }
