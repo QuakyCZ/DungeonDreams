@@ -28,37 +28,51 @@ public class UIController : MonoBehaviour
         }
     }
 
-    public void ShowMenu(bool enable = true) {
+    #region inGameMenu
+    public void ShowMenu(bool enable = true) { // Also Resume Game button uses this method.
         mainController.PauseGameTime( enable );
         menu.SetActive( enable );
     }
 
-    public void ButtonPlayGame() {
-        
-        playButton.interactable = false;
-        exitButton.interactable = false;
-        StartCoroutine( LoadAsyncOperation() );
-    }
-
-    
-
     public void ExitToMainMenu() {
         SceneManager.LoadScene( "MainMenu", LoadSceneMode.Single );
+    }
+    #endregion
+
+
+    #region MainMenuButtons
+    public void ButtonPlayGame() {
+        Debug.Log( "Button: Play Game" );
+        playButton.interactable = false;
+        exitButton.interactable = false;
+        string sceneName = "Floor_0";
+        StartCoroutine( LoadLevelAsync(sceneName) );        
+        Debug.Log( "Loading of '" + sceneName + "' Completed." );
+    }
+
+    public void ButtonCredits() {
+        SceneManager.LoadScene( "Credits" );
     }
 
     public void ButtonExit() {
         Application.Quit();
     }
+    #endregion
+    
+
+    
 
 
 
 
-    IEnumerator LoadAsyncOperation() {
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync( "SampleScene", LoadSceneMode.Single );
+    IEnumerator LoadLevelAsync(string sceneName) {
+        Debug.Log( "Loading Level '" + sceneName + "'");
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync( sceneName, LoadSceneMode.Single );
         progress.enabled = true;
         while (gameLevel.progress < 1) {
             progress.text = Mathf.FloorToInt(gameLevel.progress*100).ToString() + "%";
             yield return new WaitForEndOfFrame();
         }
+        
     }
 }
