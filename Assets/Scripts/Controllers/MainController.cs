@@ -10,6 +10,7 @@ public class MainController : MonoBehaviour
     public GameObject playerGO;
     public InputController InputController;
     public UIController UIController;
+    public PlayerStatsController playerStats;
     public bool doUpdate = false;
     #endregion
 

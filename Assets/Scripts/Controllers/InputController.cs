@@ -20,13 +20,19 @@ public class InputController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        
         if (doUpdate) {
-            Move();  
+            Attack();
         }
         
+        
+    }
+
+    void FixedUpdate() {
+        if (doUpdate) {
+            Move();
+        }
         
     }
 
@@ -48,5 +54,11 @@ public class InputController : MonoBehaviour
 
         player.Move( movementVector );
 
+    }
+
+    void Attack() {
+        if (Input.GetMouseButtonDown( 0 )) {
+            mainController.playerStats.ChangeStats( Stats.mana, -2 );
+        }
     }
 }

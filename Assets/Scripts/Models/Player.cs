@@ -7,7 +7,8 @@ public class Player {
     public float x;
     public float y;
     public GameObject playerGO;
-
+    public PlayerStats stats;
+    public Abilities abilities;
     public Vector3 position { get { return playerGO.transform.position; } }
     #endregion
 
@@ -16,6 +17,9 @@ public class Player {
         this.playerGO = playerGO;
         x = playerGO.transform.position.x;
         y = playerGO.transform.position.y;
+
+        stats = new PlayerStats();
+        abilities = new Abilities();
     }
     #endregion
 
