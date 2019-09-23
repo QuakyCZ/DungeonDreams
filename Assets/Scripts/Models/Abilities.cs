@@ -5,6 +5,7 @@ using UnityEngine;
 public enum Ability {
     armor,
     attackSpeed,
+    attackRange,
     damage,
     strength
     
@@ -23,6 +24,10 @@ public class Abilities
         get { return abilityValues[Ability.attackSpeed]; }
         protected set { abilityValues[Ability.attackSpeed] = value; }
     }
+    public int attackRange {
+        get { return abilityValues[Ability.attackRange]; }
+        protected set { abilityValues[Ability.attackRange] = value; }
+    }
     public int damage {
         get { return abilityValues[Ability.damage]; }
         protected set { abilityValues[Ability.damage] = value; }
@@ -36,16 +41,18 @@ public class Abilities
 
     #region Constructors
 
-    public Abilities(int strength = 1, int attackSpeed = 1, int damage = 1, int armor = 0) {
+    public Abilities(int strength = 1, int attackSpeed = 1, int attackRange = 3, int damage = 1, int armor = 0) {
         abilityValues = new Dictionary<Ability, int>();
         abilityValues.Add( Ability.armor, armor );
         abilityValues.Add( Ability.attackSpeed, attackSpeed );
+        abilityValues.Add( Ability.attackRange, attackRange );
         abilityValues.Add( Ability.damage, damage );
         abilityValues.Add( Ability.strength, strength );
 
 
         this.strength = abilityValues[Ability.strength];
         this.attackSpeed = abilityValues[Ability.attackSpeed];
+        this.attackSpeed = abilityValues[Ability.attackRange];
         this.damage = abilityValues[Ability.damage];
         this.armor = abilityValues[Ability.armor];        
     }

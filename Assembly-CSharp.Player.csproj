@@ -880,6 +880,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AI\DemageArea.cs" />
     <Compile Include="Assets\Scripts\AI\Enemy.cs" />
     <Compile Include="Assets\Scripts\AI\Range.cs" />
     <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />

@@ -58,7 +58,8 @@ public class InputController : MonoBehaviour
 
     void Attack() {
         if (Input.GetMouseButtonDown( 0 )) {
-            mainController.playerStats.ChangeStats( Stats.mana, -2 );
+            mainController.playerStats.UseMana( 2 );
+
         }
     }
 }

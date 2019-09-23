@@ -14,6 +14,8 @@ public class PlayerStatsController : MonoBehaviour
 {
     #region parameters, variables, references
 
+    float seconds = 1f;
+
     #region GameObjects
     public GameObject healthBar;
     public GameObject manaBar;
@@ -58,9 +60,9 @@ public class PlayerStatsController : MonoBehaviour
 
         #region inGameTexts
         // Set text for healthbar and manabar
-        foreach (Stats stat in player.stats.statsOposites.Keys) {
+        foreach (Stats stat in player.stats.maxStats.Keys) {
             int actualValue = player.stats.GetStatsValue(stat);
-            Stats oposite = player.stats.statsOposites[stat];
+            Stats oposite = player.stats.maxStats[stat];
             int maxValue = player.stats.GetStatsValue(oposite);
             statsGO[stat].GetComponentInChildren<Text>().text = actualValue.ToString() + "/" + maxValue.ToString();
         }
@@ -75,15 +77,26 @@ public class PlayerStatsController : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        
-        
+        seconds -= Time.deltaTime;
+        if (seconds <= 0) {
+            ChangeStats( Stats.mana, 1 );
+            seconds = 1;
+        }
     }
 
     #region public methods
-    public void ChangeStats(Stats stats, int value) {
-        player.stats.ChangeStats( stats, value );
+    public void TakeDamage(int amount) {
+        ChangeStats( Stats.health, -amount );
+    }
+
+    public void UseMana(int amount) {
+        ChangeStats( Stats.mana, -amount );
+    }
+
+    private void ChangeStats(Stats stats, int value) {
+        player.stats.ChangeActualStats( stats, value );
         int actualValue = player.stats.GetStatsValue(stats);
-        Stats oposite = player.stats.statsOposites[stats];
+        Stats oposite = player.stats.maxStats[stats];
         int maxValue = player.stats.GetStatsValue(oposite);
         
         

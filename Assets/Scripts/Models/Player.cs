@@ -29,5 +29,9 @@ public class Player {
         x = position.x;
         y = position.y;
     }
+
+    public void Attack() {
+        
+    }
     #endregion
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats {
 
     public Dictionary<Stats, int> statsValues;
-    public Dictionary<Stats, Stats> statsOposites;
+    public Dictionary<Stats, Stats> maxStats;
 
     public int health {
         get { return statsValues[Stats.health]; }
@@ -37,11 +37,11 @@ public class PlayerStats {
         statsValues.Add( Stats.maxMana, 20 );
         #endregion
 
-        statsOposites = new Dictionary<Stats, Stats>();
+        maxStats = new Dictionary<Stats, Stats>();
 
         #region statsOposites_values
-        statsOposites.Add( Stats.health, Stats.maxHealth );
-        statsOposites.Add( Stats.mana, Stats.maxMana );
+        maxStats.Add( Stats.health, Stats.maxHealth );
+        maxStats.Add( Stats.mana, Stats.maxMana );
         #endregion
 
         health = statsValues[Stats.health];
@@ -50,11 +50,10 @@ public class PlayerStats {
         maxMana = statsValues[Stats.maxMana];
     }
 
-    public void ChangeStats(Stats statsType, int value) {
-        statsValues[statsType] += value;
-        if (statsValues[statsType] <= 0) {
-            statsValues[statsType] = 0;
-        }
+    public void ChangeActualStats(Stats statsType, int value) {
+        if(statsValues[statsType] + value <= GetStatsValue(maxStats[statsType]) && statsValues[statsType]>=0) {
+            statsValues[statsType] += value;
+        }   
         
     }
 
