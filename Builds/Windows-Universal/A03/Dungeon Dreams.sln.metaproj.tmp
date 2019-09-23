@@ -1,0 +1,322 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build" InitialTargets="ValidateSolutionConfiguration;ValidateToolsVersions;ValidateProjects">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportBefore')" />
+  <Import Project="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\before.Dungeon Dreams.sln.targets" Condition="exists('F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\before.Dungeon Dreams.sln.targets')" />
+  <PropertyGroup Condition=" '$(Configuration)' == '' ">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == '' ">
+    <Platform>ARM</Platform>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(AspNetConfiguration)' == '') ">
+    <AspNetConfiguration>$(Configuration)</AspNetConfiguration>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SolutionDir>F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\</SolutionDir>
+    <SolutionExt>.sln</SolutionExt>
+    <SolutionFileName>Dungeon Dreams.sln</SolutionFileName>
+    <SolutionName>Dungeon Dreams</SolutionName>
+    <SolutionPath>F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams.sln</SolutionPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and '$(MSBuildToolsVersion)' == '2.0'">v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and ('$(MSBuildToolsVersion)' == '3.5' or '$(MSBuildToolsVersion)' == '3.0')">v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion Condition="'$(TargetFrameworkVersion)' == '' and !('$(MSBuildToolsVersion)' == '3.5' or '$(MSBuildToolsVersion)' == '3.0' or '$(MSBuildToolsVersion)' == '2.0')">v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'ARM') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <ItemGroup>
+    <SolutionConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Debug|ARM64">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|x64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Debug|x86">
+      <Configuration>Debug</Configuration>
+      <Platform>x86</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="MasterWithLTCG|ARM">
+      <Configuration>MasterWithLTCG</Configuration>
+      <Platform>ARM</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="MasterWithLTCG|ARM64">
+      <Configuration>MasterWithLTCG</Configuration>
+      <Platform>ARM64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="MasterWithLTCG|x64">
+      <Configuration>MasterWithLTCG</Configuration>
+      <Platform>x64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|x64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="MasterWithLTCG|x86">
+      <Configuration>MasterWithLTCG</Configuration>
+      <Platform>x86</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Master|ARM">
+      <Configuration>Master</Configuration>
+      <Platform>ARM</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Master|ARM64">
+      <Configuration>Master</Configuration>
+      <Platform>ARM64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Master|x64">
+      <Configuration>Master</Configuration>
+      <Platform>x64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|x64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Master|x86">
+      <Configuration>Master</Configuration>
+      <Platform>x86</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Release|ARM64">
+      <Configuration>Release</Configuration>
+      <Platform>ARM64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|x64</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+    <SolutionConfiguration Include="Release|x86">
+      <Configuration>Release</Configuration>
+      <Platform>x86</Platform>
+      <Content>
+        <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+      </Content>
+    </SolutionConfiguration>
+  </ItemGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'ARM64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'x64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|x64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Debug') and ('$(Platform)' == 'x86') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Debug|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Debug|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Master') and ('$(Platform)' == 'ARM') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Master') and ('$(Platform)' == 'ARM64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Master') and ('$(Platform)' == 'x64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|x64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Master') and ('$(Platform)' == 'x86') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Master|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Master|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'MasterWithLTCG') and ('$(Platform)' == 'ARM') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'MasterWithLTCG') and ('$(Platform)' == 'ARM64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'MasterWithLTCG') and ('$(Platform)' == 'x64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|x64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'MasterWithLTCG') and ('$(Platform)' == 'x86') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">MasterWithLTCG|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'ARM') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|ARM<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|ARM</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'ARM64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|ARM64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|ARM64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'x64') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|x64<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|x64</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <PropertyGroup Condition=" ('$(Configuration)' == 'Release') and ('$(Platform)' == 'x86') ">
+    <CurrentSolutionConfigurationContents>
+      <SolutionConfiguration xmlns="">
+  <ProjectConfiguration Project="{2FABDF39-A3A3-4497-95BA-5AEE089EBF0F}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Dungeon Dreams\Dungeon Dreams.vcxproj" BuildProjectInSolution="True">Release|Win32<ProjectDependency Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" /></ProjectConfiguration>
+  <ProjectConfiguration Project="{EA17D85E-DA6F-49EA-A879-8F48265B121D}" AbsolutePath="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\Il2CppOutputProject\Il2CppOutputProject.vcxproj" BuildProjectInSolution="True">Release|Win32</ProjectConfiguration>
+</SolutionConfiguration>
+    </CurrentSolutionConfigurationContents>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter\*" Condition="'$(ImportByWildcardBeforeSolution)' != 'false' and exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\SolutionFile\ImportAfter')" />
+  <Import Project="F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\after.Dungeon Dreams.sln.targets" Condition="exists('F:\Dokumenty\Tom\Unity\Dungeon Dreams\Builds\Windows-Universal\A03\after.Dungeon Dreams.sln.targets')" />
+  <Target Name="Rebuild" />
+  <Target Name="Build" />
+  <Target Name="Clean" />
+  <Target Name="Publish" />
+</Project>

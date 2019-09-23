@@ -58,11 +58,6 @@ public class UIController : MonoBehaviour
         Application.Quit();
     }
     #endregion
-    
-
-    
-
-
 
 
     IEnumerator LoadLevelAsync(string sceneName) {
