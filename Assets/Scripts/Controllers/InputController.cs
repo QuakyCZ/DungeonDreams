@@ -13,16 +13,32 @@ public class InputController : MonoBehaviour
 
     public GameObject menu;
 
+    public GameObject weapon;
+
+    float coolDown;
+
+    bool charged = true;
+
     // Start is called before the first frame update
     void Start()
     {
         player = mainController.player;
+        coolDown = (float)player.abilities.GetAbilityValue( Ability.attackSpeed );
     }
 
     // Update is called once per frame
     void Update()
     {
         if (doUpdate) {
+            if(charged == false) {
+                coolDown -= Time.deltaTime;
+                //Debug.Log( "CoolDown: " + coolDown.ToString() );
+                if (coolDown <= 0) {
+                    charged = true;
+                    Debug.Log( "Charged" );
+                }
+            }            
+            
             Attack();
         }
         
@@ -57,9 +73,12 @@ public class InputController : MonoBehaviour
     }
 
     void Attack() {
-        if (Input.GetMouseButtonDown( 0 )) {
-            mainController.playerStats.UseMana( 2 );
-
+        if(Input.GetMouseButton( 0 ) && charged==true) {
+            Debug.Log( "Attack" );
+            player.Attack();
+            charged = false;
+            coolDown = player.abilities.GetAbilityValue( Ability.attackSpeed );
         }
+
     }
 }

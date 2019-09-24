@@ -14,26 +14,26 @@ public enum Ability {
 public class Abilities
 {
     #region parameters, variables, references
-    private Dictionary<Ability, int> abilityValues;
+    private Dictionary<Ability, float> abilityValues;
 
-    public int armor {
+    public float armor {
         get { return abilityValues[Ability.armor]; }
         protected set { abilityValues[Ability.armor] = value; }
     }
-    public int attackSpeed {
+    public float attackSpeed {
         get { return abilityValues[Ability.attackSpeed]; }
         protected set { abilityValues[Ability.attackSpeed] = value; }
     }
-    public int attackRange {
+    public float attackRange {
         get { return abilityValues[Ability.attackRange]; }
         protected set { abilityValues[Ability.attackRange] = value; }
     }
-    public int damage {
+    public float damage {
         get { return abilityValues[Ability.damage]; }
         protected set { abilityValues[Ability.damage] = value; }
     }
 
-    public int strength {
+    public float strength {
         get { return abilityValues[Ability.strength]; }
         protected set { abilityValues[Ability.strength] = value; }
     }
@@ -41,20 +41,20 @@ public class Abilities
 
     #region Constructors
 
-    public Abilities(int strength = 1, int attackSpeed = 1, int attackRange = 3, int damage = 1, int armor = 0) {
-        abilityValues = new Dictionary<Ability, int>();
+    public Abilities(float armor = 0,  float attackSpeed = 0.3f, float attackRange = 3, float damage = 1, float strength = 1 ) {
+        abilityValues = new Dictionary<Ability, float>();
         abilityValues.Add( Ability.armor, armor );
         abilityValues.Add( Ability.attackSpeed, attackSpeed );
         abilityValues.Add( Ability.attackRange, attackRange );
         abilityValues.Add( Ability.damage, damage );
         abilityValues.Add( Ability.strength, strength );
 
-
+        this.armor = abilityValues[Ability.armor];
         this.strength = abilityValues[Ability.strength];
         this.attackSpeed = abilityValues[Ability.attackSpeed];
-        this.attackSpeed = abilityValues[Ability.attackRange];
+        this.attackRange = abilityValues[Ability.attackRange];
         this.damage = abilityValues[Ability.damage];
-        this.armor = abilityValues[Ability.armor];        
+           
     }
     #endregion
 
@@ -65,9 +65,9 @@ public class Abilities
     /// </summary>
     /// <param name="ability"></param>
     /// <returns></returns>
-    public int GetAbilityValue(Ability ability) {
+    public float GetAbilityValue(Ability ability) {
         return abilityValues[ability];
-    }    
+    }
 
     /// <summary>
     /// Sets the value to the ability.

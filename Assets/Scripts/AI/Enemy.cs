@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -8,31 +9,44 @@ public class Enemy : MonoBehaviour
     private CanvasGroup healthGroup;
 
     private Transform target;
+
     [SerializeField]
     private float minRange;
     [SerializeField]
     private float maxRange;
+
     public float speed = 2f;
     public float attackSpeed = 2;
     private float attackCooldown;
     public float distance;
+    public GameObject enemyGO;
     public GameObject targetGO;
     public Transform Target {
         get { return target; }
         set { target = value; }
     }
 
+    public Slider healthBar;
+
+    public float maxHealth;
+    public float health;
+
     // Start is called before the first frame update
     void Start()
     {
         attackCooldown = attackSpeed;
         Target = targetGO.transform;
+        health = maxHealth;
+        healthBar.maxValue = maxHealth;
     }
     void Update() {
         attackCooldown -= Time.deltaTime;
         if(attackCooldown <= 0 && distance <= minRange) {
             Attack();
             attackCooldown = attackSpeed;
+        }
+        if (health <= 0) {
+            Destroy( enemyGO );
         }
     }
     // Update is called once per frame
@@ -59,5 +73,15 @@ public class Enemy : MonoBehaviour
 
     void Attack() {
         targetGO.GetComponent<PlayerStatsController>().TakeDamage( 2 );
+    }
+
+    public void TakeDamage(float amnt) {
+        Debug.Log( "Take damage" );
+        health -= amnt;
+        ChangeHealthBar( health );
+    }
+
+    void ChangeHealthBar(float value) {
+        healthBar.value = value;
     }
 }

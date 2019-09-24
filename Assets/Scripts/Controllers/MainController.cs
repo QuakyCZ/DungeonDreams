@@ -18,6 +18,7 @@ public class MainController : MonoBehaviour
     void Awake()
     {
         player = new Player( playerGO );
+        player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;
     }
 
@@ -25,7 +26,6 @@ public class MainController : MonoBehaviour
     void Update()
     {
         if (doUpdate) {
-
         }
     }
 

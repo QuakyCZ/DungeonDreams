@@ -23,6 +23,7 @@ public class PlayerStatsController : MonoBehaviour
 
     #region Texts
     public Text armorText;
+    public Text attackRangeText;
     public Text attackSpeedText;
     public Text damageText;
     public Text strengthText;
@@ -53,6 +54,7 @@ public class PlayerStatsController : MonoBehaviour
         #region abilityGO
         abilityGO = new Dictionary<Ability, Text>();
         abilityGO.Add( Ability.armor, armorText );
+        abilityGO.Add( Ability.attackRange, attackRangeText );
         abilityGO.Add( Ability.attackSpeed, attackSpeedText );
         abilityGO.Add( Ability.damage, damageText );
         abilityGO.Add( Ability.strength, strengthText );
@@ -111,7 +113,7 @@ public class PlayerStatsController : MonoBehaviour
         bar.GetComponentsInChildren<Text>()[0].text = actualValue.ToString() + "/" + maxValue.ToString();  
     }
 
-    public void ChangeAbilityTextValue(Ability ability, int value) {
+    public void ChangeAbilityTextValue(Ability ability, float value) {
         abilityGO[ability].text = ability.ToString() + ": " + value.ToString();
     }
     #endregion
