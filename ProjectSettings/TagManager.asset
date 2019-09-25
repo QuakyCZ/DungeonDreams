@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - DamageArea
+  - Spawn
   layers:
   - Default
   - TransparentFX
@@ -16,10 +17,10 @@ TagManager:
   - 
   - 
   - Tilemap_Walls
-  - Text
+  - Tilemap_Floor
+  - Player
   - Enemy
-  - 
-  - 
+  - Minimap
   - 
   - 
   - 
@@ -51,4 +52,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4130718591
+    locked: 0
+  - name: Enemy
+    uniqueID: 1148526387
     locked: 0

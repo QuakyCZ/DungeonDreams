@@ -48,5 +48,9 @@ public class Player {
             
         }
     }
+
+    public void SetPosition(Vector2 position) {
+        playerGO.transform.position = position;
+    }
     #endregion
 }

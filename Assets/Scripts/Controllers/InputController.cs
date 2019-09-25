@@ -19,11 +19,14 @@ public class InputController : MonoBehaviour
 
     bool charged = true;
 
+    Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
         player = mainController.player;
         coolDown = (float)player.abilities.GetAbilityValue( Ability.attackSpeed );
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,8 +70,12 @@ public class InputController : MonoBehaviour
         
         // Do not change this line!!!
         Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * speed;
-
+        animator.SetFloat( "Horizontal", horizontal );
+        animator.SetFloat( "Vertical", vertical );
+        animator.SetFloat( "Magnitude", movementVector.magnitude );
         player.Move( movementVector );
+
+        
 
     }
 

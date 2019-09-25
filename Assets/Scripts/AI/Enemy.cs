@@ -31,6 +31,12 @@ public class Enemy : MonoBehaviour
     public float maxHealth;
     public float health;
 
+    public float stackTime;
+    float stackCoolDown;
+    bool stacked = false;
+
+    public Animator animator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,16 +44,32 @@ public class Enemy : MonoBehaviour
         Target = targetGO.transform;
         health = maxHealth;
         healthBar.maxValue = maxHealth;
+        ChangeHealthBar( health );
+        animator = GetComponent<Animator>();
     }
     void Update() {
-        attackCooldown -= Time.deltaTime;
-        if(attackCooldown <= 0 && distance <= minRange) {
-            Attack();
-            attackCooldown = attackSpeed;
+        if (stacked == false && distance <= minRange) {
+            attackCooldown -= Time.deltaTime;
+            if (attackCooldown <= 0 ) {
+                animator.SetBool( "isAttacking", true );
+                attackCooldown = attackSpeed;
+            }
+            else {
+            }
         }
+        else if (stacked) {
+            stackCoolDown -= Time.deltaTime;
+            //Debug.Log( stackCoolDown );
+            if (stackCoolDown <= 0) {
+                stacked = false;
+                //Debug.Log( "Unstacked" );
+            }
+        }
+
         if (health <= 0) {
             Destroy( enemyGO );
         }
+        
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -72,16 +94,30 @@ public class Enemy : MonoBehaviour
     }
 
     void Attack() {
+               
         targetGO.GetComponent<PlayerStatsController>().TakeDamage( 2 );
+        
     }
 
     public void TakeDamage(float amnt) {
         Debug.Log( "Take damage" );
         health -= amnt;
         ChangeHealthBar( health );
+        Stack();
     }
 
     void ChangeHealthBar(float value) {
         healthBar.value = value;
+    }
+
+    void Stack() {
+        Debug.Log( "Stacked" );
+        stackCoolDown = stackTime;
+        stacked = true;
+    }
+
+    public void AttackEnd() {
+        animator.SetBool( "isAttacking", false );
+        Attack();
     }
 }

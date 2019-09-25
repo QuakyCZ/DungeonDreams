@@ -12,6 +12,7 @@ public class MainController : MonoBehaviour
     public UIController UIController;
     public PlayerStatsController playerStats;
     public bool doUpdate = false;
+    public GameObject spawn;
     #endregion
 
     // Start is called before the first frame update
@@ -20,6 +21,7 @@ public class MainController : MonoBehaviour
         player = new Player( playerGO );
         player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;
+        player.SetPosition( spawn.transform.position );
     }
 
     // Update is called once per frame
