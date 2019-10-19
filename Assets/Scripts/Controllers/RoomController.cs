@@ -35,34 +35,31 @@ public class RoomController : MonoBehaviour
         UnityEngine.Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
         rooms[0] = null;
         rooms[0] = new Room();
-        Stopwatch sw = new Stopwatch();
-        sw.Start();
         Room newRoom = GetOutsideRoom();
-        while(oldRoom.Tiles.Count > 0 && sw.ElapsedMilliseconds<60000) {
+        while(oldRoom.Tiles.Count > 0) {
             //Debug.Log( "New Room" );
-            FloodFill( queue.Dequeue(), newRoom, oldRoom);
-            if ( oldRoom.Tiles.Count > 0 ) {
-                queue.Enqueue( oldRoom.Tiles[0] );
-                newRoom = new Room();
-                rooms.Add( newRoom );
-            }
+            queue.Enqueue( oldRoom.Tiles[0] );
+            FloodFill( queue.Dequeue(), newRoom, oldRoom );
+            newRoom = new Room();
+            rooms.Add( newRoom );
         }
-        sw.Stop();
         foreach ( Room r in rooms ) {
             UnityEngine.Debug.Log( "Room: " + rooms.IndexOf(r) + " Tiles: " + r.Tiles.Count);
         }
     }
 
     void FloodFill(ClonedTile tile, Room newRoom, Room oldRoom ) {
-
+        oldRoom.Tiles.Remove( tile );
         // If tile is null, we reached the outside of the map -> skip it.
         if ( tile == null ) {
-            oldRoom.Tiles.Remove( tile );
             return;
         }
+        // If tile has already a room and is not a door -> skip it. 
+        if ( tile.isDone )
+            return;
 
-        oldRoom.Tiles.Remove( tile );
-
+        if ( newRoom.Tiles.Contains( tile ) )
+            return;
 
         // This tile is empty and it's not attached to the outside -> assign this tile to the outside room
         if (tile.type == TileType.Empty && GetOutsideRoom().Tiles.Contains( tile ) == false) {
@@ -72,15 +69,14 @@ public class RoomController : MonoBehaviour
             tile.hasRoom = false;
             return;
         }
+
         // This tile is empty and it's assigned to the outside -> skip this tile.
         if (tile.type == TileType.Empty && GetOutsideRoom().Tiles.Contains(tile) == true )
             return;
 
         tile.numberOfRooms++;
 
-        // If tile has already a room and is not a door -> skip it. 
-        if ( tile.hasRoom && tile.type != TileType.Door )
-            return;
+
 
         // We need to assign roomEnclosure tile to 2 rooms -> enqueue it again.
         if (tile.roomEnclosure && tile.isDone == false ) {
@@ -91,7 +87,7 @@ public class RoomController : MonoBehaviour
         newRoom.Tiles.Add( tile );
         tile.hasRoom = true;
 
-        if ( tile.roomEnclosure && tile.isDone) {
+        if ( tile.roomEnclosure) {
             return;
         }
         // Enqueue tile's neighbours
