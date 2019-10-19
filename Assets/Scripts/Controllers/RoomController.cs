@@ -76,8 +76,6 @@ public class RoomController : MonoBehaviour
 
         tile.numberOfRooms++;
 
-
-
         // We need to assign roomEnclosure tile to 2 rooms -> enqueue it again.
         if (tile.roomEnclosure && tile.isDone == false ) {
             oldRoom.Tiles.Add( tile );
@@ -91,8 +89,8 @@ public class RoomController : MonoBehaviour
             return;
         }
         // Enqueue tile's neighbours
-        foreach(ClonedTile nb in tile.neighbours ) {
-            if ( nb != null && nb != tile && queue.Contains(nb) == false && nb.isDone == false)
+        foreach(ClonedTile nb in tile.GetNeighbours()) {
+            if (queue.Contains(nb) == false && nb.isDone == false)
                 queue.Enqueue( nb );
         }
         if ( queue.Count > 0 ) {

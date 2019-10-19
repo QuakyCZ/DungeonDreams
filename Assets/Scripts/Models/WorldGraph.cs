@@ -26,10 +26,6 @@ public class WorldGraph {
         originalTiles = new Dictionary<ClonedTile, TileBase>();
 
         ImportTiles();
-
-        foreach(ClonedTile t in tiles ) {
-            SetNeighbours( t );
-        }
     }
 
     public void ImportTiles() {
@@ -93,24 +89,6 @@ public class WorldGraph {
             }
         }
         Debug.Log( "Walls: " + wallnumber + " Floor: " + floornumber + " Doors: " + doornumber + " Empty: " + emptynumber );
-    }
-
-    public void SetNeighbours(ClonedTile tile ) {
-        int x = tile.x;
-        int y = tile.y;
-        if ( x + 1 < width ) {
-            tile.neighbours[2, 1] = tiles[x + 1, y];
-        }
-        if ( x - 1 >= 0 ) {
-            tile.neighbours[0, 1] = tiles[tile.x - 1, tile.y];
-        }
-        if ( y + 1 < height ) {
-            tile.neighbours[1, 2] = tiles[x, y + 1];
-        }
-        if ( y - 1 >= 0 ) {
-            tile.neighbours[1, 0] = tiles[x, y - 1];
-        }
-            
     }
 
 
