@@ -11,13 +11,20 @@ public class MainController : MonoBehaviour
     public InputController InputController;
     public UIController UIController;
     public PlayerStatsController playerStats;
+    public RoomController roomController;
     public bool doUpdate = false;
     public GameObject spawn;
     #endregion
 
+    public static MainController Instance { get; protected set;}
+
     // Start is called before the first frame update
     void Awake()
     {
+        if(Instance == null ) {
+            Instance = this;
+        }
+
         player = new Player( playerGO );
         player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;

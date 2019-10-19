@@ -199,10 +199,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4632362511791313183}
   - component: {fileID: 4632362511791313177}
-  - component: {fileID: 4632362511791313182}
   - component: {fileID: 4632362511791313179}
-  - component: {fileID: 4632362511791313176}
   - component: {fileID: 2691094679456057703}
+  - component: {fileID: 3111780851044365370}
   m_Layer: 11
   m_Name: Enemy
   m_TagString: Enemy
@@ -276,31 +275,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4632362511791313182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4632362511791313180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthGroup: {fileID: 0}
-  minRange: 1.44
-  maxRange: 2.99
-  speed: 1
-  attackSpeed: 2
-  distance: 0
-  enemyGO: {fileID: 4632362511791313180}
-  targetGO: {fileID: 0}
-  healthBar: {fileID: 4632362512258480828}
-  maxHealth: 20
-  health: 0
-  stackTime: 0.5
-  animator: {fileID: 0}
 --- !u!60 &4632362511791313179
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -343,27 +317,6 @@ PolygonCollider2D:
     - - {x: 0.796875, y: -0.15625}
       - {x: 0.796875, y: -0.21875}
       - {x: 0.734375, y: -0.28125}
---- !u!50 &4632362511791313176
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4632362511791313180}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 25
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!95 &2691094679456057703
 Animator:
   serializedVersion: 3
@@ -383,6 +336,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3111780851044365370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632362511791313180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b259cc6a1e8e19a4aba608c1746478bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4632362512258480802
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +521,7 @@ GameObject:
   - component: {fileID: 4632362512658521176}
   - component: {fileID: 4632362512658521177}
   - component: {fileID: 4632362512658521182}
+  - component: {fileID: 6909368145142537943}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -643,3 +609,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &6909368145142537943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4632362512658521180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2baa86fd7dfa3604aa0b85b646f1c8d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPath: {fileID: 0}

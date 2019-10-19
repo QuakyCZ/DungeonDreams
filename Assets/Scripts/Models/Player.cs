@@ -29,7 +29,7 @@ public class Player {
 
     #region metody
     public void Move(Vector3 moveVector) {
-        playerGO.transform.Translate(moveVector);
+        playerGO.transform.position += moveVector;
         x = position.x;
         y = position.y;
     }

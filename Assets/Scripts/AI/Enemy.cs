@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
+[RequireComponent( typeof( NavMeshAgent ) )]
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
     private CanvasGroup healthGroup;
-
+   
     private Transform target;
 
     [SerializeField]
@@ -82,8 +84,10 @@ public class Enemy : MonoBehaviour
 
 
 
-    public void FollowTarget(bool follow = true) {       
-        transform.position = Vector2.MoveTowards( transform.position, target.position, speed*Time.deltaTime );      
+    public void FollowTarget(bool follow = true) {
+        Vector3 targetPosition = targetGO.transform.position;
+        transform.position = Vector2.MoveTowards(transform.position,targetPosition, speed*Time.deltaTime);
+        
     }
 
     void OnDrawGizmosSelected() {
@@ -95,7 +99,7 @@ public class Enemy : MonoBehaviour
 
     void Attack() {
                
-        targetGO.GetComponent<PlayerStatsController>().TakeDamage( 2 );
+        FindObjectOfType<PlayerStatsController>().TakeDamage( 2 );
         
     }
 

@@ -18,10 +18,10 @@ TagManager:
   - 
   - Tilemap_Walls
   - Tilemap_Floor
+  - Tilemap_Door
   - Player
-  - Enemy
+  - Empty
   - Minimap
-  - 
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Walls
     uniqueID: 1512995627
+    locked: 0
+  - name: Door
+    uniqueID: 3630787509
     locked: 0
   - name: Player
     uniqueID: 4130718591
