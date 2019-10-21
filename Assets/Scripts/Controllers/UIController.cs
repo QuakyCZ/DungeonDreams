@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI progress;
     public Button playButton;
     public Button exitButton;
+    public Text log;
 
 
     // Start is called before the first frame update
@@ -70,4 +71,14 @@ public class UIController : MonoBehaviour
         }
         
     }
+
+    public void Log(string message ) {
+        log.text = message;
+    }
+
+    public void InstantiateRooms() {
+        FindObjectOfType<RoomController>().InstantiateRooms();
+    }
+
+
 }

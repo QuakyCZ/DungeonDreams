@@ -19,10 +19,10 @@ public class ClonedTile
             }
         set {
             _numberOfRooms = value;
-            if ( ( type == TileType.Wall || type == TileType.Door ) && _numberOfRooms == 2 ) {
+            if ( roomEnclosure && _numberOfRooms >= 2 ) {
                 isDone = true;
             }
-            else if ( type == TileType.Floor && _numberOfRooms == 1 ) {
+            else if ( !roomEnclosure && _numberOfRooms >= 1 ) {
                 isDone = true;
             }
             else
@@ -42,25 +42,42 @@ public class ClonedTile
         numberOfRooms = 0;
     }
 
+    private ClonedTile(ClonedTile other ) {
+        roomController = other.roomController;
+        x = other.x;
+        y = other.y;
+        type = other.type;
+        roomEnclosure = other.roomEnclosure;
+        hasRoom = other.hasRoom;
+        isDone = other.isDone;
+        numberOfRooms = other.numberOfRooms;
+    }
+
     public List<ClonedTile> GetNeighbours() {
         ClonedTile tile = this;
         List<ClonedTile> nb = new List<ClonedTile>();
         ClonedTile[,] tiles = tile.roomController.worldGraph.tiles;
+        Debug.Log( "Get neighbours for tile: X: " + x + " Y: " + y );
             
-            if ( tile.x+1 < roomController.worldGraph.width && tiles[tile.x + 1, tile.y] != null ) {
+            if ( tile.x + 1 < roomController.worldGraph.width && tiles[tile.x + 1, tile.y] != null) {
                 nb.Add( tiles[x + 1, y] );
             }
-            if ( tile.x - 1 >= 0 && tiles[tile.x - 1, tile.y] != null ) {
+            if ( tile.x - 1 >= 0 && tiles[tile.x - 1, tile.y] != null
+            ) {
                 nb.Add( tiles[x - 1, y] );
             }
             if ( tile.y + 1 < roomController.worldGraph.width && tiles[tile.x, tile.y + 1] != null ) {
                 nb.Add( tiles[x, y+1] );
             }
             if ( tile.y - 1 >=0 && tiles[tile.x, tile.y - 1] != null ) {
-                nb.Add( tiles[x, y+1] );
+                nb.Add( tiles[x, y-1] );
             }
             
 
         return nb;
+    }
+
+    public ClonedTile Clone() {
+        return new ClonedTile( this );
     }
 }

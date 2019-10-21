@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Diagnostics;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -15,111 +14,132 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         rooms = new List<Room>();
-        rooms.Add( new Room() );
-        UnityEngine.Debug.Log( "Rooms: " + rooms.Count );
-        worldGraph = new WorldGraph(walls.size.x, walls.size.y, walls, floor, doors, this);
-        InstantiateRooms();
+        AddRoom( new Room() );
+        Debug.Log( "Rooms: " + rooms.Count );
+        worldGraph = new WorldGraph(walls.cellBounds.size.x, walls.cellBounds.size.y, walls, floor, doors, this);
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }       
+    }
+
+
 
     public void InstantiateRooms() {
-        queue = new Queue<ClonedTile>();
-        Room oldRoom = GetOutsideRoom().Clone();
-        queue.Enqueue( oldRoom.Tiles[0] );
-        UnityEngine.Debug.Log( "Tiles in outside room: " + GetOutsideRoom().Tiles.Count );
-        UnityEngine.Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
-        rooms[0] = null;
-        rooms[0] = new Room();
-        Room newRoom = GetOutsideRoom();
-        while(oldRoom.Tiles.Count > 0) {
-            //Debug.Log( "New Room" );
-            queue.Enqueue( oldRoom.Tiles[0] );
-            FloodFill( queue.Dequeue(), newRoom, oldRoom );
-            newRoom = new Room();
-            rooms.Add( newRoom );
+        Debug.Log( "InstantiateRooms" );
+        foreach(ClonedTile t in worldGraph.tiles ) {
+            GetOutsideRoom().AssignTile( t );
         }
+
+        queue = new Queue<ClonedTile>();
+        Room defaultRoom = GetOutsideRoom().Clone();
+
+        queue.Enqueue( defaultRoom.GetTileAt(0) );
+        //Debug.Log( "Tiles in outside room: " + GetOutsideRoom().Tiles.Count );
+        //Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
+        rooms[0].UnassignTiles();
+        //Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
+
+        while (defaultRoom.CountTiles() > 0) {
+            //Debug.Log( "Old room: " + oldRoom.Tiles.Count );
+
+            Debug.Log( "New room: " + rooms.Count );
+            queue.Enqueue( defaultRoom.GetTileAt(0) );
+            FillRoom( queue.Dequeue(), CreateNewRoom(), defaultRoom );
+
+        }
+
         foreach ( Room r in rooms ) {
-            UnityEngine.Debug.Log( "Room: " + rooms.IndexOf(r) + " Tiles: " + r.Tiles.Count);
+            Debug.Log( "Room: " + rooms.IndexOf(r) + " Tiles: " + r.CountTiles());
         }
     }
 
-    void FloodFill(ClonedTile tile, Room newRoom, Room oldRoom ) {
-        oldRoom.Tiles.Remove( tile );
+    Room CreateNewRoom() {
+        Room newRoom = new Room();
+        AddRoom( newRoom );
+        return newRoom;
+    }
+
+    void FillRoom(ClonedTile startTile, Room newRoom, Room defaultRoom ) {
+        defaultRoom.UnassignTile( startTile );
         // If tile is null, we reached the outside of the map -> skip it.
-        if ( tile == null ) {
+        if ( SkipTile(startTile,newRoom) )
             return;
-        }
-        // If tile has already a room and is not a door -> skip it. 
-        if ( tile.isDone )
-            return;
-
-        if ( newRoom.Tiles.Contains( tile ) )
-            return;
-
-        // This tile is empty and it's not attached to the outside -> assign this tile to the outside room
-        if (tile.type == TileType.Empty && GetOutsideRoom().Tiles.Contains( tile ) == false) {
-            if ( GetOutsideRoom().Tiles.Contains( tile ) == false ) {
-                GetOutsideRoom().AssignTile( tile );
-            }
-            tile.hasRoom = false;
-            return;
-        }
 
         // This tile is empty and it's assigned to the outside -> skip this tile.
-        if (tile.type == TileType.Empty && GetOutsideRoom().Tiles.Contains(tile) == true )
+        if ( startTile.type == TileType.Empty && GetOutsideRoom().HasTile(startTile) == true ) {
+            startTile.numberOfRooms = 1;
             return;
+        }
 
-        tile.numberOfRooms++;
+        startTile.numberOfRooms++;
 
-        // We need to assign roomEnclosure tile to 2 rooms -> enqueue it again.
-        if (tile.roomEnclosure && tile.isDone == false ) {
-            oldRoom.Tiles.Add( tile );
+        // This tile is empty and it's not attached to the outside -> assign this tile to the outside room
+        if (startTile.type == TileType.Empty && GetOutsideRoom().HasTile( startTile ) == false) {
+            GetOutsideRoom().AssignTile( startTile );
+            return;
         }
 
         // At this point the tile is not empty and is assigned to default room or it's a door assigned to 1 room (we need 2 rooms).
-        newRoom.Tiles.Add( tile );
-        tile.hasRoom = true;
+        newRoom.AssignTile( startTile );
 
-        if ( tile.roomEnclosure) {
+        // We need to assign roomEnclosure tile to 2 rooms -> enqueue it again.
+        if (startTile.roomEnclosure == true && startTile.isDone == false ) {
+            defaultRoom.AssignTile( startTile );
+            return;
+        }
+
+        if ( startTile.roomEnclosure) {
             return;
         }
         // Enqueue tile's neighbours
-        foreach(ClonedTile nb in tile.GetNeighbours()) {
+        foreach(ClonedTile nb in startTile.GetNeighbours()) {
             if (queue.Contains(nb) == false && nb.isDone == false)
                 queue.Enqueue( nb );
         }
         if ( queue.Count > 0 ) {
-            FloodFill( queue.Dequeue(), newRoom, oldRoom );
-            return;
+            FillRoom( queue.Dequeue(), newRoom, defaultRoom );
         }
+    }
 
+    private bool SkipTile(ClonedTile tile, Room newRoom ) {
+        if ( tile == null ) {
+            return true;
+        }
+        if ( tile.isDone )
+            return true;
+
+        if ( newRoom.HasTile( tile ) )
+            return true;
+        return false;
     }
 
     public void AddRoom( Room room ) {
-        rooms.Add( room );
+        if(!rooms.Contains(room))
+            rooms.Add( room );
     }
+
     public Room GetOutsideRoom() {
         return rooms[0];
-    }                                                                                                                                                                                                                               
+    }
+                                                                                                                                                                                                                                   
     public void DeleteRoom( Room room ) {
         if ( room == GetOutsideRoom() ) {
-            UnityEngine.Debug.LogError( "Terminated. You're trying to delete the Outside Room." );
+            Debug.LogError( "Terminated. You're trying to delete the Outside Room." );
             return;
         }
-        UnassignTilesInRoom( room );
+        room.UnassignTiles();
         rooms.Remove( room );
     }
-    public void UnassignTilesInRoom( Room room ) {
-        foreach ( ClonedTile t in room.Tiles ) {
-            room.Tiles.Remove( t );
-            t.hasRoom = false;
-        }
-    }
+    //public void UnassignTilesInRoom( Room room ) {
+    //    foreach ( ClonedTile t in room.Tiles ) {
+    //        room.Tiles.Remove( t );
+    //        t.hasRoom = false;
+    //    }
+    //}
 
 
 }

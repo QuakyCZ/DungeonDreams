@@ -21,12 +21,15 @@ public class InputController : MonoBehaviour
 
     Animator animator;
 
+    UIController uiController;
+
     // Start is called before the first frame update
     void Start()
     {
         player = mainController.player;
         coolDown = (float)player.abilities.GetAbilityValue( Ability.attackSpeed );
         animator = GetComponent<Animator>();
+        uiController = FindObjectOfType<UIController>();
     }
 
     // Update is called once per frame
@@ -51,6 +54,7 @@ public class InputController : MonoBehaviour
     void FixedUpdate() {
         if (doUpdate) {
             Move();
+            uiController.Log( "" );
         }
         
     }
@@ -64,8 +68,8 @@ public class InputController : MonoBehaviour
 
         // Pokud sčítáš 2 vektory, jejich výslednice bude větší -> zmenši ji.
         if (horizontal != 0 && vertical != 0) {
-            horizontal /= 1.5f;
-            vertical /= 1.5f;
+            horizontal /= Mathf.Pow(2,0.5f);
+            vertical /= Mathf.Pow(2, 0.5f);
         }
         
         // Do not change this line!!!

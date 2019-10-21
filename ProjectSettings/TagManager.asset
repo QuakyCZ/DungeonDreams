@@ -22,7 +22,7 @@ TagManager:
   - Player
   - Empty
   - Minimap
-  - 
+  - Interactable
   - 
   - 
   - 
@@ -50,8 +50,8 @@ TagManager:
   - name: Walls
     uniqueID: 1512995627
     locked: 0
-  - name: Door
-    uniqueID: 3630787509
+  - name: Interactable
+    uniqueID: 920011225
     locked: 0
   - name: Player
     uniqueID: 4130718591

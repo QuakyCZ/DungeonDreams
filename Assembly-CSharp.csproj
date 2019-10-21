@@ -65,6 +65,9 @@
      <Compile Include="Assets\Scripts\Controllers\RoomController.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
      <Compile Include="Assets\Scripts\EnemyGFX.cs" />
+     <Compile Include="Assets\Scripts\Interaction\Collectable.cs" />
+     <Compile Include="Assets\Scripts\Interaction\Collidable.cs" />
+     <Compile Include="Assets\Scripts\Interaction\Objects\Chest.cs" />
      <Compile Include="Assets\Scripts\Models\Abilities.cs" />
      <Compile Include="Assets\Scripts\Models\ClonedTile.cs" />
      <Compile Include="Assets\Scripts\Models\Player.cs" />

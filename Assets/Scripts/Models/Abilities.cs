@@ -7,36 +7,13 @@ public enum Ability {
     attackSpeed,
     attackRange,
     damage,
-    strength
-    
+    strength    
 }
 
 public class Abilities
 {
     #region parameters, variables, references
-    private Dictionary<Ability, float> abilityValues;
-
-    public float armor {
-        get { return abilityValues[Ability.armor]; }
-        protected set { abilityValues[Ability.armor] = value; }
-    }
-    public float attackSpeed {
-        get { return abilityValues[Ability.attackSpeed]; }
-        protected set { abilityValues[Ability.attackSpeed] = value; }
-    }
-    public float attackRange {
-        get { return abilityValues[Ability.attackRange]; }
-        protected set { abilityValues[Ability.attackRange] = value; }
-    }
-    public float damage {
-        get { return abilityValues[Ability.damage]; }
-        protected set { abilityValues[Ability.damage] = value; }
-    }
-
-    public float strength {
-        get { return abilityValues[Ability.strength]; }
-        protected set { abilityValues[Ability.strength] = value; }
-    }
+    private Dictionary<Ability, float> abilityValues;   
     #endregion
 
     #region Constructors
@@ -48,12 +25,6 @@ public class Abilities
         abilityValues.Add( Ability.attackRange, attackRange );
         abilityValues.Add( Ability.damage, damage );
         abilityValues.Add( Ability.strength, strength );
-
-        this.armor = abilityValues[Ability.armor];
-        this.strength = abilityValues[Ability.strength];
-        this.attackSpeed = abilityValues[Ability.attackSpeed];
-        this.attackRange = abilityValues[Ability.attackRange];
-        this.damage = abilityValues[Ability.damage];
            
     }
     #endregion
