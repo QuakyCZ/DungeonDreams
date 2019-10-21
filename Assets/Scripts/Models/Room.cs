@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Room {
     private List<ClonedTile> Tiles;
+    public List<ClonedTile> Doors;
 
     public Room() {
         Tiles = new List<ClonedTile>();
+        Doors = new List<ClonedTile>();
     }
     private Room(Room other) {
         Tiles = new List<ClonedTile>();
@@ -24,15 +26,18 @@ public class Room {
         if ( t.hasRoom == false )
             t.hasRoom = true;
         t.numberOfRooms++;
+        t.room = this;
     }
     public void AssignTiles( List<ClonedTile> tiles ) {
         foreach ( ClonedTile tile in tiles ) {
             AssignTile( tile );
         }
     }
-    public void UnassignTiles(Room outside) {
+    public void UnassignTiles(Room defaultRoom) {
         foreach(ClonedTile t in Tiles ) {
-            outside.AssignTile( t );
+            defaultRoom.AssignTile( t );
+            t.numberOfRooms--;
+            t.numberOfRooms--;
         }
         Tiles.Clear();
     }
@@ -52,7 +57,7 @@ public class Room {
         }
     }
     public void ChangeTile(int index, ClonedTile newTile ) {
-        if(IsTileAt(index))
+        if(HasTileAt(index))
             Tiles[index] = newTile;
     }
     public bool HasTile(ClonedTile tile ) {
@@ -70,7 +75,7 @@ public class Room {
     public int CountTiles() {
         return Tiles.Count;
     }
-    public bool IsTileAt(int index ) {
+    public bool HasTileAt(int index ) {
         if ( index < CountTiles() )
             return true;
         return false;

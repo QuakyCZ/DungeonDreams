@@ -11,7 +11,7 @@ public class ClonedTile
     public TileType type { get; protected set; }
     public bool hasRoom;
     public bool roomEnclosure;
-    public bool border;
+    public Room room;
     public RoomController roomController;
     private int _numberOfRooms;
     public int numberOfRooms { 
@@ -24,13 +24,13 @@ public class ClonedTile
             if ( _numberOfRooms < 0 )
                 _numberOfRooms = 0;
 
-            if ( roomEnclosure && border == false && _numberOfRooms >= 2 ) {
+            if ( type == TileType.Door && _numberOfRooms >= 2 ) {
                 isDone = true;
             }
             else if ( !roomEnclosure && _numberOfRooms >= 1 ) {
                 isDone = true;
             }
-            else if ( roomEnclosure && border && _numberOfRooms ==1) {
+            else if ( type == TileType.Wall && _numberOfRooms == 1) {
                 // if the wall is the border of the map, it has just 1 room.
                 isDone = true;
             }
@@ -51,41 +51,40 @@ public class ClonedTile
         numberOfRooms = 0;
     }
 
-    private ClonedTile(ClonedTile other ) {
-        roomController = other.roomController;
-        x = other.x;
-        y = other.y;
-        type = other.type;
-        roomEnclosure = other.roomEnclosure;
-        hasRoom = other.hasRoom;
-        isDone = other.isDone;
-        numberOfRooms = other.numberOfRooms;
-    }
-
     public List<ClonedTile> GetNeighbours() {
         ClonedTile tile = this;
         List<ClonedTile> nb = new List<ClonedTile>();
         ClonedTile[,] tiles = tile.roomController.worldGraph.tiles;
+        int width= roomController.worldGraph.width;
+        int height=roomController.worldGraph.height;
             
-        if ( tile.x + 1 < roomController.worldGraph.width) {
+        if ( tile.x + 1 < width) {
             nb.Add( tiles[x + 1, y] );
         }
         if ( tile.x - 1 >= 0) {
             nb.Add( tiles[x - 1, y] );
         }
-        if ( tile.y + 1 < roomController.worldGraph.height) {
+        if ( tile.y + 1 < height) {
             nb.Add( tiles[x, y+1] );
         }
         if ( tile.y - 1 >=0) {
             nb.Add( tiles[x, y-1] );
         }
 
+        if( tile.x + 1 < width && tile.y + 1 < height ) {
+            nb.Add( tiles[x + 1, y + 1] );
+        }
+        if ( tile.x + 1 < width && tile.y - 1 > 0 ) {
+            nb.Add( tiles[x + 1, y - 1] );
+        }
+        if ( tile.x - 1 > 0 && tile.y + 1 < height ) {
+            nb.Add( tiles[x - 1, y + 1] );
+        }
+        if ( tile.x - 1 > 0 && tile.y - 1 > 0 ) {
+            nb.Add( tiles[x - 1, y - 1] );
+        }
 
         Debug.Log( "Get neighbours for tile: X: " + x + " Y: " + y + " Count: " + nb.Count.ToString());
         return nb;
-    }
-
-    public ClonedTile Clone() {
-        return new ClonedTile( this );
     }
 }
