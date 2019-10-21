@@ -23,17 +23,22 @@ public class Room {
         }
         if ( t.hasRoom == false )
             t.hasRoom = true;
+        t.numberOfRooms++;
     }
     public void AssignTiles( List<ClonedTile> tiles ) {
         foreach ( ClonedTile tile in tiles ) {
             AssignTile( tile );
         }
     }
-    public void UnassignTiles() {
+    public void UnassignTiles(Room outside) {
+        foreach(ClonedTile t in Tiles ) {
+            outside.AssignTile( t );
+        }
         Tiles.Clear();
     }
     public void UnassignTile( ClonedTile t ) {
         Tiles.Remove( t );
+        t.numberOfRooms--;
     }
     //public List<ClonedTile> GetTiles() {
     //    return Tiles;

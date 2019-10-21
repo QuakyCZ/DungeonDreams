@@ -11,6 +11,7 @@ public class ClonedTile
     public TileType type { get; protected set; }
     public bool hasRoom;
     public bool roomEnclosure;
+    public bool border;
     public RoomController roomController;
     private int _numberOfRooms;
     public int numberOfRooms { 
@@ -18,11 +19,19 @@ public class ClonedTile
             return _numberOfRooms; 
             }
         set {
+
             _numberOfRooms = value;
-            if ( roomEnclosure && _numberOfRooms >= 2 ) {
+            if ( _numberOfRooms < 0 )
+                _numberOfRooms = 0;
+
+            if ( roomEnclosure && border == false && _numberOfRooms >= 2 ) {
                 isDone = true;
             }
             else if ( !roomEnclosure && _numberOfRooms >= 1 ) {
+                isDone = true;
+            }
+            else if ( roomEnclosure && border && _numberOfRooms ==1) {
+                // if the wall is the border of the map, it has just 1 room.
                 isDone = true;
             }
             else
@@ -57,23 +66,22 @@ public class ClonedTile
         ClonedTile tile = this;
         List<ClonedTile> nb = new List<ClonedTile>();
         ClonedTile[,] tiles = tile.roomController.worldGraph.tiles;
-        Debug.Log( "Get neighbours for tile: X: " + x + " Y: " + y );
             
-            if ( tile.x + 1 < roomController.worldGraph.width && tiles[tile.x + 1, tile.y] != null) {
-                nb.Add( tiles[x + 1, y] );
-            }
-            if ( tile.x - 1 >= 0 && tiles[tile.x - 1, tile.y] != null
-            ) {
-                nb.Add( tiles[x - 1, y] );
-            }
-            if ( tile.y + 1 < roomController.worldGraph.width && tiles[tile.x, tile.y + 1] != null ) {
-                nb.Add( tiles[x, y+1] );
-            }
-            if ( tile.y - 1 >=0 && tiles[tile.x, tile.y - 1] != null ) {
-                nb.Add( tiles[x, y-1] );
-            }
-            
+        if ( tile.x + 1 < roomController.worldGraph.width) {
+            nb.Add( tiles[x + 1, y] );
+        }
+        if ( tile.x - 1 >= 0) {
+            nb.Add( tiles[x - 1, y] );
+        }
+        if ( tile.y + 1 < roomController.worldGraph.height) {
+            nb.Add( tiles[x, y+1] );
+        }
+        if ( tile.y - 1 >=0) {
+            nb.Add( tiles[x, y-1] );
+        }
 
+
+        Debug.Log( "Get neighbours for tile: X: " + x + " Y: " + y + " Count: " + nb.Count.ToString());
         return nb;
     }
 

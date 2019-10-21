@@ -9,14 +9,13 @@ public class RoomController : MonoBehaviour
     public Tilemap doors;
     public WorldGraph worldGraph;
     public List<Room> rooms;
-    Queue<ClonedTile> queue;
     // Start is called before the first frame update
     void Start()
     {
         rooms = new List<Room>();
         AddRoom( new Room() );
         Debug.Log( "Rooms: " + rooms.Count );
-        worldGraph = new WorldGraph(walls.cellBounds.size.x, walls.cellBounds.size.y, walls, floor, doors, this);
+        worldGraph = new WorldGraph(walls.cellBounds.size.x-1, walls.cellBounds.size.y-1, walls, floor, doors, this);
 
     }
 
@@ -30,26 +29,50 @@ public class RoomController : MonoBehaviour
 
     public void InstantiateRooms() {
         Debug.Log( "InstantiateRooms" );
-        foreach(ClonedTile t in worldGraph.tiles ) {
-            GetOutsideRoom().AssignTile( t );
+
+        Room defaultRoom = new Room();
+        foreach (ClonedTile t in worldGraph.tiles ) {
+            if ( t.type == TileType.Empty )
+                GetOutsideRoom().AssignTile( t );
+            else {
+                defaultRoom.AssignTile( t );
+                t.numberOfRooms--;
+                t.hasRoom = false;
+            }
+
         }
 
-        queue = new Queue<ClonedTile>();
-        Room defaultRoom = GetOutsideRoom().Clone();
+        //while (defaultRoom.CountTiles() > 0) {
+        //    //Debug.Log( "Old room: " + oldRoom.Tiles.Count );
 
-        queue.Enqueue( defaultRoom.GetTileAt(0) );
-        //Debug.Log( "Tiles in outside room: " + GetOutsideRoom().Tiles.Count );
-        //Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
-        rooms[0].UnassignTiles();
-        //Debug.Log( "Tiles in old room: " + oldRoom.Tiles.Count );
+        //    Debug.Log( "New room: " + rooms.Count );
+        //    queue.Enqueue( defaultRoom.GetTileAt(0) );
 
-        while (defaultRoom.CountTiles() > 0) {
-            //Debug.Log( "Old room: " + oldRoom.Tiles.Count );
+        //    FillRoom( queue.Dequeue(), CreateNewRoom(), defaultRoom );
 
+        //}
+        for ( int i = 0; i < 60; i++ ) {
+            Debug.Log( "Old room: " + defaultRoom.CountTiles() );
+
+            Room newRoom = CreateNewRoom();
             Debug.Log( "New room: " + rooms.Count );
-            queue.Enqueue( defaultRoom.GetTileAt(0) );
-            FillRoom( queue.Dequeue(), CreateNewRoom(), defaultRoom );
 
+            ClonedTile tileToCheck = defaultRoom.GetTileAt(0);
+            if ( tileToCheck.roomEnclosure ) {
+                defaultRoom.AssignTile( tileToCheck );
+                for ( int j = 0; j < defaultRoom.CountTiles(); j++ ) {
+                    ClonedTile t = defaultRoom.GetTileAt( j );
+                    if ( t.roomEnclosure ) {
+                        tileToCheck = t;
+                        break;
+                    }
+                }
+
+            }
+
+            FillRoom( tileToCheck, newRoom, defaultRoom );
+            if ( newRoom.CountTiles() <= 1 )
+                DeleteRoom( newRoom, defaultRoom );
         }
 
         foreach ( Room r in rooms ) {
@@ -64,22 +87,31 @@ public class RoomController : MonoBehaviour
     }
 
     void FillRoom(ClonedTile startTile, Room newRoom, Room defaultRoom ) {
+        Debug.Log("Fill room.");
         defaultRoom.UnassignTile( startTile );
         // If tile is null, we reached the outside of the map -> skip it.
-        if ( SkipTile(startTile,newRoom) )
+        if ( SkipTile( startTile, newRoom ) ) {
+            Debug.Log( "This tile was skipped." );
             return;
+        }
+        List<ClonedTile> nbs = startTile.GetNeighbours();
 
-        // This tile is empty and it's assigned to the outside -> skip this tile.
-        if ( startTile.type == TileType.Empty && GetOutsideRoom().HasTile(startTile) == true ) {
-            startTile.numberOfRooms = 1;
+        if(startTile.roomEnclosure == false && startTile.type != TileType.Empty && nbs.Count < 4 ) {
+            // There is a floor at the corner -> it shouldn't happen. If it does, delete this room and assign its tiles to the outside.
+            Debug.LogWarning( "There is a tile in the corner wich doesn't enclose the room." );
+            DeleteRoom( newRoom, GetOutsideRoom() );
             return;
         }
 
-        startTile.numberOfRooms++;
-
-        // This tile is empty and it's not attached to the outside -> assign this tile to the outside room
-        if (startTile.type == TileType.Empty && GetOutsideRoom().HasTile( startTile ) == false) {
+        // This tile is empty and it's assigned to the outside -> skip this tile.
+        if ( startTile.type == TileType.Empty ) {
+            Debug.Log( "This tile is empty." );
+            // This tile is empty and it's not attached to the outside -> assign this tile to the outside room
             GetOutsideRoom().AssignTile( startTile );
+            foreach ( ClonedTile nb in nbs ) {
+                if ( nb.isDone == false && GetOutsideRoom().HasTile( nb ) == false )
+                    FillRoom( nb, newRoom, defaultRoom );
+            }
             return;
         }
 
@@ -87,22 +119,59 @@ public class RoomController : MonoBehaviour
         newRoom.AssignTile( startTile );
 
         // We need to assign roomEnclosure tile to 2 rooms -> enqueue it again.
-        if (startTile.roomEnclosure == true && startTile.isDone == false ) {
-            defaultRoom.AssignTile( startTile );
+        // If this tile's neighbour is outside -> assign it to the outside and return!
+        // If this tile's border -> it's done if encloses just 1 room.
+        if (startTile.roomEnclosure == true) {
+            Debug.Log( "This tile has roomEnclosure." );
+            CheckEnclosureTile( startTile, newRoom, nbs );
             return;
         }
 
-        if ( startTile.roomEnclosure) {
+        // Check tile's neighbours
+        Debug.Log( "This tile is floor." );
+        Debug.Log( "Neigbours to check: " + nbs.Count );
+        foreach (ClonedTile nb in nbs) {
+            if (nb.isDone == false && GetOutsideRoom().HasTile(nb) == false)
+                FillRoom(nb,newRoom,defaultRoom);
+        }
+    }
+
+    void CheckEnclosureTile(ClonedTile startTile, Room newRoom, List<ClonedTile> nbs) {
+        // We have to check its neighbours.
+        // If it has less than 4 nbs, it's border tile.
+        if ( nbs.Count < 4 ) {
+            int enclose = 0;
+
+            foreach ( ClonedTile nb in nbs ) {
+                if ( nb.roomEnclosure )
+                    enclose++;
+            }
+
+            if ( enclose == 3 ) {
+                // All neighbours have roomEnclosure -> we can't pick this tile again from another room -> assign it to the outside. (this is the shape: -|)
+                // Return it into defaultRoom
+                if ( startTile.isDone == false )
+                    newRoom.UnassignTile( startTile );
+                GetOutsideRoom().AssignTile( startTile );
+                return;
+            }
+            if ( enclose == 2 ) {
+                // If it has 2 enclosing nbs it encloses 1 room (shape: -' OR |)
+                startTile.border = true;
+                startTile.isDone = true;
+                return;
+            }
+        }
+
+        else {
+            // This tile has 4 nbs -> it's not a border.
+            if ( !startTile.isDone ) {
+                GetOutsideRoom().AssignTile( startTile );
+                return;
+            }
             return;
         }
-        // Enqueue tile's neighbours
-        foreach(ClonedTile nb in startTile.GetNeighbours()) {
-            if (queue.Contains(nb) == false && nb.isDone == false)
-                queue.Enqueue( nb );
-        }
-        if ( queue.Count > 0 ) {
-            FillRoom( queue.Dequeue(), newRoom, defaultRoom );
-        }
+        return;
     }
 
     private bool SkipTile(ClonedTile tile, Room newRoom ) {
@@ -126,20 +195,15 @@ public class RoomController : MonoBehaviour
         return rooms[0];
     }
                                                                                                                                                                                                                                    
-    public void DeleteRoom( Room room ) {
+    public void DeleteRoom( Room room, Room outside ) {
         if ( room == GetOutsideRoom() ) {
             Debug.LogError( "Terminated. You're trying to delete the Outside Room." );
             return;
         }
-        room.UnassignTiles();
+        room.UnassignTiles(outside);
+        room = null;
         rooms.Remove( room );
     }
-    //public void UnassignTilesInRoom( Room room ) {
-    //    foreach ( ClonedTile t in room.Tiles ) {
-    //        room.Tiles.Remove( t );
-    //        t.hasRoom = false;
-    //    }
-    //}
 
 
 }
