@@ -4,15 +4,22 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 public class RoomController : MonoBehaviour
 {
-    public Tilemap floor;
-    public Tilemap walls;
-    public Tilemap doors;
-    public Tilemap debugMap;
+    [SerializeField]
+    private Tilemap floor;
+    [SerializeField]
+    private Tilemap walls;
+    [SerializeField]
+    private Tilemap doors;
+    [SerializeField]
+    private Tilemap debugMap;
+
     public WorldGraph worldGraph;
     public List<Room> rooms;
     public Sprite roomSprite;
+
     Queue<ClonedTile> floorQueue;
     Queue<ClonedTile> doorQueue;
+
     public Room outsideRoom;
 
     // Start is called before the first frame update
@@ -62,7 +69,6 @@ public class RoomController : MonoBehaviour
             CheckTile( floorQueue.Dequeue(), newRoom );
 
             while ( floorQueue.Count == 0 && doorQueue.Count > 0 ) {
-
 
                 ClonedTile door = doorQueue.Dequeue();
                 Debug.Log( "Dequeuing door. Door count: " + doorQueue.Count );

@@ -10,7 +10,7 @@ public class MainController : MonoBehaviour
     public GameObject playerGO;
     public InputController InputController;
     public UIController UIController;
-    public PlayerStatsController playerStats;
+    public PlayerStatsController playerStatsController;
     public RoomController roomController;
     public bool doUpdate = false;
     public GameObject spawn;
