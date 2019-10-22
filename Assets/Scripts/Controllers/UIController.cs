@@ -76,9 +76,5 @@ public class UIController : MonoBehaviour
         log.text = message;
     }
 
-    public void InstantiateRooms() {
-        FindObjectOfType<RoomController>().InstantiateRooms();
-    }
-
 
 }

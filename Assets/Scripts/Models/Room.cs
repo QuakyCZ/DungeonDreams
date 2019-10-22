@@ -4,28 +4,29 @@ using UnityEngine;
 public class Room {
     private List<ClonedTile> Tiles;
     public List<ClonedTile> Doors;
+    public bool isOutside;
 
-    public Room() {
+    public Room(bool isOutside = false) {
         Tiles = new List<ClonedTile>();
         Doors = new List<ClonedTile>();
+        this.isOutside = isOutside;
     }
     private Room(Room other) {
         Tiles = new List<ClonedTile>();
         foreach(ClonedTile t in other.Tiles ) {
             Tiles.Add( t );
         }
+        foreach(ClonedTile d in other.Doors ) {
+            Doors.Add( d );
+        }
+        isOutside = other.isOutside;
     }
     virtual public Room Clone() {
         return new Room(this);
     }
 
     public void AssignTile(ClonedTile t ) {
-        if ( !Tiles.Contains( t ) ) {
-            Tiles.Add( t );
-        }
-        if ( t.hasRoom == false )
-            t.hasRoom = true;
-        t.numberOfRooms++;
+        Tiles.Add( t );
         t.room = this;
     }
     public void AssignTiles( List<ClonedTile> tiles ) {
@@ -33,21 +34,15 @@ public class Room {
             AssignTile( tile );
         }
     }
-    public void UnassignTiles(Room defaultRoom) {
-        foreach(ClonedTile t in Tiles ) {
-            defaultRoom.AssignTile( t );
-            t.numberOfRooms--;
-            t.numberOfRooms--;
-        }
-        Tiles.Clear();
-    }
     public void UnassignTile( ClonedTile t ) {
         Tiles.Remove( t );
-        t.numberOfRooms--;
     }
-    //public List<ClonedTile> GetTiles() {
-    //    return Tiles;
-    //}
+    public void UnassignTiles() {
+        Tiles.Clear();
+    }
+    public List<ClonedTile> GetTiles() {
+        return Tiles;
+    }
     public void ChangeTile(ClonedTile originalTile, ClonedTile newTile ) {
         if(HasTile(originalTile))
             Tiles[Tiles.IndexOf( originalTile )] = newTile;
@@ -79,6 +74,10 @@ public class Room {
         if ( index < CountTiles() )
             return true;
         return false;
+    }
+    public void Destroy() {
+        UnassignTiles();
+        Doors.Clear();
     }
 
 }
