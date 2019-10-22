@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStatsController : MonoBehaviour
+public class PlayerStatsController : MainController
 {
     #region parameters, variables, references
-    public Player player;
     float seconds = 1f;
 
     #region GameObjects
@@ -14,7 +13,7 @@ public class PlayerStatsController : MonoBehaviour
     public GameObject manaBar;
     #endregion
 
-    #region Texts
+    #region TextsInUI
     public Text armorText;
     public Text attackRangeText;
     public Text attackSpeedText;
@@ -25,66 +24,86 @@ public class PlayerStatsController : MonoBehaviour
     #endregion
 
     #region Dictionaries
-    public Dictionary <Stats, GameObject> lifeStatsGO;
-    public Dictionary <Ability, Text> abilityGO;
+    [HideInInspector] public Dictionary <Stats, GameObject> lifeStatsGO;
+    [HideInInspector] public Dictionary <Ability, Text> abilityGO;
     private Dictionary<Stats, Text> textStatsGO;
-    #endregion
-
-    #region Other
-    public MainController mainController;
     #endregion
 
     #endregion
     // Start is called before the first frame update
     void Awake()
     {
-        player = mainController.player;
+        InstantiateParameters();
+    }
 
-        #region statsGO
+    #region InstantiateParameters
+
+    #region StartInstantiating
+    private void InstantiateParameters() {
+        InstantiateStatsGO();
+        InstantiateInventoryGO();
+        InstantiateAbilityGO();
+        InstantiateUITexts();
+    }
+    #endregion
+
+    #region statsGO
+    private void InstantiateStatsGO() {
+
         lifeStatsGO = new Dictionary<Stats, GameObject>();
         lifeStatsGO.Add( Stats.health, healthBar );
         lifeStatsGO.Add( Stats.mana, manaBar );
-        #endregion
 
-        #region inventoryGO
+    }
+    #endregion
+
+    #region inventoryGO
+    private void InstantiateInventoryGO() {
+
         textStatsGO = new Dictionary<Stats, Text>();
         textStatsGO.Add( Stats.gold, goldText );
         textStatsGO.Add( Stats.level, levelText );
-        #endregion
 
-        #region abilityGO
+    }
+    #endregion
+
+    #region abilityGO
+    private void InstantiateAbilityGO() {
         abilityGO = new Dictionary<Ability, Text>();
         abilityGO.Add( Ability.armor, armorText );
         abilityGO.Add( Ability.attackRange, attackRangeText );
         abilityGO.Add( Ability.attackSpeed, attackSpeedText );
         abilityGO.Add( Ability.damage, damageText );
         abilityGO.Add( Ability.strength, strengthText );
-        #endregion
+    }
+    #endregion
 
-        #region inGameTexts
-        // Set text for healthbar and manabar
-        foreach (Stats stat in player.stats.maxStats.Keys) {
-            int actualValue = player.stats.GetValue(stat);
+    #region UITexts
+
+
+    private void InstantiateUITexts() {
+        foreach ( Stats stat in player.stats.maxStats.Keys ) {
+            int actualValue = player.stats.GetValue( stat );
             Stats oposite = player.stats.maxStats[stat];
-            int maxValue = player.stats.GetValue(oposite);
+            int maxValue = player.stats.GetValue( oposite );
             lifeStatsGO[stat].GetComponentInChildren<Text>().text = actualValue.ToString() + "/" + maxValue.ToString();
         }
-        
+
 
         // Set texts for abilities
-        foreach (Ability ability in abilityGO.Keys) {
+        foreach ( Ability ability in abilityGO.Keys ) {
             ChangeVisibleValue( ability, player.abilities.GetAbilityValue( ability ) );
         }
 
-        foreach (Stats stats in textStatsGO.Keys ) {
+        foreach ( Stats stats in textStatsGO.Keys ) {
             ChangeVisibleValue( stats, GetStatsValue( stats ) );
         }
-        #endregion
-
-
     }
+    #endregion
 
-    // Update is called once per frame
+    #endregion
+
+
     void Update() {
         //seconds -= Time.deltaTime;
         //if (seconds <= 0) {
@@ -116,7 +135,7 @@ public class PlayerStatsController : MonoBehaviour
 
 
             if ( player.stats.GetValue( Stats.health ) <= 0 ) {
-                mainController.UIController.ShowMenu();
+                uiController.ShowMenu();
                 Debug.Log( "You have died" );
             }
 

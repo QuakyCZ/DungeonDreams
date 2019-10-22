@@ -5,33 +5,46 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
+public class UIController : MainController
 {
+    [Header("UI Objects")]
     public GameObject menu;
-    public MainController mainController;
+
+    [Header("Loading")]
+    [Tooltip("This is lable for loading progress.")]
     public TextMeshProUGUI progress;
+
+    [Header("Buttons")]
     public Button playButton;
     public Button exitButton;
-    public Text log;
+
+    [Header("Messages for user")]
+    [Tooltip("This text is for user. E.g. Press F when something.")]
+    public Text logText;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        InstantiateVariables();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown( KeyCode.Escape )) {
-            ShowMenu( mainController.doUpdate );
+            ShowMenu( doUpdate );
         }
+    }
+
+    protected override void InstantiateVariables() {
+        base.InstantiateVariables();
+        uiController = this;
     }
 
     #region inGameMenu
     public void ShowMenu(bool enable = true) { // Also Resume Game button uses this method.
-        mainController.PauseGameTime( enable );
+        PauseGameTime( enable );
         menu.SetActive( enable );
     }
 
@@ -73,7 +86,7 @@ public class UIController : MonoBehaviour
     }
 
     public void Log(string message ) {
-        log.text = message;
+        logText.text = message;
     }
 
 

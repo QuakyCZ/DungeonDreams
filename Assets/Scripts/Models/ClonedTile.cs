@@ -6,16 +6,16 @@ public enum TileType {
 }
 public class ClonedTile
 {
-    public int x { get; protected set; }
-    public int y { get; protected set; }
+    public int x;
+    public int y;
     public int realX;
     public int realY;
-    public TileType type { get; protected set; }
+    public TileType type;
     public Room room;
     public RoomController roomController;
 
-    public ClonedTile(int x, int y, int realX, int realY, TileType type) {
-        roomController = MainController.Instance.roomController;
+    public ClonedTile(int x, int y, int realX, int realY, TileType type, RoomController roomController) {
+        this.roomController = roomController;
         this.x = x;
         this.y = y;
         this.realX = realX;

@@ -3,12 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class InputController : MonoBehaviour
+public class InputController : MainController
 {
-    public MainController mainController;
-
-    Player player;
-    public bool doUpdate = false;
     public float speed;
 
     public GameObject menu;
@@ -21,15 +17,12 @@ public class InputController : MonoBehaviour
 
     Animator animator;
 
-    UIController uiController;
-
     // Start is called before the first frame update
     void Start()
     {
-        player = mainController.player;
+        inputController = this;
         coolDown = (float)player.abilities.GetAbilityValue( Ability.attackSpeed );
         animator = GetComponent<Animator>();
-        uiController = FindObjectOfType<UIController>();
     }
 
     // Update is called once per frame
@@ -67,7 +60,7 @@ public class InputController : MonoBehaviour
         float vertical = Input.GetAxisRaw( "Vertical" );
 
         // Pokud sčítáš 2 vektory, jejich výslednice bude větší -> zmenši ji.
-        if (horizontal != 0 && vertical != 0) {
+        if (horizontal != 0f && vertical != 0) {
             horizontal /= Mathf.Pow(2,0.5f);
             vertical /= Mathf.Pow(2, 0.5f);
         }

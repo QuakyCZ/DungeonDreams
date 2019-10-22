@@ -659,6 +659,7 @@
  <Reference Include="mscorlib">
  <HintPath>/home/quaky/Unity/Hub/Editor/2019.2.9f1/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll</HintPath>
  </Reference>
+ <Compile Include="GlobalSuppressions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="AstarPathfindingProject.csproj">

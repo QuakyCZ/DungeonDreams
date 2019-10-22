@@ -15,19 +15,25 @@ public class WorldGraph {
     RoomController roomController;
 
     public WorldGraph(int width, int height, Tilemap walls, Tilemap floor, Tilemap door, Tilemap debugMap, RoomController roomController ) {
+        #region sizes
+        this.width = width;
+        this.height = height;
+        #endregion
+
         tiles = new ClonedTile[width, height];
-        for(int y = 0; y<height; y++ ) {
-            for(int x = 0; x<width; x++ ) {
-                tiles[x, y] = new ClonedTile( x, y, 0,0, TileType.Empty);
-            }
-        }
+
+        this.roomController = roomController;
+
+        FillMap( width, height, TileType.Empty );
+
+        #region Tilemaps
         this.walls = walls;
         this.floor = floor;
         this.door = door;
         this.debugMap = debugMap;
-        this.width = width;
-        this.height = height;
-        this.roomController = roomController;
+        #endregion
+
+
 
         Debug.Log( width + " " + height );
         originalTiles = new Dictionary<ClonedTile, TileBase>();
@@ -35,8 +41,15 @@ public class WorldGraph {
         ImportTiles();
     }
 
-    public void ImportTiles() {
-        ClonedTile clonedTile;
+    public void FillMap(int width, int height, TileType type) {
+        for ( int y = 0; y < height; y++ ) {
+            for ( int x = 0; x < width; x++ ) {
+                tiles[x, y] = new ClonedTile( x, y, 0, 0, type, roomController );
+            }
+        }
+    }
+
+    private void ImportTiles() {
         int w_y = 0; // X coordinate in worldGraph
         for(int y = (int)walls.localBounds.min.y; y < (int)walls.localBounds.max.y; y++ ) {
             int w_x = 0; // Y coordinate in worldGraph
@@ -47,24 +60,27 @@ public class WorldGraph {
                 TileBase tile = floor.GetTile(pos);
 
                 if( tile != null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Floor );
-                    tiles[w_x, w_y] = clonedTile;
-                    originalTiles.Add( clonedTile, tile );
+                    tiles[w_x, w_y].realX = x;
+                    tiles[w_x, w_y].realY = y;
+                    tiles[w_x, w_y].type = TileType.Floor;
+                    originalTiles.Add( tiles[w_x, w_y], tile );
                 }
 
                 tile = walls.GetTile( pos );
 
                 if (tile != null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Wall);
-                    tiles[w_x, w_y] = clonedTile;
-                    originalTiles.Add( clonedTile, tile );
+                    tiles[w_x, w_y].realX = x;
+                    tiles[w_x, w_y].realY = y;
+                    tiles[w_x, w_y].type = TileType.Wall;
+                    originalTiles.Add( tiles[w_x, w_y], tile );
                 }
 
                 tile = door.GetTile( pos );
                 if(tile!= null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Door);
-                    tiles[w_x, w_y] = clonedTile;
-                    originalTiles.Add( clonedTile, tile );
+                    tiles[w_x, w_y].realX = x;
+                    tiles[w_x, w_y].realY = y;
+                    tiles[w_x, w_y].type = TileType.Door;
+                    originalTiles.Add( tiles[w_x, w_y], tile );
                 }
                 w_x++;
             }

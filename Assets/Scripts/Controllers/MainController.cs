@@ -5,15 +5,19 @@ using UnityEngine;
 public class MainController : MonoBehaviour
 {
     #region parametry a proměnné
-    public Camera mainCamera;
-    public Player player;
+    protected Camera mainCamera;
+    [HideInInspector] public Player player;
     public GameObject playerGO;
-    public InputController InputController;
-    public UIController UIController;
-    public PlayerStatsController playerStatsController;
-    public RoomController roomController;
-    public bool doUpdate = false;
-    public GameObject spawn;
+
+    #region Controllers
+    protected UIController uiController;
+    protected PlayerStatsController playerStatsController;
+    protected RoomController roomController;
+    protected InputController inputController;
+    #endregion
+
+    protected bool doUpdate;
+    [SerializeField] protected GameObject spawn;
     #endregion
 
     public static MainController Instance { get; protected set;}
@@ -24,13 +28,14 @@ public class MainController : MonoBehaviour
         if(Instance == null ) {
             Instance = this;
         }
+    }
 
+    protected virtual void InstantiateVariables() {
         player = new Player( playerGO );
         player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;
         player.SetPosition( spawn.transform.position );
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -40,7 +45,7 @@ public class MainController : MonoBehaviour
 
     #region metody
     public void PauseGameTime(bool pause = true) {
-        InputController.doUpdate = !pause;
+        inputController.doUpdate = !pause;
         doUpdate = !pause;
     }
     #endregion
