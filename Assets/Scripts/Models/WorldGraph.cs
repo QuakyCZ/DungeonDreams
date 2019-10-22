@@ -8,23 +8,21 @@ public class WorldGraph {
     Tilemap walls;
     Tilemap floor;
     Tilemap door;
-    public Tilemap debugMap;
     Dictionary<ClonedTile, TileBase> originalTiles;
     public int width;
     public int height;
     RoomController roomController;
 
-    public WorldGraph(int width, int height, Tilemap walls, Tilemap floor, Tilemap door, Tilemap debugMap, RoomController roomController ) {
+    public WorldGraph(int width, int height, Tilemap walls, Tilemap floor, Tilemap door, RoomController roomController ) {
         tiles = new ClonedTile[width, height];
         for(int y = 0; y<height; y++ ) {
             for(int x = 0; x<width; x++ ) {
-                tiles[x, y] = new ClonedTile( x, y, 0,0, TileType.Empty);
+                tiles[x, y] = new ClonedTile( x, y, TileType.Empty, false );
             }
         }
         this.walls = walls;
         this.floor = floor;
         this.door = door;
-        this.debugMap = debugMap;
         this.width = width;
         this.height = height;
         this.roomController = roomController;
@@ -38,16 +36,16 @@ public class WorldGraph {
     public void ImportTiles() {
         ClonedTile clonedTile;
         int w_y = 0; // X coordinate in worldGraph
-        for(int y = (int)walls.localBounds.min.y; y < (int)walls.localBounds.max.y; y++ ) {
+        for(int y = -height/2; y<height/2; y++ ) {
             int w_x = 0; // Y coordinate in worldGraph
 
-            for (int x = (int)walls.localBounds.min.x; x<walls.localBounds.max.x; x++ ) {
+            for (int x = -width/2; x<width/2; x++ ) {
                 Vector3Int pos = new Vector3Int( x, y, 0 );
 
                 TileBase tile = floor.GetTile(pos);
 
                 if( tile != null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Floor );
+                    clonedTile = new ClonedTile( w_x, w_y, TileType.Floor, false );
                     tiles[w_x, w_y] = clonedTile;
                     originalTiles.Add( clonedTile, tile );
                 }
@@ -55,14 +53,14 @@ public class WorldGraph {
                 tile = walls.GetTile( pos );
 
                 if (tile != null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Wall);
+                    clonedTile = new ClonedTile( w_x, w_y, TileType.Wall, false );
                     tiles[w_x, w_y] = clonedTile;
                     originalTiles.Add( clonedTile, tile );
                 }
 
                 tile = door.GetTile( pos );
                 if(tile!= null ) {
-                    clonedTile = new ClonedTile( w_x, w_y, x, y, TileType.Door);
+                    clonedTile = new ClonedTile( w_x, w_y, TileType.Door, false );
                     tiles[w_x, w_y] = clonedTile;
                     originalTiles.Add( clonedTile, tile );
                 }
@@ -77,10 +75,7 @@ public class WorldGraph {
         int emptynumber = 0;
         foreach (ClonedTile t in tiles ) {           
             t.roomController = roomController;
-            if ( originalTiles.ContainsKey( t ) ) {
-                TileBase tile = originalTiles[t];
-                debugMap.SetTile( new Vector3Int( t.realX, t.realY, 0 ), tile );
-            }
+
 
             switch ( t.type ) {
                 case TileType.Wall:
