@@ -25,7 +25,7 @@ public class MainController : MonoBehaviour
             Instance = this;
         }
 
-        player = new Player( playerGO );
+        player = FindObjectOfType<Player>();
         player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;
         player.SetPosition( spawn.transform.position );

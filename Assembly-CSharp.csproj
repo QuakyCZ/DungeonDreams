@@ -56,7 +56,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\AI\DemageArea.cs" />
-     <Compile Include="Assets\Scripts\AI\Enemy.cs" />
      <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />
      <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainController.cs" />
@@ -67,12 +66,15 @@
      <Compile Include="Assets\Scripts\Interaction\Collectable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collidable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Objects\Chest.cs" />
-     <Compile Include="Assets\Scripts\Models\Abilities.cs" />
+     <Compile Include="Assets\Scripts\MainMenuController.cs" />
+     <Compile Include="Assets\Scripts\Models\Characters\Character.cs" />
+     <Compile Include="Assets\Scripts\Models\Characters\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Models\Characters\Player.cs" />
      <Compile Include="Assets\Scripts\Models\ClonedTile.cs" />
-     <Compile Include="Assets\Scripts\Models\Player.cs" />
-     <Compile Include="Assets\Scripts\Models\PlayerStats.cs" />
+     <Compile Include="Assets\Scripts\Models\Inventory\Inventory.cs" />
      <Compile Include="Assets\Scripts\Models\Room.cs" />
-     <Compile Include="Assets\Scripts\Models\Skill.cs" />
+     <Compile Include="Assets\Scripts\Models\Stats\Abilities.cs" />
+     <Compile Include="Assets\Scripts\Models\Stats\CharacterStats.cs" />
      <Compile Include="Assets\Scripts\Models\WorldGraph.cs" />
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Collidable : MonoBehaviour
 {
-    protected PlayerStatsController playerStatsController;
+    protected Player player;
     protected UIController uiController;
     public ContactFilter2D filter;
     private BoxCollider2D boxCollider;
@@ -15,7 +15,7 @@ public class Collidable : MonoBehaviour
 
     protected virtual void Start() {
         boxCollider = GetComponent<BoxCollider2D>();
-        playerStatsController = FindObjectOfType<PlayerStatsController>();
+        player = FindObjectOfType<Player>();
         uiController = FindObjectOfType<UIController>();
     }
 

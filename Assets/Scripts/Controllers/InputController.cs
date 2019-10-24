@@ -5,15 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class InputController : MonoBehaviour
 {
-    public MainController mainController;
-
     Player player;
-    public bool doUpdate = false;
-    public float speed;
+    public bool doUpdate = true;
 
     public GameObject menu;
-
-    public GameObject weapon;
 
     float coolDown;
 
@@ -26,33 +21,23 @@ public class InputController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = mainController.player;
-        coolDown = (float)player.abilities.GetAbilityValue( Ability.attackSpeed );
-        animator = GetComponent<Animator>();
+        //Debug.Log( "InputController start" );
+        player = FindObjectOfType<Player>();
+        animator = GameObject.Find("Player").GetComponent<Animator>();
         uiController = FindObjectOfType<UIController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (doUpdate) {
-            if(charged == false) {
-                coolDown -= Time.deltaTime;
-                //Debug.Log( "CoolDown: " + coolDown.ToString() );
-                if (coolDown <= 0) {
-                    charged = true;
-                    Debug.Log( "Charged" );
-                }
-            }            
-            
+        if (doUpdate) {           
             Attack();
-        }
-        
-        
+        }        
     }
 
     void FixedUpdate() {
         if (doUpdate) {
+            //Debug.Log( "Move" );
             Move();
             uiController.Log( "" );
         }
@@ -63,6 +48,7 @@ public class InputController : MonoBehaviour
     /// This method moves the player.
     /// </summary>
     void Move() {
+        //Debug.Log( "Move" );
         float horizontal = Input.GetAxisRaw( "Horizontal" );
         float vertical = Input.GetAxisRaw( "Vertical" );
 
@@ -71,24 +57,19 @@ public class InputController : MonoBehaviour
             horizontal /= Mathf.Pow(2,0.5f);
             vertical /= Mathf.Pow(2, 0.5f);
         }
-        
+
         // Do not change this line!!!
-        Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * speed;
+        Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * player.abilities.GetAbilityValue(Ability.speed);
         animator.SetFloat( "Horizontal", horizontal );
         animator.SetFloat( "Vertical", vertical );
         animator.SetFloat( "Magnitude", movementVector.magnitude );
-        player.Move( movementVector );
-
-        
-
+        player.MovePlayer( movementVector );
     }
 
     void Attack() {
-        if(Input.GetMouseButton( 0 ) && charged==true) {
+        if(Input.GetMouseButton( 0 )) {
             Debug.Log( "Attack" );
             player.Attack();
-            charged = false;
-            coolDown = player.abilities.GetAbilityValue( Ability.attackSpeed );
         }
 
     }

@@ -1143,7 +1143,7 @@ GameObject:
   - component: {fileID: 1511145592}
   - component: {fileID: 1511145591}
   m_Layer: 0
-  m_Name: UIController
+  m_Name: MenuController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,14 +1158,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1511145590}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e2f95cb2d28e63478c2ca13363f249c, type: 3}
+  m_Script: {fileID: 11500000, guid: 624950c89f22eb844af4c94df1363e27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menu: {fileID: 0}
-  mainController: {fileID: 0}
-  progress: {fileID: 849516565}
   playButton: {fileID: 1572221711}
   exitButton: {fileID: 81350526}
+  progress: {fileID: 849516565}
 --- !u!4 &1511145592
 Transform:
   m_ObjectHideFlags: 0
