@@ -28,6 +28,7 @@ public class MainController : MonoBehaviour
         if(Instance == null ) {
             Instance = this;
         }
+        InstantiateVariables();
     }
 
     protected virtual void InstantiateVariables() {

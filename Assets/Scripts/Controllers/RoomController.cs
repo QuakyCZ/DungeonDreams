@@ -29,7 +29,7 @@ public class RoomController : MonoBehaviour
         outsideRoom = new Room( true ); 
         rooms.Add( outsideRoom );
         Debug.Log( "Rooms: " + rooms.Count );
-        worldGraph = new WorldGraph((int)walls.localBounds.size.x, (int)walls.localBounds.size.y, walls, floor, doors, debugMap, this);
+        worldGraph = WorldGraph.SetInstance((int)walls.localBounds.size.x, (int)walls.localBounds.size.y, walls, floor, doors, debugMap, this);
         floorQueue = new Queue<ClonedTile>();
         doorQueue = new Queue<ClonedTile>();
         DoRoomFloodFill();
