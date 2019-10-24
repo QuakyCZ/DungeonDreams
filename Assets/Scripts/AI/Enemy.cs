@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-[RequireComponent( typeof( NavMeshAgent ) )]
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -50,9 +49,18 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
     }
     void Update() {
+        CheckStack();
+
+        if (health <= 0) {
+            Destroy( enemyGO );
+        }
+        
+    }
+
+    void CheckStack() {
         if (stacked == false && distance <= minRange) {
             attackCooldown -= Time.deltaTime;
-            if (attackCooldown <= 0 ) {
+            if (attackCooldown <= 0) {
                 animator.SetBool( "isAttacking", true );
                 attackCooldown = attackSpeed;
             }
@@ -67,11 +75,6 @@ public class Enemy : MonoBehaviour
                 //Debug.Log( "Unstacked" );
             }
         }
-
-        if (health <= 0) {
-            Destroy( enemyGO );
-        }
-        
     }
     // Update is called once per frame
     void FixedUpdate()
