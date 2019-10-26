@@ -15,9 +15,9 @@ public class Chest : Collectable
         }
         base.OnCollect();
         GetComponent<SpriteRenderer>().sprite = openLootedSprite;
-        int amnt = Random.Range( 1, 5 ) * playerStatsController.GetStatsValue(Stats.level);
-        playerStatsController.ChangeValue( Stats.gold, amnt );
-        Debug.Log( "Gained " + amnt + " gold. Now you have " + playerStatsController.GetStatsValue(Stats.gold) + " gold" );
+        int amnt = Random.Range( 1, 5 ) * player.stats.GetValue(Stats.level);
+        player.inventory.ChangeValue( InventoryDefault.gold, amnt, MathOperation.Add );
+        Debug.Log( "Gained " + amnt + " gold. Now you have " + player.inventory.GetValue(InventoryDefault.gold) + " gold" );
     }
 
 

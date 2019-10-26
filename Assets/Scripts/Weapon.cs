@@ -2,9 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
-{
-    public List<Collider2D> collisions;
+public enum WeaponType {
+    sword,
+    bow
+}
+
+public class Weapon : MonoBehaviour {
+    public int damage { get; protected set; }
+    public WeaponType type { get; protected set; }
+
+    public List<Collider2D> collisions { get; protected set; }
     //public float range;
     // Start is called before the first frame update
     void Start()
