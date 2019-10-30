@@ -16,33 +16,30 @@ public class Enemy : Character
     [SerializeField]
     protected float maxFollowDistance;
     
-    protected float distance;
+    protected float playerDistance;
     #endregion
 
     protected GameObject targetGO;    
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         InstantiateEnemyParameters();
     }    
 
     protected override void Update() {
+        if ( playerDistance <= minRange && charged && stacked == false )
+            Attack();
         base.Update();
-
-        CheckStack();
-
-        if (stats.GetValue(Stats.health) <= 0) {
-            Destroy( this );
-        }
-        
     }
 
     protected override void FixedUpdate() {
-        distance = Vector2.Distance( target.transform.position, transform.position );
-        if (distance <= maxFollowDistance && distance >= minRange) {
-            FollowTarget();
+        if ( stacked == false ) {
+            playerDistance = Vector3.Distance( target.transform.position, transform.position );
+            if ( playerDistance <= maxFollowDistance && playerDistance >= minRange ) {
+                transform.position = Vector2.MoveTowards( transform.position, targetGO.transform.position, abilities.GetAbilityValue( Ability.speed ) * Time.deltaTime );
+            }
         }
     }
 
@@ -52,24 +49,22 @@ public class Enemy : Character
         target = targetGO.transform;
         healthBar.maxValue = stats.GetValue( Stats.maxHealth );
         ChangeHealthBar( stats.GetValue( Stats.health ) );
-        
-    }
 
-    protected void FollowTarget() {
-        Move( Vector2.MoveTowards( transform.position, targetGO.transform.position, maxFollowDistance ) );
-    }
-
-    protected override void Move(Vector2 moveVector) {
-        transform.position = moveVector;        
     }
 
     public void AttackEnd() {
         animator.SetBool( "isAttacking", false );
-        Attack();
+        FindObjectOfType<PlayerStatsController>().TakeDamage( 2 );
+
     }
 
-    void Attack() {               
-        FindObjectOfType<PlayerStatsController>().TakeDamage( 2 );        
+    void Attack() {
+        charged = false;
+        ResetCoolDown();
+        Debug.Log( "Enemy attacks" );
+        animator.SetBool( "isAttacking", true );
+
+
     }
 
     public void TakeDamage(int amnt) {
@@ -82,26 +77,6 @@ public class Enemy : Character
     void ChangeHealthBar(int value) {
         healthBar.value = value;
     }
-
-    protected override void CheckStack() {
-        if (stacked == false && distance <= minRange) {
-            attackCooldown -= Time.deltaTime;
-            if (attackCooldown <= 0) {
-                animator.SetBool( "isAttacking", true );
-                attackCooldown = 3f / abilities.GetAbilityValue( Ability.attackSpeed );
-            }
-        }
-        else if (stacked) {
-            stackCoolDown -= Time.deltaTime;
-            //Debug.Log( stackCoolDown );
-            if (stackCoolDown <= 0) {
-                stacked = false;
-                //Debug.Log( "Unstacked" );
-            }
-        }
-    }
-
-    
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;

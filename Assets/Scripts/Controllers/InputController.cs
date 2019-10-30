@@ -68,7 +68,7 @@ public class InputController : MonoBehaviour
 
     void Attack() {
         if(Input.GetMouseButton( 0 )) {
-            Debug.Log( "Attack" );
+            //Debug.Log( "Attack" );
             player.Attack();
         }
 

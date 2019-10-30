@@ -24,7 +24,6 @@ public class UIController : MonoBehaviour
     public Text armorText;
     public Text attackRangeText;
     public Text attackSpeedText;
-    public Text damageText;
     public Text strengthText;
     public Text goldText;
     public Text levelText;
@@ -38,19 +37,25 @@ public class UIController : MonoBehaviour
     private Dictionary<InventoryDefault, Text> inventoryTextsGO;
     #endregion
 
-
+    void Awake() {
+        Instantiate();
+    }
     // Start is called before the first frame update
     void Start()
-    {
-        Instantiate();
+    {      
 
         // Set texts for abilities
         foreach (Ability ability in abilityGO.Keys) {
-            ChangeVisibleValue( ability, player.abilities.GetAbilityValue( ability ) );
+            //Debug.Log( "Changing UI for " + ability );
+            //if(player.abilities == null ) {
+            //    Debug.LogError( "player.abilities is null" );
+            //}
+            float value = player.abilities.GetAbilityValue( ability );
+            RefreshVisibleValue( ability);
         }
 
         foreach (Stats stats in textStatsGO.Keys) {
-            ChangeVisibleValue( stats, player.stats.GetValue( stats ) );
+            RefreshVisibleValue( stats );
         }
     }
 
@@ -98,7 +103,7 @@ public class UIController : MonoBehaviour
     }
 
     public void ExitToMainMenu() {
-        SceneManager.LoadScene( "MainMenu", LoadSceneMode.Single );
+        SceneManager.LoadScene( "MainMenu" );
     }
     #endregion
 
@@ -111,9 +116,7 @@ public class UIController : MonoBehaviour
     /// Changes the visible value of stats.
     /// </summary>
     /// <param name="stats">Stats.</param>
-    /// <param name="value">Value.</param>
-    public void ChangeVisibleValue(Stats stats, int value) {
-
+    public void RefreshVisibleValue(Stats stats) {
         if (lifeStatsGO.ContainsKey( stats )) {
             int actualValue = player.stats.GetValue( stats );
             Stats oposite = player.stats.maxStats[stats];
@@ -121,7 +124,7 @@ public class UIController : MonoBehaviour
 
 
             if (player.stats.GetValue( Stats.health ) <= 0) {
-                mainController.UIController.ShowMenu();
+                ExitToMainMenu();
                 Debug.Log( "You have died" );
             }
 
@@ -130,9 +133,11 @@ public class UIController : MonoBehaviour
             bar.GetComponent<Image>().fillAmount = valueFraction;
             bar.GetComponentsInChildren<Text>()[0].text = actualValue.ToString() + "/" + maxValue.ToString();
         }
-
-        else if (textStatsGO.ContainsKey( stats )) {
-            textStatsGO[stats].text = value.ToString();
+        else if ( textStatsGO.ContainsKey( stats ) ) {
+            textStatsGO[stats].text = player.stats.GetValue( stats ).ToString();
+        }
+        else {
+            Debug.LogError( "statsDictionaries do not contain key " + stats );
         }
     }
 
@@ -140,12 +145,13 @@ public class UIController : MonoBehaviour
     /// Changes the visible value of <paramref name="ability"/>.
     /// </summary>
     /// <param name="ability">Ability.</param>
-    /// <param name="value">Value.</param>
-    public void ChangeVisibleValue(Ability ability, float value) {
-        abilityGO[ability].text = ability.ToString() + ": " + value.ToString();
+    public void RefreshVisibleValue(Ability ability) {
+        abilityGO[ability].text = ability.ToString() + ": " + player.abilities.GetAbilityValue(ability).ToString();
     }
 
-    public void ChangeVisibleValue(InventoryDefault inv, int value) {
-        inventoryTextsGO[inv].text = value.ToString();
+    public void RefreshVisibleValue(InventoryDefault inv) {
+        inventoryTextsGO[inv].text = player.inventory.GetValue(inv).ToString();
     }
+
+
 }

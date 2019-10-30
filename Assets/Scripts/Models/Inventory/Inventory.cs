@@ -18,24 +18,25 @@ public class Inventory {
 
     private static Inventory instance;
 
-    private UIController uiController;
-
     protected Dictionary<InventoryDefault, int>     inventoryDefault;
     protected Dictionary<InventoryConsumable, int>  inventoryConsumable;
 
-    private Inventory(UIController uiController) {
-        this.uiController = uiController;
-        inventoryDefault    =   new Dictionary<InventoryDefault, int>();
+    private Inventory() {
+
+        inventoryDefault = new Dictionary<InventoryDefault, int>();
         inventoryDefault.Add( InventoryDefault.gold, 0 );
 
-        inventoryConsumable =   new Dictionary<InventoryConsumable, int>();
+        inventoryConsumable = new Dictionary<InventoryConsumable, int>();
         inventoryConsumable.Add( InventoryConsumable.healthPotion, 0 );
         inventoryConsumable.Add( InventoryConsumable.manaPotion, 0 );
     }
 
-    public static Inventory GetInstance(UIController uiController = null) {
+    public static Inventory GetInstance(bool startGame = false) {
         if(instance == null){
-            instance = new Inventory(uiController);
+            instance = new Inventory();
+        }
+        else if ( startGame ) {
+            instance = new Inventory();
         }
         return instance;
     }
@@ -54,7 +55,6 @@ public class Inventory {
     }
 
     public void SetValue(InventoryDefault inv, int value) {
-        uiController.ChangeVisibleValue( inv, value );
         inventoryDefault[inv] = value;
     }
 
@@ -91,7 +91,6 @@ public class Inventory {
             inventoryDefault[inv] /= value;
             break;
         }
-        uiController.ChangeVisibleValue( inv, inventoryDefault[inv] );
     }
 
 }

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class DemageArea : MonoBehaviour
 {
-    public PlayerStatsController playerStatsController;
+    private PlayerStatsController playerStatsController;
     float second = 2;    
-
+    void Awake() {
+        playerStatsController = FindObjectOfType<PlayerStatsController>();
+    }
     /// <summary>
     /// While player collides with enemy
     /// </summary>
@@ -15,7 +17,7 @@ public class DemageArea : MonoBehaviour
         //Debug.Log( "On Trigger Stay" );
         second -= Time.deltaTime;
         if(collision.tag == "Enemy" && second <= 0) {
-            //Debug.Log( "Damage!" );
+            Debug.Log( "Damage!" );
             playerStatsController.TakeDamage( 2 );
             second = 2;
         }

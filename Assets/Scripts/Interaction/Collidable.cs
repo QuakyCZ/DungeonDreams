@@ -32,8 +32,7 @@ public class Collidable : MonoBehaviour
     }
 
     protected virtual void OnCollide(Collider2D coll) {
-        GetComponent<SpriteRenderer>().sprite = openSprite;
-        uiController.Log( "Press F to collect the loot." );
+
     }
 
 }

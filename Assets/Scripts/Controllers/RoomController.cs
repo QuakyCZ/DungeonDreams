@@ -28,7 +28,7 @@ public class RoomController : MonoBehaviour
         rooms = new List<Room>();
         outsideRoom = new Room( true ); 
         rooms.Add( outsideRoom );
-        Debug.Log( "Rooms: " + rooms.Count );
+        //Debug.Log( "Rooms: " + rooms.Count );
         worldGraph = new WorldGraph((int)walls.localBounds.size.x, (int)walls.localBounds.size.y, walls, floor, doors, debugMap, this);
         floorQueue = new Queue<ClonedTile>();
         doorQueue = new Queue<ClonedTile>();
@@ -37,7 +37,7 @@ public class RoomController : MonoBehaviour
     }
 
     public void DoRoomFloodFill() {
-        Debug.Log( "InstantiateRooms" );
+        //Debug.Log( "InstantiateRooms" );
 
         Room map = new Room();
         // Move all empty tiles into the outsideRoom and other into the map.
@@ -71,7 +71,7 @@ public class RoomController : MonoBehaviour
             while ( floorQueue.Count == 0 && doorQueue.Count > 0 ) {
 
                 ClonedTile door = doorQueue.Dequeue();
-                Debug.Log( "Dequeuing door. Door count: " + doorQueue.Count );
+                //Debug.Log( "Dequeuing door. Door count: " + doorQueue.Count );
 
                 bool isNewRoom = false;
 
@@ -103,7 +103,7 @@ public class RoomController : MonoBehaviour
         tile.sprite = roomSprite;
         tile.color = Color.green;
         foreach ( Room r in rooms ) {
-            Debug.Log( "Room: " + rooms.IndexOf(r) + " Tiles: " + r.CountTiles());
+            //Debug.Log( "Room: " + rooms.IndexOf(r) + " Tiles: " + r.CountTiles());
             foreach(ClonedTile t in r.GetTiles() ) {
 
                 worldGraph.debugMap.SetTile( new Vector3Int( t.realX, t.realY, 0 ), tile );
@@ -116,7 +116,7 @@ public class RoomController : MonoBehaviour
 
     void CheckTile(ClonedTile startTile, Room newRoom) {
         if ( startTile.type == TileType.Door ) {
-            Debug.Log( "Enqueuing door. Door count: " + doorQueue.Count );
+            //Debug.Log( "Enqueuing door. Door count: " + doorQueue.Count );
             doorQueue.Enqueue( startTile );
             if(newRoom.Doors.Contains(startTile)==false)
                 newRoom.Doors.Add( startTile );
@@ -133,7 +133,7 @@ public class RoomController : MonoBehaviour
         foreach(ClonedTile nb in startTile.GetNeighbours() ) {
             if(nb.type == TileType.Door ) {
                 doorQueue.Enqueue( nb );
-                Debug.Log( "Enqueuing door. Door count: " + doorQueue.Count );
+                //Debug.Log( "Enqueuing door. Door count: " + doorQueue.Count );
             }
             else if(nb.type == TileType.Floor && nb.room == null ) {
                 floorQueue.Enqueue( nb );

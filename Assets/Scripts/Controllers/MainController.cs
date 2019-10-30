@@ -26,7 +26,6 @@ public class MainController : MonoBehaviour
         }
 
         player = FindObjectOfType<Player>();
-        player.weapon = FindObjectOfType<Weapon>();
         mainCamera = Camera.main;
         player.SetPosition( spawn.transform.position );
     }

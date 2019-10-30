@@ -3,35 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Character {
-
-    public Inventory inventory;   
-
-    protected override void InstantiateParameters() {
-        base.InstantiateParameters();
-    }
-
+    public Weapon weapon;
+    public Inventory inventory;
     #region metody
     protected override void Start() {
         base.Start();
-        inventory = Inventory.GetInstance();
     }
+    protected override void Awake() {
+        Debug.Log( "Player Awake" );
+        base.Awake();
+        ResetCoolDown();
+        weapon = FindObjectOfType<Weapon>();
+        if ( weapon != null )
+            weapon.damage = damage;
+        inventory = Inventory.GetInstance(true);
+        Debug.Log( "Weapon damage: " + weapon.damage );
+    }
+
+    protected override void Update() {
+        base.Update();
+    }
+
     public void Attack() {
-        
-        if(weapon.collisions.Count > 0) {
-            foreach (Collider2D collision in weapon.collisions) {
-                if (collision.tag == "Enemy") {
-                    Enemy enemy = collision.GetComponent<Enemy>();
-                    int damage = weapon.damage * (int)abilities.GetAbilityValue( Ability.strength );
-                    Debug.Log( collision.tag );
-                    Debug.Log( "Dealing " + damage + " damage." );
-                    enemy.TakeDamage( (int)(weapon.damage * abilities.GetAbilityValue( Ability.strength )) );
+        //Debug.Log( "Attack." );
+        if ( charged && stacked == false ) {
+            if ( weapon.collisions.Count > 0 ) {
+
+                foreach ( Collider2D collision in weapon.collisions ) {
+                    if ( collision.tag == "Enemy" ) {
+                        Enemy enemy = collision.GetComponent<Enemy>();
+                        float damage = weapon.damage * abilities.GetAbilityValue( Ability.strength );
+                        Debug.Log( collision.tag );
+                        Debug.Log( "Dealing " + damage + " damage." );
+                        enemy.TakeDamage( Mathf.FloorToInt(damage));
+                    }
                 }
+
             }
-            
+            charged = false;
         }
     }
 
-    protected override void Move(Vector2 moveVector) {
+
+
+    protected override void Move(Vector3 moveVector) {
         base.Move( moveVector );
     }
 

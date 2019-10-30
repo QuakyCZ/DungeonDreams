@@ -4,11 +4,12 @@ using UnityEngine;
 
 public enum WeaponType {
     sword,
-    bow
+    bow,
+    none
 }
 
 public class Weapon : MonoBehaviour {
-    public int damage { get; protected set; }
+    public int damage;
     public WeaponType type { get; protected set; }
 
     public List<Collider2D> collisions { get; protected set; }

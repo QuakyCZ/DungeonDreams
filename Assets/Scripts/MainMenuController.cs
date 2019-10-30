@@ -29,6 +29,7 @@ public class MainMenuController : MonoBehaviour {
         exitButton.interactable = false;
         string sceneName = "Floor_0";
         StartCoroutine( LoadLevelAsync( sceneName ) );
+
         Debug.Log( "Loading of '" + sceneName + "' Completed." );
     }
 

@@ -29,7 +29,7 @@ public class WorldGraph {
         this.height = height;
         this.roomController = roomController;
 
-        Debug.Log( width + " " + height );
+        //Debug.Log( width + " " + height );
         originalTiles = new Dictionary<ClonedTile, TileBase>();
 
         ImportTiles();
