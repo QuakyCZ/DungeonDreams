@@ -6,6 +6,7 @@ public class Collidable : MonoBehaviour
 {
     protected Player player;
     protected UIController uiController;
+    [HideInInspector]
     public ContactFilter2D filter;
     private BoxCollider2D boxCollider;
     private List<Collider2D> hits = new List<Collider2D>();
