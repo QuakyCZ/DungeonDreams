@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour
 {
     public GameObject menu;
+    [SerializeField] protected GameObject GUI;
     public MainController mainController;
 
     public Text log;
@@ -153,5 +154,7 @@ public class UIController : MonoBehaviour
         inventoryTextsGO[inv].text = player.inventory.GetValue(inv).ToString();
     }
 
-
+    public void ToggleGUI(bool toggle) {
+        GUI.SetActive(toggle);
+    }
 }
