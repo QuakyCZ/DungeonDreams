@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : Character {
     public Weapon weapon;
     public Inventory inventory;
+    [SerializeField]protected Camera minimapCamera;
     #region metody
     protected override void Start() {
         base.Start();
@@ -48,6 +49,14 @@ public class Player : Character {
 
     protected override void Move(Vector3 moveVector) {
         base.Move( moveVector );
+        if ( moveVector.x < 0 ) {
+            transform.localScale = new Vector3( -.5f, .5f, 0 );
+        }
+        else if(moveVector.x > 0 ) {
+            transform.localScale = new Vector3( .5f, .5f, 0 );
+        }
+        Camera.main.transform.position = new Vector3(transform.position.x,transform.position.y,-10);
+        minimapCamera.transform.position = Camera.main.transform.position;
     }
 
     public void MovePlayer(Vector2 moveVector) {

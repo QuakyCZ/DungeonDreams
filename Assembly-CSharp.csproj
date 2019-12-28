@@ -62,6 +62,7 @@
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\References\RequiredReferences.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\ReorderableList\ReorderableList.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\SerializableDictionaryBase.cs" />
+     <Compile Include="Assets\script.cs" />
      <Compile Include="Assets\Scripts\AI\DemageArea.cs" />
      <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />
      <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
@@ -69,6 +70,7 @@
      <Compile Include="Assets\Scripts\Controllers\PlayerStatsController.cs" />
      <Compile Include="Assets\Scripts\Controllers\RoomController.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
+     <Compile Include="Assets\Scripts\CreditsController.cs" />
      <Compile Include="Assets\Scripts\EnemyGFX.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collectable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collidable.cs" />
@@ -88,6 +90,7 @@
      <Compile Include="Assets\Scripts\Weapon.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+     <None Include="Assets\Resources\Dialogues\prologue.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />

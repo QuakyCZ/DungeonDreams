@@ -4,8 +4,9 @@ using UnityEngine;
 using RotaryHeart.Lib.SerializableDictionary;
 
 public enum EnemyType {
-    dragon,
-    hound
+    Dragon,
+    Hound
+
 }
 [System.Serializable]
 public class EnemiesToSpawn : SerializableDictionaryBase<EnemyType, int> { }
@@ -70,19 +71,11 @@ public class EnemySpawner : Collidable
             //enemyGO.transform.position = new Vector2( 0, 0 );
             float x = this.transform.position.x + Random.Range( -spawnRange.x, spawnRange.x );
             float y = this.transform.position.y + Random.Range( -spawnRange.y, spawnRange.y );
-            Debug.Log( "Spawning " + enemyType.ToString() + " at " + x + " " + y + " coordinates." );
+            //Debug.Log( "Spawning " + enemyType.ToString() + " at " + x + " " + y + " coordinates." );
             enemyGO.transform.position = new Vector2( x, y);
             enemyGO.gameObject.SetActive( false );
         }
-
     }
-
-
-
-
-
-
-
 
     protected void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;

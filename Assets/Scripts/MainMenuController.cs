@@ -8,6 +8,8 @@ public class MainMenuController : MonoBehaviour {
     [SerializeField]
     private Button playButton;
     [SerializeField]
+    private Button creditsButton;
+    [SerializeField]
     private Button exitButton;
     [SerializeField]
     private TextMeshProUGUI progress;
@@ -27,6 +29,7 @@ public class MainMenuController : MonoBehaviour {
         Debug.Log( "Button: Play Game" );
         playButton.interactable = false;
         exitButton.interactable = false;
+        creditsButton.interactable = false;
         string sceneName = "Floor_0";
         StartCoroutine( LoadLevelAsync( sceneName ) );
 

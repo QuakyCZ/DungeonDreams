@@ -441,10 +441,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRange: 1.78
+  minRange: 1.74
   animator: {fileID: 724712530151170189}
   armor: 0
-  speed: 1
+  speed: 1.43
   attackSpeed: 0.35
   strength: 1.02
   stackTime: 1
@@ -455,7 +455,7 @@ MonoBehaviour:
   damage: 0
   weaponType: 0
   healthBar: {fileID: 6547390500905187630}
-  maxFollowDistance: 3.73
+  maxFollowDistance: 4.63
 --- !u!1 &8290811446509978812
 GameObject:
   m_ObjectHideFlags: 0

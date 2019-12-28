@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class Collectable : Collidable
 {
-    public Sprite spriteCollected;
-    public Sprite spriteUncollected;
+    [Header("GFX")]
+    [SerializeField] protected Sprite spriteUncollided;
+    [SerializeField] protected Sprite spriteCollided;
+    [SerializeField] protected Sprite spriteCollected;
     private bool _collected;
     protected bool collected { get { return _collected; } set { _collected = value; if ( value == true ) { doUpdate = false; } } }
+    protected SpriteRenderer objectSprite;
 
     protected override void OnCollide( Collider2D coll ) {
         base.OnCollide( coll );
 
-        GetComponent<SpriteRenderer>().sprite = spriteCollected;
+        objectSprite = GetComponent<SpriteRenderer>();
+        objectSprite.sprite = spriteCollided;
         uiController.Log( "Press F to interact." );
 
         if (coll.name == "Player" && Input.GetKey(KeyCode.F)) {
@@ -22,6 +26,7 @@ public class Collectable : Collidable
     }
 
     protected virtual void OnCollect() {
+        objectSprite.sprite = spriteCollected;
         collected = true;
     }
 

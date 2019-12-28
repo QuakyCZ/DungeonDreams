@@ -19,7 +19,18 @@ public class Enemy : Character
     protected float playerDistance;
     #endregion
 
-    protected GameObject targetGO;    
+    protected GameObject targetGO;
+
+    protected Vector2 localScale;
+
+    protected void InstantiateEnemyParameters() {
+        localScale = transform.localScale;
+        targetGO = GameObject.Find( "Player" );
+        target = targetGO.transform;
+        healthBar.maxValue = stats.GetValue( Stats.maxHealth );
+        ChangeHealthBar( stats.GetValue( Stats.health ) );
+
+    }
 
     // Start is called before the first frame update
     protected override void Awake()
@@ -36,21 +47,37 @@ public class Enemy : Character
 
     protected override void FixedUpdate() {
         if ( stacked == false ) {
-            playerDistance = Vector3.Distance( target.transform.position, transform.position );
-            if ( playerDistance <= maxFollowDistance && playerDistance >= minRange ) {
-                transform.position = Vector2.MoveTowards( transform.position, targetGO.transform.position, abilities.GetAbilityValue( Ability.speed ) * Time.deltaTime );
-            }
+            FindPlayer();
+        }
+    }
+
+    protected void FindPlayer() {
+        playerDistance = Vector3.Distance( target.transform.position, transform.position );
+
+        if ( playerDistance <= maxFollowDistance && playerDistance >= minRange ) {
+
+            Vector2 moveVector = Vector2.MoveTowards( transform.position, targetGO.transform.position, abilities.GetAbilityValue( Ability.speed ) * Time.deltaTime );
+
+            Move( moveVector );
+        }
+    }
+
+    protected void Move(Vector2 moveVector) {
+        transform.position = moveVector;
+
+        Vector2 playerVector = target.transform.position;
+        float deltaX = playerVector.x - transform.position.x;
+
+        if ( deltaX < 0 ) {
+            transform.localScale = new Vector2( -localScale.x, localScale.y );
+
+        }
+        else if ( deltaX > 0 ) {
+            transform.localScale = new Vector2( localScale.x, localScale.y );
         }
     }
 
 
-    void InstantiateEnemyParameters() {
-        targetGO = GameObject.Find( "Player" );
-        target = targetGO.transform;
-        healthBar.maxValue = stats.GetValue( Stats.maxHealth );
-        ChangeHealthBar( stats.GetValue( Stats.health ) );
-
-    }
 
     public void AttackEnd() {
         animator.SetBool( "isAttacking", false );
