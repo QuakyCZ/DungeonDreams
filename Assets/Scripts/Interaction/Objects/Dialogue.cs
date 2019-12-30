@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using System;
 public enum Action { None, Award, ToggleDoor, SpawnEnemies}
 public class Dialogue : Collectable {
@@ -22,11 +21,13 @@ public class Dialogue : Collectable {
     protected List<string> dialogueList;
     [SerializeField] EnemyPrefabs enemyPrefabs;
     protected List<GameObject> enemiesToSpawn;
-    protected TextAsset file;
+    protected UnityEngine.Object file;
 
     protected override void Start() {
         base.Start();
-        file = Resources.Load<TextAsset>( "Dialogues/" + dialogueName + ".txt" );
+        //UnityEngine.Object[] res = Resources.LoadAll( "Dialogues" );
+        //Debug.Log( res.Length );
+        file = Resources.Load( "Dialogues/"+dialogueName );
         if ( file == null ) {
             Destroy( this.gameObject );
             return;
@@ -89,7 +90,7 @@ public class Dialogue : Collectable {
             string line = lines[i];
             if ( line != "" && !line.Contains( "$" ))
                 dialogueList.Add( line );
-            else if ( line.StartsWith( "$" ) ) {
+            else if ( line.StartsWith( "$", StringComparison.Ordinal ) ) {
                 actionsToPrepare.Enqueue( line.Substring( 1 ) );
             }
         }
