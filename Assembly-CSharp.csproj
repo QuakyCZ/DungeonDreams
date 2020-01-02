@@ -63,6 +63,7 @@
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\ReorderableList\ReorderableList.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\SerializableDictionaryBase.cs" />
      <Compile Include="Assets\Scripts\AI\DemageArea.cs" />
+     <Compile Include="Assets\Scripts\BossBattle\BossBattleController.cs" />
      <Compile Include="Assets\Scripts\Controllers\EnemyController.cs" />
      <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainController.cs" />

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
 public enum Action { None, Award, ToggleDoor, SpawnEnemies}
+public enum DialogueCharacter{Dabel, Drak}
+[System.Serializable]public class DialogueCharacterImages : SerializableDictionaryBase<DialogueCharacter,Sprite>{}
 public class Dialogue : Collectable {
 
     [Header("Dialogue settings")]
@@ -11,6 +14,9 @@ public class Dialogue : Collectable {
     [SerializeField] protected float typingSpeed = 0.02f;
     [Tooltip("Has to be same as file name.")]
     [SerializeField] protected string dialogueName;
+    [SerializeField] protected Image secondCharacterImg;
+    [SerializeField] protected DialogueCharacterImages dialogueCharacterImages;
+    [SerializeField] protected Vector2 spawnPosition;
 
     protected int index = 0;
     protected Text[] textFields;
@@ -22,6 +28,7 @@ public class Dialogue : Collectable {
     [SerializeField] EnemyPrefabs enemyPrefabs;
     protected List<GameObject> enemiesToSpawn;
     protected UnityEngine.Object file;
+    protected DialogueCharacter secondCharacter;
 
     protected override void Start() {
         base.Start();
@@ -74,8 +81,11 @@ public class Dialogue : Collectable {
         dialogGO.SetActive( true );
 
         string[] sentence = dialogueList[0].Split( '>' );
+        secondCharacterImg.sprite = dialogueCharacterImages[secondCharacter];
         StartCoroutine( Type( sentence[0], true ) );
         StartCoroutine( Type( sentence[1], false ) );
+        
+        
     }
 
     protected void ReadFile() {
@@ -88,7 +98,10 @@ public class Dialogue : Collectable {
         string[] lines = file.ToString().Split( '\r','\n' );
         for  ( int i = 0; i<lines.Length-1; i++) {
             string line = lines[i];
-            if ( line != "" && !line.Contains( "$" ))
+            if(line.StartsWith("/",StringComparison.Ordinal)){
+                secondCharacter = (DialogueCharacter)Enum.Parse(typeof(DialogueCharacter),line.Substring(1));
+            }
+            else if ( line != "" && !line.Contains( "$" ))
                 dialogueList.Add( line );
             else if ( line.StartsWith( "$", StringComparison.Ordinal ) ) {
                 actionsToPrepare.Enqueue( line.Substring( 1 ) );
@@ -180,7 +193,7 @@ public class Dialogue : Collectable {
                 GameObject enemyGO = Instantiate( enemyPrefabs[type] );
                 enemiesToSpawn.Add( enemyGO );
                 enemyGO.transform.SetParent( transform );
-                enemyGO.transform.position = transform.position;
+                enemyGO.transform.position = spawnPosition;
                 enemyGO.SetActive( false );
             }
             else {
@@ -195,5 +208,10 @@ public class Dialogue : Collectable {
             if(enemyGO != null)
                 enemyGO.SetActive( true );
         }
+    }
+
+    protected void OnDrawGizmosSelected(){
+        Gizmos.color=Color.red;
+        Gizmos.DrawWireSphere(spawnPosition,1);
     }
 }
