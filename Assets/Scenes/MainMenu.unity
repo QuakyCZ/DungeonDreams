@@ -1162,6 +1162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playButton: {fileID: 1572221711}
+  creditsButton: {fileID: 1194600771}
   exitButton: {fileID: 81350526}
   progress: {fileID: 849516565}
 --- !u!4 &1511145592

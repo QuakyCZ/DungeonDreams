@@ -4,8 +4,9 @@ using UnityEngine;
 using RotaryHeart.Lib.SerializableDictionary;
 
 public enum EnemyType {
-    dragon,
-    hound
+    Dragon,
+    Hound
+
 }
 [System.Serializable]
 public class EnemiesToSpawn : SerializableDictionaryBase<EnemyType, int> { }
@@ -29,30 +30,36 @@ public class EnemySpawner : Collidable
     protected override void Start() {
         base.Start();
         enemyGOList = new List<GameObject>();
+        InstantiateEnemies();
+
     }
 
     protected override void OnCollide( Collider2D coll ) {
         if ( triggered ) {
             return;
         }
-        foreach(EnemyType type in enemiesToSpawn.Keys ) {
-            int n = enemiesToSpawn[type];
-            for(int i = 0; i<n; i++ ) {
-                SpawnEnemy( type );
-            }
-        }
+        ActivateEnemies();
         triggered = true;
     }
 
+    protected void InstantiateEnemies() {
+        foreach ( EnemyType type in enemiesToSpawn.Keys ) {
+            int n = enemiesToSpawn[type];
+            for ( int i = 0; i < n; i++ ) {
+                SpawnEnemy( type );
+            }
+        }
+    }
 
-
-
-
-
-
+    protected void ActivateEnemies() {
+        foreach(GameObject enemy in enemyGOList ) {
+            enemy.SetActive( true );
+        }
+    }
 
     /// <summary>
-    /// Spawns the enemy at a random position in the given range from the spawner.
+    /// Instantiates the enemy at a random position in the given range from the spawner.
+    /// Game object is NOT active!
     /// </summary>
     /// <param name="enemyType">Enemy type.</param>
     protected void SpawnEnemy(EnemyType enemyType ) {
@@ -64,18 +71,11 @@ public class EnemySpawner : Collidable
             //enemyGO.transform.position = new Vector2( 0, 0 );
             float x = this.transform.position.x + Random.Range( -spawnRange.x, spawnRange.x );
             float y = this.transform.position.y + Random.Range( -spawnRange.y, spawnRange.y );
-            Debug.Log( "Spawning " + enemyType.ToString() + " at " + x + " " + y + " coordinates." );
+            //Debug.Log( "Spawning " + enemyType.ToString() + " at " + x + " " + y + " coordinates." );
             enemyGO.transform.position = new Vector2( x, y);
+            enemyGO.gameObject.SetActive( false );
         }
-
     }
-
-
-
-
-
-
-
 
     protected void OnDrawGizmosSelected() {
         Gizmos.color = Color.yellow;

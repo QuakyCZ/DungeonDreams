@@ -10,8 +10,7 @@ public class Collidable : MonoBehaviour
     public ContactFilter2D filter;
     private BoxCollider2D boxCollider;
     private List<Collider2D> hits = new List<Collider2D>();
-    public Sprite openSprite;
-    public Sprite closedSprite;
+
     protected bool doUpdate = true;
 
     protected virtual void Start() {

@@ -1,0 +1,6 @@
+/Dabel
+Dabel>Kdo si dovolil vstopit na moji pudu?!?
+Dalimil>Omlouvam se, nevim, kde jsem...
+Dalimil>dijfosd
+Dabel>sdiofnos
+$SpawnEnemies>Hound>1

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Chest : Collectable
 {
 
-    public Sprite openLootedSprite;
     protected override void OnCollide( Collider2D coll ) {
         base.OnCollide( coll );
     }
@@ -14,7 +13,6 @@ public class Chest : Collectable
             return;
         }
         base.OnCollect();
-        GetComponent<SpriteRenderer>().sprite = openLootedSprite;
         int amnt = Random.Range( 1, 5 ) * player.stats.GetValue(Stats.level);
         player.inventory.ChangeValue( InventoryDefault.gold, amnt, MathOperation.Add );
         uiController.RefreshVisibleValue( InventoryDefault.gold );
