@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
 {
     public GameObject menu;
     [SerializeField] protected GameObject GUI;
+    [SerializeField] protected GameObject hintGO;
     public MainController mainController;
 
     public Text log;
@@ -156,5 +157,14 @@ public class UIController : MonoBehaviour
 
     public void ToggleGUI(bool toggle) {
         GUI.SetActive(toggle);
+    }
+
+    public void ToggleHint() {
+        if (hintGO.active == true) {
+            hintGO.SetActive( false );
+        }
+        else {
+            hintGO.SetActive( true );
+        }
     }
 }

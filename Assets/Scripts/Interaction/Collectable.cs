@@ -18,7 +18,7 @@ public class Collectable : Collidable
 
         objectSprite = GetComponent<SpriteRenderer>();
         objectSprite.sprite = spriteCollided;
-        uiController.Log( "Press F to interact." );
+        uiController.Log( "Stiskni F pro interakci." );
 
         if (coll.name == "Player" && Input.GetKey(KeyCode.F)) {
             OnCollect();

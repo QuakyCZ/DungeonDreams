@@ -59,11 +59,11 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  openSprite: {fileID: 4714410783012859700, guid: 7be927e24f3eaa55bb7d7de15af92f78,
+  spriteUncollided: {fileID: -3773418326559579994, guid: ad6f6dcf5f919fd43be5409c1a0cf3a6,
     type: 3}
-  closedSprite: {fileID: -5281422124547630143, guid: 7be927e24f3eaa55bb7d7de15af92f78,
+  spriteCollided: {fileID: -7102591928466422740, guid: ad6f6dcf5f919fd43be5409c1a0cf3a6,
     type: 3}
-  openLootedSprite: {fileID: -4685547431992939551, guid: 7be927e24f3eaa55bb7d7de15af92f78,
+  spriteCollected: {fileID: 8428519007909978992, guid: cb449455a25cb4f45bf4dd8fab1cdcf7,
     type: 3}
 --- !u!212 &7913031081127815675
 SpriteRenderer:
@@ -79,6 +79,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -103,7 +104,7 @@ SpriteRenderer:
   m_SortingLayerID: 920011225
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5281422124547630143, guid: 7be927e24f3eaa55bb7d7de15af92f78,
+  m_Sprite: {fileID: -3773418326559579994, guid: ad6f6dcf5f919fd43be5409c1a0cf3a6,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

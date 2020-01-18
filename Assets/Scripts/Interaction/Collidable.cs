@@ -11,7 +11,7 @@ public class Collidable : MonoBehaviour
     private BoxCollider2D boxCollider;
     private List<Collider2D> hits = new List<Collider2D>();
 
-    protected bool doUpdate = true;
+    [SerializeField]protected bool doUpdate = true;
 
     protected virtual void Start() {
         boxCollider = GetComponent<BoxCollider2D>();
