@@ -1,6 +1,4 @@
-/Dabel
-Dabel>Kdo si dovolil vstopit na moji pudu?!?
-Dalimil>Omlouvam se, nevim, kde jsem...
-Dalimil>dijfosd
-Dabel>sdiofnos
+Dabel>jdsnfgkd
+Dalimil>jsdnfkids
+Dabel>olsdnf
 $SpawnEnemies>Hound>1

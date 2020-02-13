@@ -1,42 +1,54 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using RotaryHeart.Lib.SerializableDictionary;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
-public enum Action { None, Award, ToggleDoor, SpawnEnemies}
-public enum DialogueCharacter{Dabel, Drak}
-[System.Serializable]public class DialogueCharacterImages : SerializableDictionaryBase<DialogueCharacter,Sprite>{}
+using UnityEngine.SceneManagement;
+
+public enum Action { 
+    None, 
+    Award, 
+    ToggleDoor,
+    SpawnEnemies,
+    GameOverWin,
+    GameOverLose
+}
+
 public class Dialogue : Collectable {
-
+    
     [Header("Dialogue settings")]
+    #region UI
     [SerializeField] protected GameObject dialogGO;
-    [SerializeField] protected float typingSpeed = 0.02f;
-    [Tooltip("Has to be same as file name.")]
-    [SerializeField] protected string dialogueName;
-    [SerializeField] protected Image secondCharacterImg;
-    [SerializeField] protected DialogueCharacterImages dialogueCharacterImages;
-    [SerializeField] protected Vector2 spawnPosition;
-
-    protected int index = 0;
     protected Text[] textFields;
     protected Text nameText;
     protected Text sentenceText;
-    protected Queue<string> actionsToPrepare;
-    protected Queue<Action> actionsToDo;
-    protected List<string> dialogueList;
+    #endregion
+    #region dialogue settings
+    [SerializeField] protected float typingSpeed = 0.02f; // the typing delay between chars 
+    [Tooltip("Has to be same as file name.")]
+    [SerializeField] protected string dialogueName; // the name of the dialogue file without suffix
+    #endregion
+    #region spawning characters and enemies
     [SerializeField] EnemyPrefabs enemyPrefabs;
     protected List<GameObject> enemiesToSpawn;
-    protected UnityEngine.Object file;
-    protected DialogueCharacter secondCharacter;
+    [SerializeField] protected Vector2 spawnPosition;
+    #endregion
+
+    protected int index = 0; // index of current dialogue sentence
+
+    protected UnityEngine.Object file; // current dialogue file 
+
+    protected List<string> dialogueList; // the list of sentences
+
+    protected Queue<string> actionsToPrepare; // the queue of actions that need to be prepared
+    protected Queue<Action> actionsToDo; // the queue of actions that should be commited
 
     protected override void Start() {
         base.Start();
-        //UnityEngine.Object[] res = Resources.LoadAll( "Dialogues" );
-        //Debug.Log( res.Length );
         file = Resources.Load( "Dialogues/"+dialogueName );
         if ( file == null ) {
-            Destroy( this.gameObject );
+            Debug.LogError( $"{gameObject.name}: Dialog file {dialogueName}.txt doesn't exist!" );
+            Destroy( this.gameObject );            
             return;
         }
         InstantiateAttributes();
@@ -45,29 +57,29 @@ public class Dialogue : Collectable {
         while ( actionsToPrepare.Count > 0 ) {
             PrepareAction( actionsToPrepare.Dequeue() );
         }
-
     }
 
     protected void InstantiateAttributes() {
-        enemiesToSpawn = new List<GameObject>();
-        actionsToPrepare = new Queue<string>();
-        actionsToDo = new Queue<Action>();
-        textFields = dialogGO.GetComponentsInChildren<Text>(); // 0 - name, 1 - text
-        nameText = textFields[0];
-        sentenceText = textFields[1];
-        dialogueList = new List<string>();
+        enemiesToSpawn      = new List<GameObject>();
+        actionsToPrepare    = new Queue<string>();
+        actionsToDo         = new Queue<Action>();
+        textFields          = dialogGO.GetComponentsInChildren<Text>(); // 0 - name, 1 - text
+        nameText            = textFields[0];
+        sentenceText        = textFields[1];
+        dialogueList        = new List<string>();
     }
 
    
 
     protected override void Update() {
         base.Update();
-
+        // If the sentence was written and player pressed space.
         if ( nameText.text + '>' + sentenceText.text == dialogueList[index] && Input.GetKeyDown( KeyCode.Space ) ) {
             typingSpeed = 0.02f;
             NextSentence();
 
         }
+        // If the sentence was not written yet and player pressed space.
         else if ( nameText.text + '>' + sentenceText.text != dialogueList[index] && Input.GetKeyDown( KeyCode.Space ) ) {
             typingSpeed = 0;
         }
@@ -81,14 +93,15 @@ public class Dialogue : Collectable {
         dialogGO.SetActive( true );
 
         string[] sentence = dialogueList[0].Split( '>' );
-        secondCharacterImg.sprite = dialogueCharacterImages[secondCharacter];
         StartCoroutine( Type( sentence[0], true ) );
-        StartCoroutine( Type( sentence[1], false ) );
-        
-        
+        StartCoroutine( Type( sentence[1], false ) );        
     }
 
+    /// <summary>
+    /// Reads the file.
+    /// </summary>
     protected void ReadFile() {
+        Debug.Log( $"Reading file {dialogueName}.txt" );
         if ( file == null ) {
             Debug.LogError( "File doesn't exist." );
             return;
@@ -96,21 +109,23 @@ public class Dialogue : Collectable {
 
         Debug.Log( file.ToString() );
         string[] lines = file.ToString().Split( '\r','\n' );
-        for  ( int i = 0; i<lines.Length-1; i++) {
+        for  ( int i = 0; i<lines.Length; i++) {
             string line = lines[i];
-            if(line.StartsWith("/",StringComparison.Ordinal)){
-                secondCharacter = (DialogueCharacter)Enum.Parse(typeof(DialogueCharacter),line.Substring(1));
-            }
-            else if ( line != "" && !line.Contains( "$" ))
+            if (line != "" && line.StartsWith( "$", StringComparison.Ordinal )==false) {
                 dialogueList.Add( line );
-            else if ( line.StartsWith( "$", StringComparison.Ordinal ) ) {
-                actionsToPrepare.Enqueue( line.Substring( 1 ) );
+                Debug.Log( $"{dialogueName}: Dialog line found: {line}" );
             }
+            else if (line.StartsWith( "$", StringComparison.Ordinal )) {
+                actionsToPrepare.Enqueue( line.Substring( 1 ) );
+                Debug.Log( $"{dialogueName}: Action found: {line}" );
+            }
+
         }
-    }
+    } 
 
-
-
+    /// <summary>
+    /// Starts typing new sentence.
+    /// </summary>
     protected void NextSentence() {
         if ( index < dialogueList.Count - 1 ) {
             index++;
@@ -131,6 +146,13 @@ public class Dialogue : Collectable {
         }
     }
 
+    /// <summary>
+    /// Starts typing the text.
+    /// If the given text is name, use true.
+    /// </summary>
+    /// <param name="text">Text to type</param>
+    /// <param name="name">Whether text is name or not</param>
+    /// <returns></returns>
     protected IEnumerator Type(string text, bool name) {
         Text field;
 
@@ -147,12 +169,12 @@ public class Dialogue : Collectable {
         }
     }
 
-    ///////////////////////////// 
-    /// 
     /// Actions after dialogue
-    /// 
-    //////////////////////////////
 
+    /// <summary>
+    /// Prepares the action into the actionsToDo queue.
+    /// </summary>
+    /// <param name="actionSentence">The string with action</param>
     protected void PrepareAction(string actionSentence) {
         string[] actionString = actionSentence.Split( '>' ); // 0 - action, 1 - itemtype, 2 - count
         Action action = ( Action )Enum.Parse( typeof( Action ), actionString[0] );
@@ -172,21 +194,38 @@ public class Dialogue : Collectable {
                 Debug.Log( "Spawn " + type + " " + spawnCount + "x" );
                 InstantiateEnemy( type, spawnCount );
                 break;
+            default:
+                actionsToDo.Enqueue( action );
+                break;
         }
-
     }
 
+    /// <summary>
+    /// Does given action.
+    /// </summary>
+    /// <param name="action"></param>
     protected void DoAction(Action action) {
         switch ( action ) {
             case Action.SpawnEnemies:
                 ShowEnemies();
                 break;
+            case Action.GameOverWin:
+                SceneManager.LoadScene( "GameOverWin" );
+                break;
+            case Action.GameOverLose:
+                SceneManager.LoadScene( "GameOverLose" );
+                break;
             default:
-                Debug.LogWarning( "This action was not implemented." );
+                Debug.LogWarning( $"Action {action.ToString()} is not implemented!" );
                 break;
         }
     }
 
+    /// <summary>
+    /// Instantiates enemy on start as inactive. Use void ShowEnemies to show them.
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="count"></param>
     protected void InstantiateEnemy( EnemyType type, int count = 1 ) {
         for(int i = 0; i<count; i++ ) {
             if ( enemyPrefabs.ContainsKey( type ) ) {
@@ -203,6 +242,9 @@ public class Dialogue : Collectable {
 
     }
 
+    /// <summary>
+    /// Shows instantiated enemies.
+    /// </summary>
     protected void ShowEnemies() {
         foreach(GameObject enemyGO in enemiesToSpawn ) {
             if(enemyGO != null)
@@ -210,6 +252,9 @@ public class Dialogue : Collectable {
         }
     }
 
+    /// <summary>
+    /// This is just for graphic debug.
+    /// </summary>
     protected void OnDrawGizmosSelected(){
         Gizmos.color=Color.red;
         Gizmos.DrawWireSphere(spawnPosition,1);

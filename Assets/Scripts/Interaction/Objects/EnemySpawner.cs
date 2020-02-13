@@ -6,7 +6,6 @@ using RotaryHeart.Lib.SerializableDictionary;
 public enum EnemyType {
     Dragon,
     Hound
-
 }
 [System.Serializable]
 public class EnemiesToSpawn : SerializableDictionaryBase<EnemyType, int> { }

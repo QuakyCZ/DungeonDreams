@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Door : Collectable
 {
+    [Header("Door Security")]
+    [SerializeField] protected bool locked = false;
+    [SerializeField] protected int keyParts;
+    [Header("GFX")]
     [SerializeField] protected Sprite openedSprite;
     [SerializeField] protected Sprite closedSprite;
     [SerializeField] protected GameObject forbiddenArea;
@@ -31,15 +35,21 @@ public class Door : Collectable
             GetComponent<SpriteRenderer>().sprite = closedSprite;
             animator.SetInteger( "openDoorAnim", 0 );
             animator.SetBool( "oppened", false );
-            this.oppened = false;
-            
-        }   
-        
-            
-       
+            this.oppened = false;           
+        }
     }
 
     protected override void OnCollect() {
+        if (locked) {
+            if (player.inventory.GetValue( InventoryDefault.key ) < keyParts) {
+                uiController.Log( $"Dveře jsou zamčeny. Nejdříve najdi {keyParts} částí klíče." );
+                return;
+            }
+            else {
+                locked = false;
+                OnCollect();
+            }
+        }
         if(oppened == false) {
             Debug.Log( "Oppening the door." );
             animator.SetInteger( "openDoorAnim", 1 );

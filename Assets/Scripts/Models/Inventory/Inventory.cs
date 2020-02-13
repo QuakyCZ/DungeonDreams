@@ -5,7 +5,8 @@ public enum InventoryType {
     Default, Consumable
 }
 public enum InventoryDefault {
-    gold
+    gold,
+    key
 }
 public enum InventoryConsumable {
     healthPotion, manaPotion
@@ -25,6 +26,7 @@ public class Inventory {
 
         inventoryDefault = new Dictionary<InventoryDefault, int>();
         inventoryDefault.Add( InventoryDefault.gold, 0 );
+        inventoryDefault.Add( InventoryDefault.key, 0 );
 
         inventoryConsumable = new Dictionary<InventoryConsumable, int>();
         inventoryConsumable.Add( InventoryConsumable.healthPotion, 0 );
