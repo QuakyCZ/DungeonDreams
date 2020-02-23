@@ -126,7 +126,7 @@ public class UIController : MonoBehaviour
 
 
             if (player.stats.GetValue( Stats.health ) <= 0) {
-                ExitToMainMenu();
+                SceneManager.LoadScene("GameOverLose");
                 Debug.Log( "You have died" );
             }
 

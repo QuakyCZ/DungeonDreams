@@ -14,14 +14,14 @@ public class Collectable : Collidable
     protected SpriteRenderer objectSprite;
 
     protected override void OnCollide( Collider2D coll ) {
-        base.OnCollide( coll );
+        if (coll.name == "Player") {        
+            objectSprite = GetComponent<SpriteRenderer>();
+            objectSprite.sprite = spriteCollided;
+            uiController.Log( "Stiskni F pro interakci." );
 
-        objectSprite = GetComponent<SpriteRenderer>();
-        objectSprite.sprite = spriteCollided;
-        uiController.Log( "Stiskni F pro interakci." );
-
-        if (coll.name == "Player" && Input.GetKey(KeyCode.F)) {
-            OnCollect();
+            if (coll.name == "Player" && Input.GetKey( KeyCode.F )) {
+                OnCollect();
+            }
         }
     }
 

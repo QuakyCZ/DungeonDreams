@@ -118,6 +118,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -313,6 +314,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -443,17 +445,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRange: 1.74
   animator: {fileID: 724712530151170189}
+  immuneTime: 0
   armor: 0
   speed: 1.43
   attackSpeed: 0.35
-  strength: 1.02
-  stackTime: 1
+  strength: 1
+  stackTime: 1.8
   health: 50
   maxHealth: 50
   mana: 0
   maxMana: 0
-  damage: 0
-  weaponType: 0
+  minDamage: 2
+  maxDamage: 6
+  dropRandom: 0
+  dropItemsPrefabs:
+  - {fileID: 7862191755706559924, guid: 7e62f95058850344596f5145080f2dda, type: 3}
+  dropAmount: 1
+  dropChanceInPercent: 100
   healthBar: {fileID: 6547390500905187630}
   maxFollowDistance: 4.63
 --- !u!1 &8290811446509978812

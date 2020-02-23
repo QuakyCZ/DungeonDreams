@@ -50,6 +50,7 @@ public class CharacterStats
     public void ChangeActualStats(Stats statsType, int value) {
         Debug.Log( "ChangeStats for: " + statsType + " with value: " + value );
         if (!maxStats.ContainsKey( statsType )) {
+            // if there is no limitation...
             values[statsType] += value;
         }
         else if (values[statsType] + value <= GetValue( maxStats[statsType] ) && values[statsType] >= 0) {

@@ -37,6 +37,8 @@ public class EnemySpawner : Collidable
         if ( triggered ) {
             return;
         }
+        if (coll.name != "Player")
+            return;
         ActivateEnemies();
         triggered = true;
     }

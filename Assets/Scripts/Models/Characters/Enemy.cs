@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.AI;
 
 public class Enemy : Character
 {
+    [SerializeField] protected int minDamage;
+    [SerializeField] protected int maxDamage;
+    [Header("Death")]
+    [SerializeField] protected bool dropRandom;
+    [SerializeField] protected List<GameObject> dropItemsPrefabs;
+    [SerializeField] protected int dropAmount;
+    [SerializeField] protected int dropChanceInPercent;
     [Header("Enemy UI")]
     [SerializeField]
     private Slider healthBar;
@@ -16,7 +22,7 @@ public class Enemy : Character
     [SerializeField]
     protected float maxFollowDistance;
     
-    protected float playerDistance;
+    protected float playerDistance = 100;
     #endregion
 
     protected GameObject targetGO;
@@ -42,6 +48,9 @@ public class Enemy : Character
     protected override void Update() {
         if ( playerDistance <= minRange && charged && stacked == false )
             Attack();
+        if (stats.GetValue( Stats.health ) <= 0) {
+            Die();
+        }
         base.Update();
     }
 
@@ -50,7 +59,23 @@ public class Enemy : Character
             FindPlayer();
         }
     }
+    protected override void Die() {
+        DropItem();
+        base.Die();
 
+    }
+    protected void DropItem() {
+        if (dropItemsPrefabs != null && dropItemsPrefabs.Count>0) {
+            for (int i = 0; i < dropAmount; i++) {
+                int r = Random.Range(0,(int)((1/(0.01*dropChanceInPercent))*dropItemsPrefabs.Count));
+                if (r < dropItemsPrefabs.Count) {
+                    GameObject dropped = Instantiate(dropItemsPrefabs[r]);
+                    dropped.transform.position = transform.position;
+                }
+            }
+        }
+
+    }
     protected void FindPlayer() {
         playerDistance = Vector3.Distance( target.transform.position, transform.position );
 
@@ -76,33 +101,34 @@ public class Enemy : Character
             transform.localScale = new Vector2( localScale.x, localScale.y );
         }
     }
+           
 
-
-
-    public void AttackEnd() {
-        animator.SetBool( "isAttacking", false );
-        FindObjectOfType<PlayerStatsController>().TakeDamage( 2 );
-
-    }
-
-    void Attack() {
+    protected void Attack() {
         charged = false;
         ResetCoolDown();
         Debug.Log( "Enemy attacks" );
         animator.SetBool( "isAttacking", true );
-
-
     }
 
-    public void TakeDamage(int amnt) {
-        Debug.Log( "Take damage" );
-        stats.ChangeActualStats(Stats.health, -amnt);
-        ChangeHealthBar( stats.GetValue(Stats.health) );
-        Stack();
+    public void AttackEnd() {
+        animator.SetBool( "isAttacking", false );
+        FindObjectOfType<Player>().ReceiveDamage( new Damage{origin = transform.position, damageAmount = Random.Range( minDamage, maxDamage + 1 ) } );
+    }
+
+    public void Charged() {
+        Debug.Log( "Enemy - Charged" );
+        charged = true;
     }
 
     void ChangeHealthBar(int value) {
         healthBar.value = value;
+    }
+
+    public override void ReceiveDamage(Damage dmg) {
+        base.ReceiveDamage( dmg);
+        Debug.Log( "Take damage" );
+        ChangeHealthBar( stats.GetValue( Stats.health ) );
+        Stack();
     }
 
     void OnDrawGizmosSelected() {

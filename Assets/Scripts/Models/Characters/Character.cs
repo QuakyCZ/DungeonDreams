@@ -10,6 +10,9 @@ public class Character : MonoBehaviour {
     [SerializeField]
     protected Animator animator;
 
+    [SerializeField] protected float immuneTime;
+    private float lastImmune;
+
     #region Abilities
     [Header("Abilities")]
     [SerializeField]
@@ -22,7 +25,7 @@ public class Character : MonoBehaviour {
     [SerializeField]
     private float strength;
 
-    protected bool charged;
+    [SerializeField]protected bool charged;
 
     private float attackCooldown;
 
@@ -30,6 +33,7 @@ public class Character : MonoBehaviour {
     protected float stackTime;
     protected float stackCoolDown;
     protected bool stacked = false;
+    protected bool hasImmune = false;
     #endregion
 
     #region Character Stats
@@ -45,48 +49,34 @@ public class Character : MonoBehaviour {
 
     #endregion
 
-    #region Weapon
-    [Header("Weapon")]
-    [SerializeField]
-    protected int damage;
-    [SerializeField]
-    protected WeaponType weaponType;
-    #endregion
-
     #region Objects
     public Abilities abilities;
     public CharacterStats stats;
-
-
     #endregion
 
 
 
     #endregion
     protected virtual void Start() {
-
+        charged = true;
     }
     protected virtual void Awake() {
         InstantiateParameters();
     }
 
+    protected virtual void InstantiateParameters() {
+        abilities = new Abilities( armor, attackSpeed, minRange, strength, speed );
+        stats = new CharacterStats();
+
+        animator = GetComponent<Animator>();
+        ResetCoolDown();
+    }
+
     protected virtual void Update() {
-        if ( stats.GetValue( Stats.health ) <= 0 ) {
-            Destroy( this.gameObject );
-        }
         DoCooldowns();
     }
 
     protected void DoCooldowns() {
-        //Debug.Log( "DoCooldowns" );
-        if ( charged == false ) {
-            attackCooldown -= Time.deltaTime;
-            if ( attackCooldown <= 0 ) {
-                Debug.Log( "Charged" );
-                charged = true;
-                ResetCoolDown();
-            }
-        }
         if ( stacked == true ) {
             stackCoolDown -= Time.deltaTime;
             if ( stackCoolDown <= 0 ) {
@@ -95,21 +85,21 @@ public class Character : MonoBehaviour {
                 ResetStackCooldown();
             }
         }
+        if (hasImmune) {
+            GetComponent<SpriteRenderer>().color = Color.red;
+            if(Time.time - lastImmune > immuneTime) {
+                hasImmune = false;
+                lastImmune = Time.time;
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+        }
     }
+    protected virtual void FixedUpdate() {}
 
-
-    protected virtual void FixedUpdate() {
-
+    protected virtual void Die() {
+        Destroy( gameObject );
     }
-
-    protected virtual void InstantiateParameters() {        
-        abilities = new Abilities(armor,attackSpeed,minRange,strength,speed);
-        stats = new CharacterStats();
-
-        animator = GetComponent<Animator>();
-        ResetCoolDown();
-    }
-
+    
     protected virtual void Move(Vector3 moveVector) {
         Vector3 position = transform.position;
         position += moveVector;
@@ -134,5 +124,19 @@ public class Character : MonoBehaviour {
         stackCoolDown = stackTime;
     }
 
+    public virtual void ReceiveDamage(Damage dmg) {
+        if (hasImmune == false) {
+            hasImmune = true;
+            Debug.Log( "ReceiveDamage" );
+            stats.ChangeActualStats( Stats.health, -dmg.damageAmount );
+            FindObjectOfType<UIController>().RefreshVisibleValue( Stats.health );
+
+            //Vector2 pushDirection = (transform.position-dmg.origin).normalized*dmg.pushForce;
+            //GetComponent<Rigidbody2D>().MovePosition( pushDirection );
+            if (stats.GetValue( Stats.health ) <= 0) {
+                Die();
+            }
+        }
+    }
 
 }

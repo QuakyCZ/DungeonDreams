@@ -72,7 +72,7 @@ GameObject:
   - component: {fileID: 3825543414655661906}
   m_Layer: 0
   m_Name: Door
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -195,12 +195,15 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  doUpdate: 1
   spriteUncollided: {fileID: -7341407202210888751, guid: 5de6951cc2fd57545b17a2192894a0b1,
     type: 3}
   spriteCollided: {fileID: -7341407202210888751, guid: 5de6951cc2fd57545b17a2192894a0b1,
     type: 3}
   spriteCollected: {fileID: -7341407202210888751, guid: 5de6951cc2fd57545b17a2192894a0b1,
     type: 3}
+  locked: 0
+  keyParts: 0
   openedSprite: {fileID: 2003397563310875137, guid: 5de6951cc2fd57545b17a2192894a0b1,
     type: 3}
   closedSprite: {fileID: -7341407202210888751, guid: 5de6951cc2fd57545b17a2192894a0b1,

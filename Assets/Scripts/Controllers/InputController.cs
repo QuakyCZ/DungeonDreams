@@ -10,10 +10,6 @@ public class InputController : MonoBehaviour
 
     public GameObject menu;
 
-    float coolDown;
-
-    bool charged = true;
-
     Animator animator;
 
     UIController uiController;
@@ -29,10 +25,8 @@ public class InputController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (doUpdate) {           
-            Attack();
-        }        
+    {      
+          
     }
 
     void FixedUpdate() {
@@ -64,11 +58,5 @@ public class InputController : MonoBehaviour
         player.MovePlayer( movementVector );
     }
 
-    void Attack() {
-        if(Input.GetMouseButton( 0 )) {
-            //Debug.Log( "Attack" );
-            player.Attack();
-        }
 
-    }
 }

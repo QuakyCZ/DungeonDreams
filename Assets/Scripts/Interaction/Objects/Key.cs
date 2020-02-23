@@ -5,11 +5,12 @@ using TMPro;
 
 public class Key : Collectable
 {
-    [SerializeField] protected TextMeshProUGUI numberText;
+    protected TextMeshProUGUI numberText;
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
+        numberText = GameObject.FindGameObjectWithTag( "KeyText" ).GetComponent<TextMeshProUGUI>();
     }
 
 

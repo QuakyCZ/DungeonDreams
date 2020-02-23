@@ -9,11 +9,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5473093653160614230}
+  - component: {fileID: 4498951162110523429}
   - component: {fileID: 8082091085463827729}
   - component: {fileID: 5836894024522081405}
   - component: {fileID: 1294419221755517182}
   - component: {fileID: 6375435139495150021}
-  - component: {fileID: 4498951162110523429}
+  - component: {fileID: 7128424764143563667}
   m_Layer: 11
   m_Name: Enemy_Hound
   m_TagString: Enemy
@@ -38,6 +39,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4498951162110523429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 469791512382245316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minRange: 0.8
+  animator: {fileID: 1294419221755517182}
+  immuneTime: 0
+  armor: 0
+  speed: 1
+  attackSpeed: 0.26
+  strength: 1
+  charged: 0
+  stackTime: 1.8
+  health: 25
+  maxHealth: 25
+  mana: 0
+  maxMana: 0
+  minDamage: 1
+  maxDamage: 3
+  dropRandom: 0
+  dropItemsPrefabs:
+  - {fileID: 2119944965809648186, guid: 90cf7bc9c43e45a428676fc4cdf88177, type: 3}
+  dropAmount: 1
+  dropChanceInPercent: 20
+  healthBar: {fileID: 5364686522888673076}
+  maxFollowDistance: 5
 --- !u!212 &8082091085463827729
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -52,6 +87,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -170,33 +206,48 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &4498951162110523429
-MonoBehaviour:
+--- !u!60 &7128424764143563667
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 469791512382245316}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRange: 0.91
-  animator: {fileID: 1294419221755517182}
-  armor: 0
-  speed: 1
-  attackSpeed: 2
-  strength: 1
-  stackTime: 1
-  health: 25
-  maxHealth: 25
-  mana: 0
-  maxMana: 0
-  damage: 0
-  weaponType: 2
-  healthBar: {fileID: 5364686522888673076}
-  maxFollowDistance: 2.42
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.96875, y: 1.25}
+    newSize: {x: 1.96875, y: 1.25}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.953125, y: -0.5}
+      - {x: 0.984375, y: -0.40625}
+      - {x: 0.984375, y: 0.09375}
+      - {x: 0.578125, y: 0.3125}
+      - {x: -0.296875, y: 0.5}
+      - {x: -0.421875, y: 0.625}
+      - {x: -0.859375, y: 0.625}
+      - {x: -0.984375, y: 0.46875}
+      - {x: -0.984375, y: -0.59375}
+      - {x: -0.921875, y: -0.625}
+      - {x: -0.484375, y: -0.625}
+      - {x: -0.203125, y: -0.3125}
+      - {x: -0.015625, y: -0.625}
+      - {x: 0.734375, y: -0.625}
+    - - {x: 0.796875, y: -0.15625}
+      - {x: 0.796875, y: -0.21875}
+      - {x: 0.734375, y: -0.28125}
 --- !u!1 &2033216259747731074
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6614666742138774070
 Transform:
   m_ObjectHideFlags: 0
@@ -424,6 +475,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -504,7 +556,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d2e0f4d268f654fa07d2970143f503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
+  filter:
+    useTriggers: 0
+    useLayerMask: 0
+    useDepth: 0
+    useOutsideDepth: 0
+    useNormalAngle: 0
+    useOutsideNormalAngle: 0
+    layerMask:
+      serializedVersion: 2
+      m_Bits: 0
+    minDepth: 0
+    maxDepth: 0
+    minNormalAngle: 0
+    maxNormalAngle: 0
+  doUpdate: 1
+  minDamage: 0
+  maxDamage: 0
+  weaponLevel: 0
+  knockback: 0
 --- !u!212 &5473093653670371138
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -519,6 +589,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

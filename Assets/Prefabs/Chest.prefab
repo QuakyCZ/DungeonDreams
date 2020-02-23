@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7913031081127815668}
   m_Layer: 14
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59,6 +59,7 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  doUpdate: 1
   spriteUncollided: {fileID: -3773418326559579994, guid: ad6f6dcf5f919fd43be5409c1a0cf3a6,
     type: 3}
   spriteCollided: {fileID: -7102591928466422740, guid: ad6f6dcf5f919fd43be5409c1a0cf3a6,

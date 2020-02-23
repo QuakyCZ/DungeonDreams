@@ -2,36 +2,60 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType {
-    sword,
-    bow,
-    none
-}
 
-public class Weapon : MonoBehaviour {
-    public int damage;
-    public WeaponType type { get; protected set; }
+public class Weapon : Collidable {
+    [SerializeField]protected int minDamage;
+    [SerializeField]protected int maxDamage;
+    public int weaponLevel;
+    public float knockback;
+    private Animator animator;
+    private bool attack = false;
+    private bool charged = true;
 
     public List<Collider2D> collisions { get; protected set; }
-    //public float range;
-    // Start is called before the first frame update
-    void Start()
-    {
-        collisions = new List<Collider2D>();
+
+    protected override void Start() {
+        base.Start();
+        animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    protected override void Update() {
+        base.Update();
+
+        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown( KeyCode.Space )) {
+            if(charged) {
+                charged = false;
+                Attack();
+            }
+            
+        }
     }
 
-
-    void OnTriggerEnter2D(Collider2D collision) {
-        collisions.Add(collision);
+    protected void Attack() {
+        Debug.Log( "Attack" );
+        animator.SetBool( "IsAttacking", true );
+        attack = true;
     }
 
-    private void OnTriggerExit2D(Collider2D collision) {
-        collisions.Remove( collision );
+    protected override void OnCollide(Collider2D coll) {        
+        if(coll.tag == "Enemy" && attack) {
+            attack = false;
+            Debug.Log( "Coll enemy" );
+            Damage dmg = new Damage{
+                damageAmount = Random.Range(minDamage,maxDamage+1),
+                origin = transform.position,
+                pushForce = knockback
+            };
+            coll.SendMessage( "ReceiveDamage", dmg );
+        }
+
+    }
+
+    public void AttackEnd() {
+        animator.SetBool( "IsAttacking", false );
+    }
+
+    public void Charged() {
+        charged = true;
     }
 }

@@ -7,6 +7,9 @@ TagManager:
   - Enemy
   - DamageArea
   - Spawn
+  - KeyText
+  - Weapon
+  - Collectable
   layers:
   - Default
   - TransparentFX

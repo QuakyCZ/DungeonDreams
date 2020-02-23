@@ -23,7 +23,7 @@ public class Collidable : MonoBehaviour
         if ( doUpdate ) {
             boxCollider.OverlapCollider( filter, hits );
             for ( int i = 0; i < hits.Count; i++ ) {
-                if ( hits[i] != null && hits[i].name == "Player" ) {
+                if (hits[i] != null) {
                     OnCollide( hits[i] );
                 }
                 hits[i] = null;
