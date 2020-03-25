@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models.Characters;
 using UnityEngine;
 
 public class Collidable : MonoBehaviour

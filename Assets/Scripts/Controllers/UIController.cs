@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models.Characters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
@@ -44,8 +45,8 @@ public class UIController : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
-    {      
-
+    {
+        hintGO.SetActive( true );
         // Set texts for abilities
         foreach (Ability ability in abilityGO.Keys) {
             //Debug.Log( "Changing UI for " + ability );

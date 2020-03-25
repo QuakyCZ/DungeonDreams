@@ -52,6 +52,7 @@ public class Character : MonoBehaviour {
     #region Objects
     public Abilities abilities;
     public CharacterStats stats;
+    private SpriteRenderer spriteRenderer;
     #endregion
 
 
@@ -66,7 +67,8 @@ public class Character : MonoBehaviour {
 
     protected virtual void InstantiateParameters() {
         abilities = new Abilities( armor, attackSpeed, minRange, strength, speed );
-        stats = new CharacterStats();
+        stats = new CharacterStats(health,maxHealth,mana,maxMana);
+        spriteRenderer = GetComponent<SpriteRenderer>();
 
         animator = GetComponent<Animator>();
         ResetCoolDown();
@@ -86,11 +88,11 @@ public class Character : MonoBehaviour {
             }
         }
         if (hasImmune) {
-            GetComponent<SpriteRenderer>().color = Color.red;
+            spriteRenderer.color = Color.red;
             if(Time.time - lastImmune > immuneTime) {
                 hasImmune = false;
                 lastImmune = Time.time;
-                GetComponent<SpriteRenderer>().color = Color.white;
+                spriteRenderer.color = Color.white;
             }
         }
     }
@@ -125,6 +127,11 @@ public class Character : MonoBehaviour {
     }
 
     public virtual void ReceiveDamage(Damage dmg) {
+        if (animator.GetBool("isAttacking") == true)
+        {
+            animator.SetBool("isAttacking",false);
+            ResetCoolDown();
+        }
         if (hasImmune == false) {
             hasImmune = true;
             Debug.Log( "ReceiveDamage" );

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models.Characters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,6 @@ public class PlayerStatsController : MonoBehaviour
 {
     #region parameters, variables, references
     public Player player;
-    float seconds = 1f;
 
     private UIController uiController;
 

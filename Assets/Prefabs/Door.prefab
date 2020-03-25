@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 3825543414655661904}
   - component: {fileID: 3825543414655661905}
   - component: {fileID: 3825543414655661906}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Door
   m_TagString: Collectable
   m_Icon: {fileID: 0}

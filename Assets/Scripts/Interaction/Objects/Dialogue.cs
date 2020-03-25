@@ -87,6 +87,23 @@ public class Dialogue : Collectable {
 
     protected override void OnCollect() {
         base.OnCollect();
+        Door door = GetComponent<Door>();
+        if (door != null) {
+            if (door.IsLocked()) {
+                return;
+            }
+            else {
+                ShowDialog();
+            }
+        }
+        else {
+            ShowDialog();
+        }
+        
+        
+        
+    }
+    protected void ShowDialog() {
         FindObjectOfType<MainController>().PauseGameTime();
 
         uiController.ToggleGUI( false );
@@ -94,9 +111,8 @@ public class Dialogue : Collectable {
 
         string[] sentence = dialogueList[0].Split( '>' );
         StartCoroutine( Type( sentence[0], true ) );
-        StartCoroutine( Type( sentence[1], false ) );        
+        StartCoroutine( Type( sentence[1], false ) );
     }
-
     /// <summary>
     /// Reads the file.
     /// </summary>

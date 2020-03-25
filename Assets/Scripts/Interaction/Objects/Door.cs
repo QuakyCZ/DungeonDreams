@@ -60,4 +60,8 @@ public class Door : Collectable
             animator.SetInteger( "openDoorAnim", -1 );
         }
     }
+
+    public bool IsLocked() {
+        return locked;
+    }
 }

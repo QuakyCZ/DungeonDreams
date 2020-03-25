@@ -42,7 +42,7 @@ public class Weapon : Collidable {
             attack = false;
             Debug.Log( "Coll enemy" );
             Damage dmg = new Damage{
-                damageAmount = Random.Range(minDamage,maxDamage+1),
+                damageAmount = Random.Range(minDamage,maxDamage),
                 origin = transform.position,
                 pushForce = knockback
             };

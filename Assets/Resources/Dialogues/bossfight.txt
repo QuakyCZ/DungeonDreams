@@ -1,4 +1,4 @@
-Drak>
-Dalimil>isodjfn
-Drak>soldfjs
+Dabel>Myslel sis, ze jsi rychlejsi nez ja, ale to ses zmylil. Ochutnej silu mého nejvernejsiho mazlicka...
+Dalimil>Co? Jakeho mazlicka?
+Dabel>Hodne stesti...
 $SpawnEnemies>Dragon>1
