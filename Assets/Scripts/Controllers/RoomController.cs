@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 public class RoomController : MonoBehaviour
@@ -22,20 +23,17 @@ public class RoomController : MonoBehaviour
 
     public Room outsideRoom;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public void CreateWorldGraph() {
         rooms = new List<Room>();
         outsideRoom = new Room( true ); 
         rooms.Add( outsideRoom );
-        //Debug.Log( "Rooms: " + rooms.Count );
         worldGraph = new WorldGraph((int)walls.localBounds.size.x, (int)walls.localBounds.size.y, walls, floor, doors, debugMap, this);
         floorQueue = new Queue<ClonedTile>();
         doorQueue = new Queue<ClonedTile>();
         DoRoomFloodFill();
         Debug.Log( $"Found {rooms.Count} rooms" );
     }
-
+    
     public void DoRoomFloodFill() {
         Room map = new Room();
         // Move all empty tiles into the outsideRoom and other into the map.

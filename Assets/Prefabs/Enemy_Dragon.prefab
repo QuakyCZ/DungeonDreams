@@ -356,7 +356,6 @@ GameObject:
   - component: {fileID: 724712530151170189}
   - component: {fileID: 7473025541658021622}
   - component: {fileID: 2310599746228120757}
-  - component: {fileID: 1734483089865437097}
   m_Layer: 11
   m_Name: Enemy_Dragon
   m_TagString: Enemy
@@ -525,41 +524,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRange: 1.74
   animator: {fileID: 0}
-  immuneTime: 0
-  armor: 0
-  speed: 1.43
-  attackSpeed: 0.35
-  strength: 1
-  charged: 0
-  stackTime: 1.8
-  health: 50
-  maxHealth: 50
-  mana: 0
-  maxMana: 0
-  minDamage: 2
-  maxDamage: 6
-  dropRandom: 0
-  dropItemsPrefabs:
-  - {fileID: 7862191755706559924, guid: 7e62f95058850344596f5145080f2dda, type: 3}
-  dropAmount: 0
-  dropChanceInPercent: 100
-  healthBar: {fileID: 6547390500905187630}
-  healthText: {fileID: 1150485064211308713}
-  maxFollowDistance: 4.63
---- !u!114 &1734483089865437097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7825109678318489515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minRange: 1.74
-  animator: {fileID: 724712530151170189}
   immuneTime: 0
   armor: 0
   speed: 1.43

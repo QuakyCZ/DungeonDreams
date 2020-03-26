@@ -1,148 +1,189 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using Controllers;
+using Models.Files;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Models.Characters
-{
-    public class Enemy : Character
-    {
+namespace Models.Characters {
+    public class Enemy : Character {
+        #region variables
+
         [SerializeField] protected int minDamage;
         [SerializeField] protected int maxDamage;
-        [Header("Death")]
-        [SerializeField] protected bool dropRandom;
+        [Header("Death")] [SerializeField] protected bool dropRandom;
         [SerializeField] protected List<GameObject> dropItemsPrefabs;
         [SerializeField] protected int dropAmount;
         [SerializeField] protected int dropChanceInPercent;
-        [Header("Enemy UI")]
-        [SerializeField]
-        private Slider healthBar;
+        [Header("Enemy UI")] [SerializeField] private Slider healthBar;
 
         [SerializeField] protected Text healthText;
 
         #region range
-        [Header("Range")]
-    
-        [SerializeField]
-        protected float maxFollowDistance;
-    
-        protected float playerDistance = 100;
+
+        [Header("Range")] [SerializeField] protected float maxFollowDistance;
+
+        protected float playerDistance => Vector2.Distance(transform.position, targetGO.transform.position);
+
+        protected List<Vector2> path;
+        protected int currentPathIndex;
+        private GameObject lineGO;
+        private LineRenderer line;
+
         #endregion
 
         protected GameObject targetGO;
 
         protected Vector2 localScale;
 
+        #endregion
+
         protected void InstantiateEnemyParameters() {
             localScale = transform.localScale;
-            targetGO = GameObject.Find( "Player" );
+            targetGO = GameObject.Find("Player");
             target = targetGO.transform;
-            healthBar.maxValue = stats.GetValue( Stats.maxHealth );
-            ChangeHealthBar( stats.GetValue( Stats.health ) );
-
+            healthBar.maxValue = stats.GetValue(Stats.maxHealth);
+            ChangeHealthBar(stats.GetValue(Stats.health));
         }
 
-        // Start is called before the first frame update
-        protected override void Awake()
-        {
+        protected override void Awake() {
             base.Awake();
             InstantiateEnemyParameters();
-        }    
+        }
+
+        protected override void Start() {
+            base.Start();
+            lineGO = Instantiate(MainController.Instance.lineGO);
+            line = lineGO.GetComponent<LineRenderer>();
+        }
 
         protected override void Update() {
-            if ( playerDistance <= minRange && charged && stacked == false )
+            base.Update();
+            if (playerDistance <= minRange && charged && stacked == false)
                 Attack();
-            if (stats.GetValue( Stats.health ) <= 0) {
+            if (stats.GetValue(Stats.health) <= 0) {
                 Die();
             }
-            base.Update();
         }
 
         protected override void FixedUpdate() {
-            if ( stacked == false ) {
-                FindPlayer();
+            if (stacked == false) {
+                if (Vector2.Distance(transform.position, targetGO.transform.position) > minRange) {
+                    if (path == null) {
+                        path = MainController.Instance.worldGraph.FindVectorPath(transform.position,
+                            targetGO.transform.position);
+                        currentPathIndex = 0;
+                    }
+                    else {
+                        
+                        if (ConfigFile.Get().HasDebug("path_lines")) {
+                            line.positionCount = path.Count;
+
+                            for (int i = 0; i < path.Count; i++) {
+                                line.SetPosition(i, path[i]);
+                            }
+                        }
+
+                        Vector3 targetPosition = path[currentPathIndex];
+                        if (Vector3.Distance(transform.position, targetPosition) > 0.5f) {
+                            Vector3 moveDir = (targetPosition - transform.position).normalized;
+                            Move(moveDir);
+                        }
+                        else {
+                            currentPathIndex++;
+                            
+                            if (currentPathIndex >= path.Count ||
+                                CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false) {
+                                StopMovement();
+                            }
+                        }
+                    }
+                }
+                else {
+                    StopMovement();
+                }
             }
         }
+
+        private bool CheckPlayerPosition(Vector3 position) {
+            ClonedTile playerTile = MainController.Instance.worldGraph.GetTileAt((int)targetGO.transform.position.x, (int)targetGO.transform.position.y);
+            ClonedTile lastTile = MainController.Instance.worldGraph.GetTileAt((int) position.x, (int) position.y);
+            if (playerTile != lastTile) {
+                return false;
+            }
+            return true;
+        }
+
+        protected void StopMovement() {
+            path = null;
+        }
+
         protected override void Die() {
             DropItem();
             base.Die();
-
         }
+
         protected void DropItem() {
-            if (dropItemsPrefabs != null && dropItemsPrefabs.Count>0) {
+            if (dropItemsPrefabs != null && dropItemsPrefabs.Count > 0) {
                 for (int i = 0; i < dropAmount; i++) {
-                    int r = Random.Range(0,(int)((1/(0.01*dropChanceInPercent))*dropItemsPrefabs.Count));
+                    int r = Random.Range(0, (int) ((1 / (0.01 * dropChanceInPercent)) * dropItemsPrefabs.Count));
                     if (r < dropItemsPrefabs.Count) {
                         GameObject dropped = Instantiate(dropItemsPrefabs[r]);
                         dropped.transform.position = transform.position;
                     }
                 }
             }
-
-        }
-        protected void FindPlayer() {
-            playerDistance = Vector3.Distance( target.transform.position, transform.position );
-
-            if ( playerDistance <= maxFollowDistance && playerDistance >= minRange ) {
-
-                Vector2 moveVector = Vector2.MoveTowards( transform.position, targetGO.transform.position, abilities.GetAbilityValue( Ability.speed ) * Time.deltaTime );
-
-                Move( moveVector );
-            }
         }
 
-        protected void Move(Vector2 moveVector) {
-            transform.position = moveVector;
+
+        protected void Move(Vector3 moveVector) {
+            transform.position += moveVector * speed * Time.deltaTime;
 
             Vector2 playerVector = target.transform.position;
             float deltaX = playerVector.x - transform.position.x;
 
-            if ( deltaX < 0 ) {
-                transform.localScale = new Vector2( -localScale.x, localScale.y );
-
+            if (deltaX < 0) {
+                transform.localScale = new Vector2(-localScale.x, localScale.y);
             }
-            else if ( deltaX > 0 ) {
-                transform.localScale = new Vector2( localScale.x, localScale.y );
+            else if (deltaX > 0) {
+                transform.localScale = new Vector2(localScale.x, localScale.y);
             }
         }
-           
+
         /// <summary>
         /// This is the method for attack. If the attack should be basic, use base.Attack().
         /// </summary>
         protected virtual void Attack() {
             charged = false;
             ResetCoolDown();
-            Debug.unityLogger.Log( "Enemy attacks" );
-            animator.SetBool( "isAttacking", true );
+            Debug.unityLogger.Log("Enemy attacks");
+            animator.SetBool("isAttacking", true);
         }
 
         public void AttackEnd() {
-            animator.SetBool( "isAttacking", false );
-            FindObjectOfType<Player>().ReceiveDamage( new Damage{origin = transform.position, damageAmount = Random.Range( minDamage, maxDamage + 1 ) } );
+            animator.SetBool("isAttacking", false);
+            FindObjectOfType<Player>().ReceiveDamage(new Damage
+                {origin = transform.position, damageAmount = Random.Range(minDamage, maxDamage + 1)});
         }
 
-        public void Charged() {
-            Debug.Log( "Enemy - Charged" );
-            charged = true;
-        }
 
         void ChangeHealthBar(int value) {
             healthBar.value = value;
-            healthText.text = value.ToString() + "/" + stats.GetValue( Stats.maxHealth );
+            healthText.text = value.ToString() + "/" + stats.GetValue(Stats.maxHealth);
         }
 
         public override void ReceiveDamage(Damage dmg) {
-            base.ReceiveDamage( dmg);
-            Debug.Log( "Take damage" );
-            ChangeHealthBar( stats.GetValue( Stats.health ) );
+            base.ReceiveDamage(dmg);
+            Debug.Log("Take damage");
+            ChangeHealthBar(stats.GetValue(Stats.health));
             Stack();
         }
 
         void OnDrawGizmosSelected() {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere( transform.position, maxFollowDistance );
+            Gizmos.DrawWireSphere(transform.position, maxFollowDistance);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere( transform.position, minRange );
+            Gizmos.DrawWireSphere(transform.position, minRange);
         }
-
     }
 }

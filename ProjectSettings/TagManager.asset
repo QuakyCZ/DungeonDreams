@@ -26,7 +26,7 @@ TagManager:
   - Empty
   - Minimap
   - Interactable
-  - 
+  - Debug
   - 
   - 
   - 
@@ -61,4 +61,7 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 1148526387
+    locked: 0
+  - name: Debug
+    uniqueID: 218741981
     locked: 0

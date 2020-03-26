@@ -4,55 +4,55 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
+
 public class MainMenuController : MonoBehaviour {
-    [SerializeField]
-    private Button playButton;
-    [SerializeField]
-    private Button creditsButton;
-    [SerializeField]
-    private Button exitButton;
-    [SerializeField]
-    private TextMeshProUGUI progress;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button optionsButton;
+    [SerializeField] private Button exitButton;
+    
+    [SerializeField] private TextMeshProUGUI progress;
 
     // Start is called before the first frame update
-    void Start() {
-
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update() {
-
-    }
+    void Update() { }
 
     #region MainMenuButtons
+
     public void ButtonPlayGame() {
-        Debug.Log( "Button: Play Game" );
+        Debug.Log("Button: Play Game");
         playButton.interactable = false;
         exitButton.interactable = false;
         creditsButton.interactable = false;
         string sceneName = "Floor_0";
-        StartCoroutine( LoadLevelAsync( sceneName ) );
+        StartCoroutine(LoadLevelAsync(sceneName));
 
-        Debug.Log( "Loading of '" + sceneName + "' Completed." );
+        Debug.Log("Loading of '" + sceneName + "' Completed.");
     }
 
     public void ButtonCredits() {
-        SceneManager.LoadScene( "Credits" );
+        SceneManager.LoadScene("Credits");
     }
 
+    public void ButtonOptions() {
+        SceneManager.LoadScene("Options");
+    }
+    
     public void ButtonExit() {
         Application.Quit();
     }
+
     #endregion
 
     IEnumerator LoadLevelAsync(string sceneName) {
-        Debug.Log( "Loading Level '" + sceneName + "'" );
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync( sceneName, LoadSceneMode.Single );
+        Debug.Log("Loading Level '" + sceneName + "'");
+        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         progress.enabled = true;
         while (gameLevel.progress < 1) {
-            progress.text = Mathf.FloorToInt( gameLevel.progress * 100 ).ToString() + "%";
+            progress.text = Mathf.FloorToInt(gameLevel.progress * 100).ToString() + "%";
             yield return new WaitForEndOfFrame();
         }
-
     }
 }

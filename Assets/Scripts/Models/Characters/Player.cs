@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Models.Files;
+using UnityEngine;
 
 namespace Models.Characters
 {
@@ -43,7 +44,9 @@ namespace Models.Characters
         }
 
         public override void ReceiveDamage(Damage dmg) {
-            base.ReceiveDamage( dmg );
+            if (!ConfigFile.Get().HasOption("immune")) {
+                base.ReceiveDamage( dmg );
+            }
         }
         #endregion
     }

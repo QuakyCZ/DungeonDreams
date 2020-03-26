@@ -10,6 +10,7 @@ public class InputController : MonoBehaviour
     public bool doUpdate = true;
 
     public GameObject menu;
+    [SerializeField] private Canvas console;
 
     Animator animator;
 
@@ -26,8 +27,10 @@ public class InputController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {      
-          
+    {
+        if (Input.GetKeyDown(KeyCode.F1)) {
+            console.gameObject.SetActive(!console.gameObject.active);
+        }
     }
 
     void FixedUpdate() {

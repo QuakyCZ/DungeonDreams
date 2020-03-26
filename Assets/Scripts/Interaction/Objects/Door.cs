@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Controllers;
+using Models.Files;
 using UnityEngine;
 
 public class Door : Collectable
@@ -12,30 +14,46 @@ public class Door : Collectable
     [SerializeField] protected Sprite closedSprite;
     [SerializeField] protected GameObject forbiddenArea;
     protected Animator animator;
-    bool oppened = false;
+    private bool _opened = false;
+    private ClonedTile tile;
+
+    private static readonly int OpenDoorAnim = Animator.StringToHash("openDoorAnim");
+    private static readonly int Opened = Animator.StringToHash("opened");
+
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
         animator = GetComponent<Animator>();
+        if (ConfigFile.Get().HasOption("open_doors")) {
+            locked = false;
+        }
+
+        tile = MainController.Instance.roomController.worldGraph
+            .GetTileAt(
+                (int) transform.position.x,
+                (int) transform.position.y
+                );
     }
 
 
-    public void IsOpened(int oppened = 0) {
-        if (oppened > 0) {
-            Debug.Log( "Door are oppened." );
-            animator.SetInteger( "openDoorAnim", 0 );
-            animator.SetBool( "oppened", true );
-            this.oppened = true;
+    public void IsOpened(int opened = 0) {
+        if (opened > 0) {
+            Debug.Log( "Door are opened." );
+            animator.SetInteger( OpenDoorAnim, 0 );
+            animator.SetBool(Opened, true);
+            _opened = true;
             GetComponent<SpriteRenderer>().sprite = openedSprite;
             forbiddenArea.SetActive( false );
+            tile.isWalkable = true;
         }
         else {
             Debug.Log( "Door are closed." );            
             GetComponent<SpriteRenderer>().sprite = closedSprite;
-            animator.SetInteger( "openDoorAnim", 0 );
-            animator.SetBool( "oppened", false );
-            this.oppened = false;           
+            animator.SetInteger( OpenDoorAnim, 0 );
+            animator.SetBool( Opened, false );
+            _opened = false;
+            tile.isWalkable = false;
         }
     }
 
@@ -50,14 +68,14 @@ public class Door : Collectable
                 OnCollect();
             }
         }
-        if(oppened == false) {
-            Debug.Log( "Oppening the door." );
-            animator.SetInteger( "openDoorAnim", 1 );
+        if(_opened == false) {
+            Debug.Log( "Opening the door." );
+            animator.SetInteger( OpenDoorAnim, 1 );
         }
         else {
             Debug.Log( "Closing the door." );
             forbiddenArea.SetActive( true );
-            animator.SetInteger( "openDoorAnim", -1 );
+            animator.SetInteger( OpenDoorAnim, -1 );
         }
     }
 

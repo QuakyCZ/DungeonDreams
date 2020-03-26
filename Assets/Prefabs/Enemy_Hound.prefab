@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96bc1bac8606d384787f8d8a3ab37eca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minRange: 0.8
+  minRange: 1
   animator: {fileID: 1294419221755517182}
   immuneTime: 0
   armor: 0

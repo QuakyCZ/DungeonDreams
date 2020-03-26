@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Controllers;
+using Models.Files;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -122,18 +124,21 @@ public class Dialogue : Collectable {
             Debug.LogError( "File doesn't exist." );
             return;
         }
-
-        Debug.Log( file.ToString() );
+        if(ConfigFile.Get().HasDebug("dialogue_file_content"))
+            Debug.Log( file.ToString() );
+        
         string[] lines = file.ToString().Split( '\r','\n' );
         for  ( int i = 0; i<lines.Length; i++) {
             string line = lines[i];
             if (line != "" && line.StartsWith( "$", StringComparison.Ordinal )==false) {
                 dialogueList.Add( line );
-                Debug.Log( $"{dialogueName}: Dialog line found: {line}" );
+                if(ConfigFile.Get().HasDebug("dialogue_file_content"))
+                    Debug.Log( $"{dialogueName}: Dialog line found: {line}" );
             }
             else if (line.StartsWith( "$", StringComparison.Ordinal )) {
                 actionsToPrepare.Enqueue( line.Substring( 1 ) );
-                Debug.Log( $"{dialogueName}: Action found: {line}" );
+                if(ConfigFile.Get().HasDebug("dialogue_file_content"))
+                    Debug.Log( $"{dialogueName}: Action found: {line}" );
             }
 
         }
