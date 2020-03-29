@@ -1,27 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using Controllers;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class Key : Collectable
-{
-    protected TextMeshProUGUI numberText;
-    // Start is called before the first frame update
-    protected override void Start()
+namespace Interaction.Objects {
+    public class Key : Collectable
     {
-        base.Start();
-        numberText = GameObject.FindGameObjectWithTag( "KeyText" ).GetComponent<TextMeshProUGUI>();
-    }
-
-
-    protected override void OnCollect() {
-        player.inventory.ChangeValue( InventoryDefault.key, 1, MathOperation.Add );
-        int amnt = player.inventory.GetValue( InventoryDefault.key );
-        if (amnt == 7) {
-            numberText.text = "1";
+        // Start is called before the first frame update
+        protected override void Start()
+        {
+            base.Start();
         }
-        else
-            numberText.text = amnt.ToString() + "/7";
-        gameObject.SetActive( false );
+
+
+        protected override void OnCollect() {
+            player.inventory.ChangeValue( InventoryDefault.key, 1, MathOperation.Add );
+            uiController.RefreshVisibleValue(InventoryDefault.key);
+            gameObject.SetActive( false );
+        }
     }
 }

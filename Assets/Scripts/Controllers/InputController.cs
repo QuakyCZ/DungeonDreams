@@ -10,26 +10,23 @@ public class InputController : MonoBehaviour
     public bool doUpdate = true;
 
     public GameObject menu;
-    [SerializeField] private Canvas console;
+    [SerializeField] private Canvas console = null;
 
-    Animator animator;
-
-    UIController uiController;
+    private UIController _uiController;
 
     // Start is called before the first frame update
     void Start()
     {
         //Debug.Log( "InputController start" );
         player = FindObjectOfType<Player>();
-        animator = GameObject.Find("Player").GetComponent<Animator>();
-        uiController = FindObjectOfType<UIController>();
+        _uiController = FindObjectOfType<UIController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1)) {
-            console.gameObject.SetActive(!console.gameObject.active);
+            console.gameObject.SetActive(!console.isActiveAndEnabled);
         }
     }
 
@@ -37,7 +34,7 @@ public class InputController : MonoBehaviour
         if (doUpdate) {
             //Debug.Log( "Move" );
             Move();
-            uiController.Log( "" );
+            _uiController.Log( "" );
         }
         
     }

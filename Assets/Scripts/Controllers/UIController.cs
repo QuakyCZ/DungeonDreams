@@ -9,36 +9,38 @@ using UnityEngine.UI;
 
 public class UIController : MonoBehaviour
 {
-    public GameObject menu;
-    [SerializeField] protected GameObject GUI;
-    [SerializeField] protected GameObject hintGO;
-    public MainController mainController;
+    public GameObject menu = null;
+    [SerializeField] protected GameObject GUI = null;
+    [SerializeField] protected GameObject hintGO = null;
+    public MainController mainController = null;
 
-    public Text log;
+    
     private bool doUpdate = true;
 
-    private Player player;
+    private Player _player = null;
 
     #region GameObjects
-    public GameObject healthBar;
-    public GameObject manaBar;
+    public GameObject healthBar = null;
+    public GameObject manaBar = null;
     #endregion
 
     #region Texts
-    public Text armorText;
-    public Text attackRangeText;
-    public Text attackSpeedText;
-    public Text strengthText;
-    public Text goldText;
-    public Text levelText;
-    public Text speedText;
+    public Text log = null;
+    public Text armorText = null;
+    public Text attackRangeText = null;
+    public Text attackSpeedText = null;
+    public Text strengthText = null;
+    public Text goldText = null;
+    public Text levelText = null;
+    public Text speedText = null;
+    public Text keyText = null;
     #endregion
 
     #region Dictionaries
-    public Dictionary <Stats, GameObject> lifeStatsGO;
-    public Dictionary <Ability, Text> abilityGO;
-    private Dictionary<Stats, Text> textStatsGO;
-    private Dictionary<InventoryDefault, Text> inventoryTextsGO;
+    public Dictionary <Stats, GameObject> lifeStatsGO = null;
+    public Dictionary <Ability, Text> abilityGO = null;
+    private Dictionary<Stats, Text> textStatsGO = null;
+    private Dictionary<InventoryDefault, Text> inventoryTextsGO = null;
     #endregion
 
     void Awake() {
@@ -54,7 +56,7 @@ public class UIController : MonoBehaviour
             //if(player.abilities == null ) {
             //    Debug.LogError( "player.abilities is null" );
             //}
-            float value = player.abilities.GetAbilityValue( ability );
+            float value = _player.abilities.GetAbilityValue( ability );
             RefreshVisibleValue( ability);
         }
 
@@ -74,7 +76,7 @@ public class UIController : MonoBehaviour
     }
     private void Instantiate() {
 
-        player = FindObjectOfType<Player>();
+        _player = FindObjectOfType<Player>();
 
         lifeStatsGO = new Dictionary<Stats, GameObject>();
         inventoryTextsGO = new Dictionary<InventoryDefault, Text>();
@@ -88,7 +90,7 @@ public class UIController : MonoBehaviour
                
         
         inventoryTextsGO.Add( InventoryDefault.gold, goldText );
-
+        inventoryTextsGO.Add(InventoryDefault.key,keyText);
         textStatsGO.Add( Stats.level, levelText );
        
 
@@ -122,12 +124,12 @@ public class UIController : MonoBehaviour
     /// <param name="stats">Stats.</param>
     public void RefreshVisibleValue(Stats stats) {
         if (lifeStatsGO.ContainsKey( stats )) {
-            int actualValue = player.stats.GetValue( stats );
-            Stats oposite = player.stats.maxStats[stats];
-            int maxValue = player.stats.GetValue( oposite );
+            int actualValue = _player.stats.GetValue( stats );
+            Stats opposite = _player.stats.maxStats[stats];
+            int maxValue = _player.stats.GetValue( opposite );
 
 
-            if (player.stats.GetValue( Stats.health ) <= 0) {
+            if (_player.stats.GetValue( Stats.health ) <= 0) {
                 SceneManager.LoadScene("GameOverLose");
                 Debug.Log( "You have died" );
             }
@@ -138,7 +140,7 @@ public class UIController : MonoBehaviour
             bar.GetComponentsInChildren<Text>()[0].text = actualValue.ToString() + "/" + maxValue.ToString();
         }
         else if ( textStatsGO.ContainsKey( stats ) ) {
-            textStatsGO[stats].text = player.stats.GetValue( stats ).ToString();
+            textStatsGO[stats].text = _player.stats.GetValue( stats ).ToString();
         }
         else {
             Debug.LogError( "statsDictionaries do not contain key " + stats );
@@ -150,11 +152,11 @@ public class UIController : MonoBehaviour
     /// </summary>
     /// <param name="ability">Ability.</param>
     public void RefreshVisibleValue(Ability ability) {
-        abilityGO[ability].text = ability.ToString() + ": " + player.abilities.GetAbilityValue(ability).ToString();
+        abilityGO[ability].text = ability.ToString() + ": " + _player.abilities.GetAbilityValue(ability);
     }
 
     public void RefreshVisibleValue(InventoryDefault inv) {
-        inventoryTextsGO[inv].text = player.inventory.GetValue(inv).ToString();
+        inventoryTextsGO[inv].text = _player.inventory.GetValue(inv).ToString();
     }
 
     public void ToggleGUI(bool toggle) {
@@ -162,11 +164,6 @@ public class UIController : MonoBehaviour
     }
 
     public void ToggleHint() {
-        if (hintGO.active == true) {
-            hintGO.SetActive( false );
-        }
-        else {
-            hintGO.SetActive( true );
-        }
+        hintGO.SetActive(!hintGO.activeSelf);
     }
 }

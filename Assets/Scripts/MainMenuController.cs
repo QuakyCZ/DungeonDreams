@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using TMPro;
 
 public class MainMenuController : MonoBehaviour {
-    [SerializeField] private Button playButton;
-    [SerializeField] private Button creditsButton;
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private Button exitButton;
+    [SerializeField] private Button playButton = null;
+    [SerializeField] private Button creditsButton = null;
+    [SerializeField] private Button optionsButton = null;
+    [SerializeField] private Button exitButton = null;
     
-    [SerializeField] private TextMeshProUGUI progress;
+    [SerializeField] private TextMeshProUGUI progress = null;
 
     // Start is called before the first frame update
     void Start() { }
@@ -26,6 +26,7 @@ public class MainMenuController : MonoBehaviour {
         playButton.interactable = false;
         exitButton.interactable = false;
         creditsButton.interactable = false;
+        optionsButton.interactable = false;
         string sceneName = "Floor_0";
         StartCoroutine(LoadLevelAsync(sceneName));
 

@@ -21,7 +21,7 @@ public class DeveloperConsole : MonoBehaviour {
     [Header("UI")] 
     public Canvas consoleCanvas;
     public ScrollRect scrollRect;
-    [SerializeField] private Text consoleOutput;
+    [SerializeField] private Text consoleOutput = null;
     
     public static DeveloperConsole Instance { get; private set; }
     public static Dictionary<string, ConsoleCommand> Commands { get; protected set; }

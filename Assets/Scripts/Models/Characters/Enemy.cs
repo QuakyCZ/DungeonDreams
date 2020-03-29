@@ -9,26 +9,26 @@ namespace Models.Characters {
     public class Enemy : Character {
         #region variables
 
-        [SerializeField] protected int minDamage;
-        [SerializeField] protected int maxDamage;
-        [Header("Death")] [SerializeField] protected bool dropRandom;
-        [SerializeField] protected List<GameObject> dropItemsPrefabs;
-        [SerializeField] protected int dropAmount;
-        [SerializeField] protected int dropChanceInPercent;
-        [Header("Enemy UI")] [SerializeField] private Slider healthBar;
+        [SerializeField] protected int minDamage = 0;
+        [SerializeField] protected int maxDamage = 0;
+        [Header("Death")] [SerializeField] protected bool dropRandom = false;
+        [SerializeField] protected List<GameObject> dropItemsPrefabs = null;
+        [SerializeField] protected int dropAmount = 0;
+        [SerializeField] protected int dropChanceInPercent = 100;
+        [Header("Enemy UI")] [SerializeField] private Slider healthBar = null;
 
-        [SerializeField] protected Text healthText;
+        [SerializeField] protected Text healthText = null;
 
         #region range
 
-        [Header("Range")] [SerializeField] protected float maxFollowDistance;
+        [Header("Range")] [SerializeField] protected float maxFollowDistance = 0;
 
         protected float playerDistance => Vector2.Distance(transform.position, targetGO.transform.position);
 
-        protected List<Vector2> path;
-        protected int currentPathIndex;
-        private GameObject lineGO;
-        private LineRenderer line;
+        protected List<Vector2> path = null;
+        protected int currentPathIndex = 0;
+        private GameObject lineGO = null;
+        private LineRenderer line = null;
 
         #endregion
 
@@ -85,7 +85,11 @@ namespace Models.Characters {
                         }
 
                         Vector3 targetPosition = path[currentPathIndex];
-                        if (Vector3.Distance(transform.position, targetPosition) > 0.5f) {
+                        /*if (CheckEmptyTile(targetPosition)||CheckEmptyTile(transform.position)) {
+                            StopMovement();
+                            return;
+                        }*/
+                        if (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
                             Vector3 moveDir = (targetPosition - transform.position).normalized;
                             Move(moveDir);
                         }
@@ -93,12 +97,13 @@ namespace Models.Characters {
                             currentPathIndex++;
                             
                             if (currentPathIndex >= path.Count ||
-                                CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false) {
+                                CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false ||
+                                CheckEmptyTile(new Vector3(path[currentPathIndex].x,path[currentPathIndex].y))) {
                                 StopMovement();
                             }
                         }
                     }
-                }
+                } 
                 else {
                     StopMovement();
                 }
@@ -114,8 +119,26 @@ namespace Models.Characters {
             return true;
         }
 
+        private bool CheckEmptyTile(Vector3 position) {
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            ClonedTile tile =
+                MainController.Instance.worldGraph.GetTileAt(
+                    Mathf.FloorToInt(position.x),
+                    Mathf.FloorToInt(position.y)
+                );
+            foreach (var enemy in enemies) {
+                ClonedTile enemyTile = MainController.Instance.worldGraph.GetTileAt(
+                    Mathf.FloorToInt(enemy.transform.position.x),
+                    Mathf.FloorToInt(enemy.transform.position.y)
+                );
+                if (tile == enemyTile) return true;
+            }
+            return false;
+        }
+
         protected void StopMovement() {
             path = null;
+            currentPathIndex = 0;
         }
 
         protected override void Die() {
@@ -136,8 +159,8 @@ namespace Models.Characters {
         }
 
 
-        protected void Move(Vector3 moveVector) {
-            transform.position += moveVector * speed * Time.deltaTime;
+        protected override void Move(Vector3 moveVector) {
+            transform.position += moveVector * (speed * Time.deltaTime);
 
             Vector2 playerVector = target.transform.position;
             float deltaX = playerVector.x - transform.position.x;

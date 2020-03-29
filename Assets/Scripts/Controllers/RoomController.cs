@@ -6,13 +6,13 @@ using UnityEngine.Tilemaps;
 public class RoomController : MonoBehaviour
 {
     [SerializeField]
-    private Tilemap floor;
+    private Tilemap floor = null;
     [SerializeField]
-    private Tilemap walls;
+    private Tilemap walls = null;
     [SerializeField]
-    private Tilemap doors;
+    private Tilemap doors = null;
     [SerializeField]
-    private Tilemap debugMap;
+    private Tilemap debugMap = null;
 
     public WorldGraph worldGraph;
     public List<Room> rooms;
@@ -75,7 +75,7 @@ public class RoomController : MonoBehaviour
                 // Check if there is new unassigned room behind the door.
                 bool isNewRoom = false;
 
-                foreach (ClonedTile nb in door.GetNeighbours() ) {
+                foreach (ClonedTile nb in worldGraph.GetNeighbours(door) ) {
                     if ( nb.type == TileType.Floor && nb.room == null) {
                         floorQueue.Enqueue( nb );
                         isNewRoom = true;
@@ -128,7 +128,7 @@ public class RoomController : MonoBehaviour
         newRoom.AssignTile( tile );
 
         // Enqueue tile's neighbours
-        foreach(ClonedTile nb in tile.GetNeighbours() ) {
+        foreach(ClonedTile nb in worldGraph.GetNeighbours(tile) ) {
             if(nb.type == TileType.Door ) {
                 doorQueue.Enqueue( nb );
                 //Debug.Log( "Enqueuing door. Door count: " + doorQueue.Count );

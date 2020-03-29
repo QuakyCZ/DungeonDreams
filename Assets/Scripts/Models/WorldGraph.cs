@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Controllers;
+using Models.Characters;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -66,6 +67,7 @@ namespace Models {
                         clonedTile = new ClonedTile(w_x, w_y, x, y, TileType.Floor);
                         tiles[w_x, w_y] = clonedTile;
                         originalTiles.Add(clonedTile, tile);
+                        clonedTile.isWalkable = true;
                     }
 
                     tile = walls.GetTile(pos);
@@ -125,10 +127,53 @@ namespace Models {
         public ClonedTile GetTileAt(int x, int y) {
             int _x = x - xOffset;
             int _y = y - yOffset;
-            Debug.Log("Get tile at: " + _x + " " + _y);
             return tiles[_x, _y];
         }
-        
+
+        public List<ClonedTile> GetNeighbours(ClonedTile tile) {
+            List<ClonedTile> nb = new List<ClonedTile>();
+            int x = tile.x;
+            int y = tile.y;
+            if (x + 1 < width) {
+                nb.Add(tiles[x + 1, y]);
+            }
+
+            if (x - 1 >= 0) {
+                nb.Add(tiles[x - 1, y]);
+            }
+
+            if (y + 1 < height) {
+                nb.Add(tiles[x, y + 1]);
+            }
+
+            if (y - 1 >= 0) {
+                nb.Add(tiles[x, y - 1]);
+            }
+
+            //TOP RIGHT
+            if (x + 1 < width && y + 1 < height && tiles[x, y + 1].isWalkable && tiles[x + 1, y].isWalkable) {
+                nb.Add(tiles[x + 1, y + 1]);
+            }
+
+            //BOTTOM RIGHT
+            if (x + 1 < width && y - 1 > 0 && tiles[x, y - 1].isWalkable && tiles[x + 1, y].isWalkable) {
+                nb.Add(tiles[x + 1, y - 1]);
+            }
+
+            //TOP LEFT
+            if (tile.x - 1 > 0 && y + 1 < height && tiles[x, y + 1].isWalkable && tiles[x - 1, y].isWalkable) {
+                nb.Add(tiles[x - 1, y + 1]);
+            }
+
+            //BOTTOM LEFT
+            if (tile.x - 1 > 0 && y - 1 > 0 && tiles[x - 1, y].isWalkable && tiles[x, y - 1].isWalkable) {
+                nb.Add(tiles[x - 1, y - 1]);
+            }
+
+            //Debug.Log( "Get neighbours for tile: X: " + x + " Y: " + y + " Count: " + nb.Count.ToString());
+            return nb;
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -143,13 +188,13 @@ namespace Models {
             else {
                 List<Vector2> vectorPath = new List<Vector2>();
                 foreach (var tile in path) {
-                    vectorPath.Add(new Vector2(tile.realX+0.5f, tile.realY+0.5f));
+                    vectorPath.Add(new Vector2(tile.realX + 0.5f, tile.realY + 0.5f));
                 }
 
                 return vectorPath;
             }
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -157,8 +202,15 @@ namespace Models {
         /// <param name="end">End position in the world.</param>
         /// <returns></returns>
         public List<ClonedTile> FindPath(Vector2 start, Vector2 end) {
-            ClonedTile startTile = GetTileAt((int) start.x, (int) start.y);
-            ClonedTile endTile = GetTileAt((int) end.x, (int) end.y);
+            ClonedTile startTile = GetTileAt(
+                Mathf.FloorToInt(start.x),
+                Mathf.FloorToInt(start.y)
+            );
+
+            ClonedTile endTile = GetTileAt(
+                Mathf.FloorToInt(end.x),
+                Mathf.FloorToInt(end.y)
+            );
 
             List<ClonedTile> openList = new List<ClonedTile>();
             List<ClonedTile> closedTiles = new List<ClonedTile>();
@@ -182,8 +234,8 @@ namespace Models {
                 openList.Remove(currentTile);
                 closedTiles.Add(currentTile);
 
-                foreach (ClonedTile neighbour in currentTile.GetNeighbours()) {
-                    if (closedTiles.Contains(neighbour) == false && neighbour.isWalkable) {
+                foreach (ClonedTile neighbour in GetNeighbours(currentTile)) {
+                    if (closedTiles.Contains(neighbour) == false && neighbour.isWalkable && CheckEmptyTile(new Vector3(neighbour.realX,neighbour.realY))==false) {
                         int tentativeGCost = currentTile.gCost + GetDistance(currentTile, neighbour);
                         if (tentativeGCost < neighbour.gCost) {
                             neighbour.cameFrom = currentTile;
@@ -210,6 +262,7 @@ namespace Models {
                 path.Add(current.cameFrom);
                 current = current.cameFrom;
             }
+
             path.Reverse();
 
             Debug.Log("Path length: " + path.Count);
@@ -232,6 +285,24 @@ namespace Models {
             int yDistance = Mathf.Abs(a.y - b.y);
             int remaining = Mathf.Abs(xDistance - yDistance);
             return MoveDiagonalCost * Mathf.Min(xDistance, yDistance) + MoveStraightCost * remaining;
+        }
+
+        private bool CheckEmptyTile(Vector3 position) {
+            Enemy[] enemies = GameObject.FindObjectsOfType<Enemy>();
+            ClonedTile tile =
+               GetTileAt(
+                    Mathf.FloorToInt(position.x),
+                    Mathf.FloorToInt(position.y)
+                );
+            foreach (var enemy in enemies) {
+                ClonedTile enemyTile = GetTileAt(
+                    Mathf.FloorToInt(enemy.transform.position.x),
+                    Mathf.FloorToInt(enemy.transform.position.y)
+                );
+                if (tile == enemyTile) return true;
+            }
+
+            return false;
         }
     }
 }

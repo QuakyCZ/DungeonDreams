@@ -15,22 +15,22 @@ namespace Models.Characters {
         #region Abilities
         [Header("Abilities")]
         [SerializeField]
-        private float armor;
+        private float armor = 0;
         [SerializeField]
-        protected float speed;
+        protected float speed = 0;
         [SerializeField]
-        private float attackSpeed;
+        private float attackSpeed = 0;
     
         [SerializeField]
-        private float strength;
+        private float strength = 0;
 
-        [SerializeField]protected bool charged;
+        [SerializeField]protected bool charged = true;
     
-        private float attackCooldown;
+        private float attackCooldown = 0;
 
         [SerializeField]
-        protected float stackTime;
-        protected float stackCoolDown;
+        protected float stackTime = 0;
+        protected float stackCoolDown = 0;
         protected bool stacked = false;
         protected bool hasImmune = false;
         #endregion
@@ -38,20 +38,20 @@ namespace Models.Characters {
         #region Character Stats
         [Header("Character Stats")]
         [SerializeField]
-        private int health;
+        private int health = 0;
         [SerializeField]
-        private int maxHealth;
+        private int maxHealth = 0;
         [SerializeField]
-        private int mana;
+        private int mana = 0;
         [SerializeField]
-        private int maxMana;
+        private int maxMana = 0;
 
         #endregion
 
         #region Objects
         public Abilities abilities;
         public CharacterStats stats;
-        private SpriteRenderer spriteRenderer;
+        private SpriteRenderer spriteRenderer = null;
         #endregion
 
 

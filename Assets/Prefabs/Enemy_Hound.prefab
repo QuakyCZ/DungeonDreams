@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1294419221755517182}
   - component: {fileID: 6375435139495150021}
   - component: {fileID: 7128424764143563667}
-  m_Layer: 11
+  m_Layer: 16
   m_Name: Enemy_Hound
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
   animator: {fileID: 1294419221755517182}
   immuneTime: 0
   armor: 0
-  speed: 1
+  speed: 1.7
   attackSpeed: 0.26
   strength: 1
   charged: 0

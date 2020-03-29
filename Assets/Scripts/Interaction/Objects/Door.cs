@@ -28,12 +28,13 @@ public class Door : Collectable
         if (ConfigFile.Get().HasOption("open_doors")) {
             locked = false;
         }
-
+        Debug.Log($"Door: {Mathf.FloorToInt(transform.position.x)} {Mathf.FloorToInt(transform.position.y)}");
+       
         tile = MainController.Instance.roomController.worldGraph
             .GetTileAt(
-                (int) transform.position.x,
-                (int) transform.position.y
-                );
+                Mathf.FloorToInt(transform.position.x),
+                Mathf.FloorToInt(transform.position.y)
+            );
     }
 
 
@@ -46,6 +47,7 @@ public class Door : Collectable
             GetComponent<SpriteRenderer>().sprite = openedSprite;
             forbiddenArea.SetActive( false );
             tile.isWalkable = true;
+            
         }
         else {
             Debug.Log( "Door are closed." );            

@@ -87,14 +87,20 @@ namespace Models.Files {
             Debug.Log($"Config:SetOption({key},{value})");
             key = key.ToLower();
 
-            if (value == true) {
-                if (HasOption(key) == false) {
-                    options.Add(key);
+            switch (value) {
+                case true: {
+                    if (HasOption(key) == false) {
+                        options.Add(key);
+                    }
+
+                    break;
                 }
-            }
-            else if (value == false) {
-                if (HasOption(key) == false) {
-                    options.Remove(key);
+                case false: {
+                    if (HasOption(key) == true) {
+                        options.Remove(key);
+                    }
+
+                    break;
                 }
             }
         }

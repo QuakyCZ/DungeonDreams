@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 namespace Controllers {
     public class OptionsController : MonoBehaviour {
-        [SerializeField] private Toggle debugConsoleToggle;
-        [SerializeField] private Toggle debugToggle;
-        [SerializeField] private Toggle debugDialogueFileContentToggle;
-        [SerializeField] private Toggle debugPathLinesToggle;
+        [SerializeField] private Toggle debugConsoleToggle = null;
+        [SerializeField] private Toggle debugToggle = null;
+        [SerializeField] private Toggle debugDialogueFileContentToggle = null;
+        [SerializeField] private Toggle debugPathLinesToggle = null;
         
-        [SerializeField] private Toggle openDoorsToggle;
-        [SerializeField] private Toggle immuneToggle;
+        [SerializeField] private Toggle openDoorsToggle = null;
+        [SerializeField] private Toggle immuneToggle = null;
         
         private Dictionary<string, Toggle> _toggles;
         // Start is called before the first frame update
@@ -31,7 +31,7 @@ namespace Controllers {
             debugToggle.isOn = ConfigFile.Get().HasDebug("all");
             debugConsoleToggle.isOn = ConfigFile.Get().HasExactDebug("console");
             debugDialogueFileContentToggle.isOn = ConfigFile.Get().HasExactDebug("dialogue_file_content");
-            debugPathLinesToggle.isOn = ConfigFile.Get().HasExactDebug("path_lines");
+            debugPathLinesToggle.isOn = ConfigFile.Get().HasExactDebug("path_lines");   
             
             openDoorsToggle.isOn = ConfigFile.Get().HasOption("open_doors");
             immuneToggle.isOn = ConfigFile.Get().HasOption("immune");

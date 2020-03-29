@@ -31,7 +31,7 @@ public class Dialogue : Collectable {
     [SerializeField] protected string dialogueName; // the name of the dialogue file without suffix
     #endregion
     #region spawning characters and enemies
-    [SerializeField] EnemyPrefabs enemyPrefabs;
+    [SerializeField] EnemyPrefabs enemyPrefabs = null;
     protected List<GameObject> enemiesToSpawn;
     [SerializeField] protected Vector2 spawnPosition;
     #endregion
