@@ -30,11 +30,13 @@ namespace Controllers
                 Instance = this;
             }
             ConfigFile.SetUp();
+            Language.SetUp();
             player = FindObjectOfType<Player>();
             mainCamera = Camera.main;
             player.SetPosition( spawn.transform.position );
             roomController.CreateWorldGraph();
             worldGraph = roomController.worldGraph;
+            
         }
 
         // Update is called once per frame

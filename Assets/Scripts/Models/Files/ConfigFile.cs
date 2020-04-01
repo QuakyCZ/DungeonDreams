@@ -53,16 +53,13 @@ namespace Models.Files {
 
     [Serializable]
     public class Config {
-        /// <summary>
-        /// Do not use this
-        /// </summary>
+        public string language;
+        
         public List<string> debug;
-
-        /// <summary>
-        /// Do not use this
-        /// </summary>
         public List<string> options;
 
+        
+        
         /// <summary>
         /// 
         /// </summary>

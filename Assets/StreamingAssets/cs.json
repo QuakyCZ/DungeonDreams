@@ -1,0 +1,29 @@
+﻿{
+  "language": "cs",
+  "dics": {
+    "buttons": {
+      "play": "Hrát",
+      "credits": "Titulky",
+      "options": "Možnosti",
+      "feedback": "Zpětná vazba",
+      "exit": "Ukončit hru",
+      "mainMenu": "Hlavní Menu",
+      "close": "Zavrit"
+    },
+    "credits": {      
+      "developer": "Hlavní vývojář",
+      "graphics": "Grafika"
+    },
+    "controls": {
+      "attack": "utok",
+      "moveUp": "pohyb nahoru",
+      "moveDown": "pohyb dolu",
+      "moveLeft": "pohyb doleva",
+      "moveRight": "pohyb doprava"
+    },
+    "titles": {
+      "credits": "TITULKY",
+      "controls": "OVLADANI"
+    }
+  }
+}

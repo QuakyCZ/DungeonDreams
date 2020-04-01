@@ -1,0 +1,42 @@
+﻿{
+  "language": "en",
+  "dics": {    
+    "buttons": {
+      "play": "Play",
+      "credits": "Credits",
+      "options": "Options",
+      "feedback": "Feedback",
+      "exit": "Exit",
+      "mainMenu": "Main Menu",
+      "close": "Close"
+    },
+    "credits": {      
+      "developer": "Main Developer",
+      "graphics": "Graphics"
+    },
+    "controls": {
+      "attack": "attack",
+      "moveUp": "move up",
+      "moveDown": "move down",
+      "moveLeft": "move left",
+      "moveRight": "move right"
+    },
+    "titles": {
+      "credits": "CREDITS",
+      "controls": "CONTROLS"
+    },
+    "stats": {
+      "health": "HEALTH",
+      "level": "LEVEL" 
+    },
+    "inventory": {
+      "gold": "GOLD",
+      "keys": "KEYS"
+    },
+    "abilities": {
+      "armor": "ARMOR",
+      "weaponRange": "Weapon range"
+    }
+    
+  }
+}

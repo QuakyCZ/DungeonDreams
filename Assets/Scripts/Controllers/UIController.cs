@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Remoting.Messaging;
 using Controllers;
 using Models.Characters;
 using UnityEngine;
@@ -7,114 +8,123 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
-public class UIController : MonoBehaviour
-{
+public class UIController : MonoBehaviour {
     public GameObject menu = null;
     [SerializeField] protected GameObject GUI = null;
     [SerializeField] protected GameObject hintGO = null;
     public MainController mainController = null;
 
-    
+
     private bool doUpdate = true;
 
     private Player _player = null;
 
+    [Header("GUI")]
+
     #region GameObjects
+
+    [Header("Bars")]
     public GameObject healthBar = null;
-    public GameObject manaBar = null;
     #endregion
+
 
     #region Texts
-    public Text log = null;
-    public Text armorText = null;
-    public Text attackRangeText = null;
-    public Text attackSpeedText = null;
-    public Text strengthText = null;
-    public Text goldText = null;
-    public Text levelText = null;
-    public Text speedText = null;
-    public Text keyText = null;
+
+    [Header("Abilities and inventory")] [SerializeField]
+    private Text log = null;
+    [SerializeField] private Text goldText = null;
+    [SerializeField] private Text speedText = null;
+    [SerializeField] private Text keyText = null;
+    [SerializeField] private Text healthPotionText = null;
     #endregion
 
+    [Header("Hint")] [SerializeField] private Text titleHint = null;
+    [SerializeField] private Text attackHint = null;
+    [SerializeField] private Text moveUpHint = null;
+    [SerializeField] private Text moveDownHint = null;
+    [SerializeField] private Text moveLeftHint = null;
+    [SerializeField] private Text moveRightHint = null;
+    [SerializeField] private Button closeHint = null;
+
     #region Dictionaries
-    public Dictionary <Stats, GameObject> lifeStatsGO = null;
-    public Dictionary <Ability, Text> abilityGO = null;
-    private Dictionary<Stats, Text> textStatsGO = null;
+
+    public Dictionary<Stats, GameObject> lifeStatsGO = null;
+    public Dictionary<Ability, Text> abilityGO = null;
     private Dictionary<InventoryDefault, Text> inventoryTextsGO = null;
+    private Dictionary<InventoryConsumable, Text> inventoryConsumableTextsGO = null;
+
     #endregion
 
     void Awake() {
         Instantiate();
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-        hintGO.SetActive( true );
-        // Set texts for abilities
-        foreach (Ability ability in abilityGO.Keys) {
-            //Debug.Log( "Changing UI for " + ability );
-            //if(player.abilities == null ) {
-            //    Debug.LogError( "player.abilities is null" );
-            //}
-            float value = _player.abilities.GetAbilityValue( ability );
-            RefreshVisibleValue( ability);
-        }
 
-        foreach (Stats stats in textStatsGO.Keys) {
-            RefreshVisibleValue( stats );
-        }
+    // Start is called before the first frame update
+    void Start() {
+        SetUpLanguage();
+        hintGO.SetActive(true);
+        // Set texts for abilities
+        RefreshVisibleValue(InventoryDefault.gold);
+        RefreshVisibleValue(InventoryDefault.key);
+        RefreshVisibleValue(InventoryConsumable.healthPotion);
+    }
+
+    private void SetUpLanguage() {
+        titleHint.text = Language.GetString(GameDictionaryType.titles, "controls");
+        attackHint.text = Language.GetString(GameDictionaryType.controls, "attack");
+        moveUpHint.text = Language.GetString(GameDictionaryType.controls, "moveUp");
+        moveDownHint.text = Language.GetString(GameDictionaryType.controls, "moveDown");
+        moveLeftHint.text = Language.GetString(GameDictionaryType.controls, "moveLeft");
+        moveRightHint.text = Language.GetString(GameDictionaryType.controls, "moveRight");
+        closeHint.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "close");
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         if (doUpdate) {
-            if (Input.GetKeyDown( KeyCode.Escape )) {
-                ShowMenu( mainController.doUpdate );
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                ShowMenu(mainController.doUpdate);
             }
         }
     }
-    private void Instantiate() {
 
+    private void Instantiate() {
         _player = FindObjectOfType<Player>();
 
         lifeStatsGO = new Dictionary<Stats, GameObject>();
         inventoryTextsGO = new Dictionary<InventoryDefault, Text>();
-        textStatsGO = new Dictionary<Stats, Text>();
+        inventoryConsumableTextsGO = new Dictionary<InventoryConsumable, Text>();
         abilityGO = new Dictionary<Ability, Text>();
 
         #region statsGO
-        lifeStatsGO.Add( Stats.health, healthBar );
-        lifeStatsGO.Add( Stats.mana, manaBar );
-        #endregion
-               
-        
-        inventoryTextsGO.Add( InventoryDefault.gold, goldText );
-        inventoryTextsGO.Add(InventoryDefault.key,keyText);
-        textStatsGO.Add( Stats.level, levelText );
-       
 
-        #region abilityGO        
-        abilityGO.Add( Ability.armor, armorText );
-        abilityGO.Add( Ability.attackRange, attackRangeText );
-        abilityGO.Add( Ability.attackSpeed, attackSpeedText );
-        abilityGO.Add( Ability.strength, strengthText );
-        abilityGO.Add( Ability.speed, speedText );
+        lifeStatsGO.Add(Stats.health, healthBar);
+
         #endregion
+
+
+        inventoryTextsGO.Add(InventoryDefault.gold, goldText);
+        inventoryTextsGO.Add(InventoryDefault.key, keyText);
+        inventoryConsumableTextsGO.Add(InventoryConsumable.healthPotion, healthPotionText);
     }
+
     #region inGameMenu
-    public void ShowMenu(bool enable = true) { // Also Resume Game button uses this method.
-        mainController.PauseGameTime( enable );
-        menu.SetActive( enable );
+
+    public void ShowMenu(bool enable = true) {
+        // Also Resume Game button uses this method.
+        mainController.PauseGameTime(enable);
+        menu.SetActive(enable);
     }
 
     public void ExitToMainMenu() {
-        SceneManager.LoadScene( "MainMenu" );
+        SceneManager.LoadScene("MainMenu");
     }
+
     #endregion
 
 
-    public void Log(string message ) {
+    public void Log(string message) {
         log.text = message;
     }
 
@@ -123,27 +133,24 @@ public class UIController : MonoBehaviour
     /// </summary>
     /// <param name="stats">Stats.</param>
     public void RefreshVisibleValue(Stats stats) {
-        if (lifeStatsGO.ContainsKey( stats )) {
-            int actualValue = _player.stats.GetValue( stats );
+        if (lifeStatsGO.ContainsKey(stats)) {
+            int actualValue = _player.stats.GetValue(stats);
             Stats opposite = _player.stats.maxStats[stats];
-            int maxValue = _player.stats.GetValue( opposite );
+            int maxValue = _player.stats.GetValue(opposite);
 
 
-            if (_player.stats.GetValue( Stats.health ) <= 0) {
+            if (_player.stats.GetValue(Stats.health) <= 0) {
                 SceneManager.LoadScene("GameOverLose");
-                Debug.Log( "You have died" );
+                Debug.Log("You have died");
             }
 
-            float valueFraction = ( float )actualValue / maxValue;
+            float valueFraction = (float) actualValue / maxValue;
             GameObject bar = lifeStatsGO[stats];
             bar.GetComponent<Image>().fillAmount = valueFraction;
             bar.GetComponentsInChildren<Text>()[0].text = actualValue.ToString() + "/" + maxValue.ToString();
         }
-        else if ( textStatsGO.ContainsKey( stats ) ) {
-            textStatsGO[stats].text = _player.stats.GetValue( stats ).ToString();
-        }
         else {
-            Debug.LogError( "statsDictionaries do not contain key " + stats );
+            Debug.LogError("statsDictionaries do not contain key " + stats);
         }
     }
 
@@ -157,6 +164,10 @@ public class UIController : MonoBehaviour
 
     public void RefreshVisibleValue(InventoryDefault inv) {
         inventoryTextsGO[inv].text = _player.inventory.GetValue(inv).ToString();
+    }
+    
+    public void RefreshVisibleValue(InventoryConsumable inv) {
+        inventoryConsumableTextsGO[inv].text = _player.inventory.GetValue(inv).ToString();
     }
 
     public void ToggleGUI(bool toggle) {

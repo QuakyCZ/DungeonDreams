@@ -9,7 +9,7 @@ public enum InventoryDefault {
     key
 }
 public enum InventoryConsumable {
-    healthPotion, manaPotion
+    healthPotion
 }
 public enum MathOperation {
     Add, Remove, Multiple, Divide
@@ -19,18 +19,17 @@ public class Inventory {
 
     private static Inventory instance;
 
-    protected Dictionary<InventoryDefault, int>     inventoryDefault;
-    protected Dictionary<InventoryConsumable, int>  inventoryConsumable;
+    private Dictionary<InventoryDefault, int>     _inventoryDefault;
+    private Dictionary<InventoryConsumable, int>  _inventoryConsumable;
 
     private Inventory() {
 
-        inventoryDefault = new Dictionary<InventoryDefault, int>();
-        inventoryDefault.Add( InventoryDefault.gold, 0 );
-        inventoryDefault.Add( InventoryDefault.key, 0 );
+        _inventoryDefault = new Dictionary<InventoryDefault, int>();
+        _inventoryDefault.Add( InventoryDefault.gold, 0 );
+        _inventoryDefault.Add( InventoryDefault.key, 0 );
 
-        inventoryConsumable = new Dictionary<InventoryConsumable, int>();
-        inventoryConsumable.Add( InventoryConsumable.healthPotion, 0 );
-        inventoryConsumable.Add( InventoryConsumable.manaPotion, 0 );
+        _inventoryConsumable = new Dictionary<InventoryConsumable, int>();
+        _inventoryConsumable.Add( InventoryConsumable.healthPotion, 0 );
     }
 
     public static Inventory GetInstance(bool startGame = false) {
@@ -44,35 +43,35 @@ public class Inventory {
     }
 
     public int GetValue(InventoryConsumable inv) {
-        return inventoryConsumable[inv];
+        return _inventoryConsumable[inv];
     }
     public int GetValue(InventoryDefault inv) {
         
-        return inventoryDefault[inv];
+        return _inventoryDefault[inv];
     }
 
     public void SetValue(InventoryConsumable inv, int value) {
         
-        inventoryConsumable[inv] = value;
+        _inventoryConsumable[inv] = value;
     }
 
     public void SetValue(InventoryDefault inv, int value) {
-        inventoryDefault[inv] = value;
+        _inventoryDefault[inv] = value;
     }
 
     public void ChangeValue(InventoryConsumable inv, int value, MathOperation operation) {
         switch (operation) {
             case MathOperation.Add:
-                inventoryConsumable[inv] += value;
+                _inventoryConsumable[inv] += value;
                 break;
             case MathOperation.Remove:
-                inventoryConsumable[inv] -= value;
+                _inventoryConsumable[inv] -= value;
                 break;
             case MathOperation.Multiple:
-                inventoryConsumable[inv] *= value;
+                _inventoryConsumable[inv] *= value;
                 break;
             case MathOperation.Divide:
-                inventoryConsumable[inv] /= value;
+                _inventoryConsumable[inv] /= value;
                 break;
         }
         
@@ -81,16 +80,16 @@ public class Inventory {
     public void ChangeValue(InventoryDefault inv, int value, MathOperation operation) {
         switch (operation) {
             case MathOperation.Add:
-            inventoryDefault[inv] += value;
+            _inventoryDefault[inv] += value;
             break;
             case MathOperation.Remove:
-            inventoryDefault[inv] -= value;
+            _inventoryDefault[inv] -= value;
             break;
             case MathOperation.Multiple:
-            inventoryDefault[inv] *= value;
+            _inventoryDefault[inv] *= value;
             break;
             case MathOperation.Divide:
-            inventoryDefault[inv] /= value;
+            _inventoryDefault[inv] /= value;
             break;
         }
     }

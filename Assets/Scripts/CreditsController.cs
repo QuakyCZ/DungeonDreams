@@ -1,22 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models.Files;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class CreditsController : MonoBehaviour
-{
+public class CreditsController : MonoBehaviour {
+    [SerializeField] private TextMeshProUGUI title = null;
+    [SerializeField] private TextMeshProUGUI mainDeveloper = null;
+    [SerializeField] private TextMeshProUGUI graphics = null;
+    [SerializeField] private Button mainMenuButton = null;
+
     // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start() {
+        ConfigFile.SetUp();
+        Language.SetUp();
+        title.text = Language.GetString(GameDictionaryType.titles, "credits");
+        mainDeveloper.text = Language.GetString(GameDictionaryType.credits, "developer");
+        graphics.text = Language.GetString(GameDictionaryType.credits, "graphics");
+        mainMenuButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "mainMenu");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void MainMenuButton() {
-        SceneManager.LoadScene( "MainMenu" );
+        SceneManager.LoadScene("MainMenu");
     }
 }

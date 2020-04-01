@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Models.Files;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -9,12 +10,31 @@ public class MainMenuController : MonoBehaviour {
     [SerializeField] private Button playButton = null;
     [SerializeField] private Button creditsButton = null;
     [SerializeField] private Button optionsButton = null;
+    [SerializeField] private Button feedbackButton = null;
     [SerializeField] private Button exitButton = null;
     
     [SerializeField] private TextMeshProUGUI progress = null;
 
     // Start is called before the first frame update
-    void Start() { }
+    void Start() {
+        ConfigFile.SetUp();
+        Language.SetUp();
+        
+        playButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "play");
+        
+        creditsButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "credits");
+        
+        optionsButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "options");
+        
+        feedbackButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "feedback");
+        
+        exitButton.gameObject.GetComponentInChildren<Text>().text =
+            Language.GetString(GameDictionaryType.buttons, "exit");
+    }
 
     // Update is called once per frame
     void Update() { }
@@ -24,9 +44,10 @@ public class MainMenuController : MonoBehaviour {
     public void ButtonPlayGame() {
         Debug.Log("Button: Play Game");
         playButton.interactable = false;
-        exitButton.interactable = false;
         creditsButton.interactable = false;
         optionsButton.interactable = false;
+        feedbackButton.interactable = false;
+        exitButton.interactable = false;
         string sceneName = "Floor_0";
         StartCoroutine(LoadLevelAsync(sceneName));
 
@@ -39,6 +60,10 @@ public class MainMenuController : MonoBehaviour {
 
     public void ButtonOptions() {
         SceneManager.LoadScene("Options");
+    }
+
+    public void ButtonBugReport() {
+        SceneManager.LoadScene("BugReport");
     }
     
     public void ButtonExit() {

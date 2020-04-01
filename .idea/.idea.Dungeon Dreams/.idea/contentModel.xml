@@ -7,7 +7,29 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="HealthPotion.cs" t="Include" />
+        <e p="BayatGames" t="Include">
+          <e p="JsonFormatter" t="Include">
+            <e p="Documentation" t="Include">
+              <e p="JsonFormatter Documentation.txt" t="Include" />
+            </e>
+            <e p="Examples" t="Include">
+              <e p="Scripts" t="Include">
+                <e p="Example01.cs" t="Include" />
+                <e p="Example02.cs" t="Include" />
+              </e>
+            </e>
+            <e p="readme.txt" t="Include" />
+            <e p="Scripts" t="Include">
+              <e p="JsonExtensions.cs" t="Include" />
+              <e p="JsonFormatter.cs" t="Include" />
+              <e p="JsonReader.cs" t="Include" />
+              <e p="JsonTextReader.cs" t="Include" />
+              <e p="JsonTextWriter.cs" t="Include" />
+              <e p="JsonWriter.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="InventoryController.cs" t="Include" />
         <e p="Music" t="Include">
           <e p="JRPG OST (Rev 2)" t="Include">
             <e p="readme.txt" t="Include" />
@@ -73,9 +95,12 @@
               <e p="Dialogue.cs" t="Include" />
               <e p="Door.cs" t="Include" />
               <e p="EnemySpawner.cs" t="Include" />
+              <e p="HealthPotion.cs" t="Include" />
               <e p="Key.cs" t="Include" />
             </e>
           </e>
+          <e p="Language.cs" t="Include" />
+          <e p="LanguageSelector.cs" t="Include" />
           <e p="MainMenuController.cs" t="Include" />
           <e p="Models" t="Include">
             <e p="Characters" t="Include">
@@ -97,6 +122,17 @@
               <e p="CharacterStats.cs" t="Include" />
             </e>
             <e p="WorldGraph.cs" t="Include" />
+          </e>
+          <e p="Trello Poster" t="Include">
+            <e p="Scripts" t="Include">
+              <e p="Editor" t="Include">
+                <e p="TrelloPosterEditor.cs" t="Include" />
+              </e>
+              <e p="TrelloCard.cs" t="Include" />
+              <e p="TrelloCardOption.cs" t="Include" />
+              <e p="TrelloPoster.cs" t="Include" />
+              <e p="TrelloUI.cs" t="Include" />
+            </e>
           </e>
           <e p="Weapon.cs" t="Include" />
           <e p="YamlDotNet2013Sep" t="Include">
