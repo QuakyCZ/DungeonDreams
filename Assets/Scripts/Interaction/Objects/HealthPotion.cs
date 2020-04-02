@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Models.Inventory;
+using UnityEngine;
 
 namespace Interaction.Objects {
     public class HealthPotion : Collectable {

@@ -6,19 +6,19 @@ using UnityEngine.Tilemaps;
 
 namespace Models {
     public class WorldGraph {
-        public ClonedTile[,] tiles;
+        public readonly ClonedTile[,] tiles;
 
-        private int xOffset;
-        private int yOffset;
+        private readonly int _xOffset;
+        private readonly int _yOffset;
 
-        Tilemap walls;
-        Tilemap floor;
-        Tilemap door;
-        public Tilemap debugMap;
-        Dictionary<ClonedTile, TileBase> originalTiles;
-        public int width;
-        public int height;
-        RoomController roomController;
+        private readonly Tilemap _walls;
+        private readonly Tilemap _floor;
+        private readonly Tilemap _door;
+        public readonly Tilemap debugMap;
+        private readonly Dictionary<ClonedTile, TileBase> _originalTiles;
+        private readonly int _width;
+        private readonly int _height;
+        private readonly RoomController _roomController;
 
         private const int MoveStraightCost = 10;
         private const int MoveDiagonalCost = 14;
@@ -33,19 +33,19 @@ namespace Models {
                 }
             }
 
-            this.walls = walls;
-            this.floor = floor;
-            this.door = door;
+            this._walls = walls;
+            this._floor = floor;
+            this._door = door;
             this.debugMap = debugMap;
-            this.width = width;
-            this.height = height;
-            this.roomController = roomController;
+            this._width = width;
+            this._height = height;
+            this._roomController = roomController;
 
-            xOffset = (int) walls.localBounds.min.x;
-            yOffset = (int) walls.localBounds.min.y;
-            Debug.Log($"xOffset: {xOffset}, yOffset: {yOffset}");
+            _xOffset = (int) walls.localBounds.min.x;
+            _yOffset = (int) walls.localBounds.min.y;
+            Debug.Log($"xOffset: {_xOffset}, yOffset: {_yOffset}");
             //Debug.Log( width + " " + height );
-            originalTiles = new Dictionary<ClonedTile, TileBase>();
+            _originalTiles = new Dictionary<ClonedTile, TileBase>();
 
             ImportTiles();
         }
@@ -55,35 +55,35 @@ namespace Models {
             int w_y = 0; // X coordinate in worldGraph
 
 
-            for (int y = (int) walls.localBounds.min.y; y < (int) walls.localBounds.max.y; y++) {
+            for (int y = (int) _walls.localBounds.min.y; y < (int) _walls.localBounds.max.y; y++) {
                 int w_x = 0; // Y coordinate in worldGraph
 
-                for (int x = (int) walls.localBounds.min.x; x < walls.localBounds.max.x; x++) {
+                for (int x = (int) _walls.localBounds.min.x; x < _walls.localBounds.max.x; x++) {
                     Vector3Int pos = new Vector3Int(x, y, 0);
 
-                    TileBase tile = floor.GetTile(pos);
+                    TileBase tile = _floor.GetTile(pos);
 
                     if (tile != null) {
                         clonedTile = new ClonedTile(w_x, w_y, x, y, TileType.Floor);
                         tiles[w_x, w_y] = clonedTile;
-                        originalTiles.Add(clonedTile, tile);
+                        _originalTiles.Add(clonedTile, tile);
                         clonedTile.isWalkable = true;
                     }
 
-                    tile = walls.GetTile(pos);
+                    tile = _walls.GetTile(pos);
 
                     if (tile != null) {
                         clonedTile = new ClonedTile(w_x, w_y, x, y, TileType.Wall);
                         tiles[w_x, w_y] = clonedTile;
-                        originalTiles.Add(clonedTile, tile);
+                        _originalTiles.Add(clonedTile, tile);
                         clonedTile.isWalkable = false;
                     }
 
-                    tile = door.GetTile(pos);
+                    tile = _door.GetTile(pos);
                     if (tile != null) {
                         clonedTile = new ClonedTile(w_x, w_y, x, y, TileType.Door);
                         tiles[w_x, w_y] = clonedTile;
-                        originalTiles.Add(clonedTile, tile);
+                        _originalTiles.Add(clonedTile, tile);
                         clonedTile.isWalkable = false;
                     }
 
@@ -98,9 +98,9 @@ namespace Models {
             int doornumber = 0;
             int emptynumber = 0;
             foreach (ClonedTile t in tiles) {
-                t.roomController = roomController;
-                if (originalTiles.ContainsKey(t)) {
-                    TileBase tile = originalTiles[t];
+                t.roomController = _roomController;
+                if (_originalTiles.ContainsKey(t)) {
+                    TileBase tile = _originalTiles[t];
                     debugMap.SetTile(new Vector3Int(t.realX, t.realY, 0), tile);
                 }
 
@@ -125,8 +125,8 @@ namespace Models {
         }
 
         public ClonedTile GetTileAt(int x, int y) {
-            int _x = x - xOffset;
-            int _y = y - yOffset;
+            int _x = x - _xOffset;
+            int _y = y - _yOffset;
             return tiles[_x, _y];
         }
 
@@ -134,7 +134,7 @@ namespace Models {
             List<ClonedTile> nb = new List<ClonedTile>();
             int x = tile.x;
             int y = tile.y;
-            if (x + 1 < width) {
+            if (x + 1 < _width) {
                 nb.Add(tiles[x + 1, y]);
             }
 
@@ -142,7 +142,7 @@ namespace Models {
                 nb.Add(tiles[x - 1, y]);
             }
 
-            if (y + 1 < height) {
+            if (y + 1 < _height) {
                 nb.Add(tiles[x, y + 1]);
             }
 
@@ -151,17 +151,17 @@ namespace Models {
             }
 
             //TOP RIGHT
-            if (x + 1 < width && y + 1 < height && tiles[x, y + 1].isWalkable && tiles[x + 1, y].isWalkable) {
+            if (x + 1 < _width && y + 1 < _height && tiles[x, y + 1].isWalkable && tiles[x + 1, y].isWalkable) {
                 nb.Add(tiles[x + 1, y + 1]);
             }
 
             //BOTTOM RIGHT
-            if (x + 1 < width && y - 1 > 0 && tiles[x, y - 1].isWalkable && tiles[x + 1, y].isWalkable) {
+            if (x + 1 < _width && y - 1 > 0 && tiles[x, y - 1].isWalkable && tiles[x + 1, y].isWalkable) {
                 nb.Add(tiles[x + 1, y - 1]);
             }
 
             //TOP LEFT
-            if (tile.x - 1 > 0 && y + 1 < height && tiles[x, y + 1].isWalkable && tiles[x - 1, y].isWalkable) {
+            if (tile.x - 1 > 0 && y + 1 < _height && tiles[x, y + 1].isWalkable && tiles[x - 1, y].isWalkable) {
                 nb.Add(tiles[x - 1, y + 1]);
             }
 

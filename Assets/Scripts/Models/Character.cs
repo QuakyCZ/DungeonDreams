@@ -1,7 +1,7 @@
 ﻿using Controllers;
 using UnityEngine;
 
-namespace Models.Characters {
+namespace Models {
     public class Character : MonoBehaviour {
         #region Parameters
         [SerializeField]

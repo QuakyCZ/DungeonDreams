@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Models;
 using UnityEngine;
 
 public enum TileType {

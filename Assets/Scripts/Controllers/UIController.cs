@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Models.Characters;
+using Models.Files;
+using Models.Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

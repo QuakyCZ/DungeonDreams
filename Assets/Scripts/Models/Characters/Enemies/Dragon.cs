@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 using Random = UnityEngine.Random;
 
-namespace Models.Characters
+namespace Models.Characters.Enemies
 {
-    
     public class Dragon : Enemy
     {
         private enum AttackType {

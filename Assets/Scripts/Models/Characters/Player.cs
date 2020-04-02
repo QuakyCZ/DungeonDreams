@@ -1,10 +1,11 @@
 ﻿using Controllers;
 using Models.Files;
+using Models.Inventory;
 using UnityEngine;
 
 namespace Models.Characters {
     public class Player : Character {
-        public Inventory inventory;
+        public Inventory.Inventory inventory;
         [SerializeField] protected Camera minimapCamera;
         private UIController _uiController;
 
@@ -19,7 +20,7 @@ namespace Models.Characters {
             Debug.Log("Player Awake");
             base.Awake();
             ResetCoolDown();
-            inventory = Inventory.GetInstance(true);
+            inventory = Inventory.Inventory.GetInstance(true);
         }
 
         protected override void Update() {

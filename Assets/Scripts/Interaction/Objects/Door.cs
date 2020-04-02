@@ -1,5 +1,6 @@
 ﻿using Controllers;
 using Models.Files;
+using Models.Inventory;
 using UnityEngine;
 
 namespace Interaction.Objects {
@@ -8,6 +9,7 @@ namespace Interaction.Objects {
         [Header("Door Security")]
         [SerializeField] protected bool locked = false;
         [SerializeField] protected int keyParts;
+        
         [Header("GFX")]
         [SerializeField] protected Sprite openedSprite = null;
         [SerializeField] protected Sprite closedSprite = null;

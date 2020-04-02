@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 namespace Controllers {
     public class InputController : MonoBehaviour
     {
-        Player player;
+        private Player _player;
         public bool doUpdate = true;
 
         public GameObject menu;
@@ -20,7 +20,7 @@ namespace Controllers {
         void Start()
         {
             //Debug.Log( "InputController start" );
-            player = FindObjectOfType<Player>();
+            _player = FindObjectOfType<Player>();
             _uiController = FindObjectOfType<UIController>();
         }
 
@@ -32,7 +32,7 @@ namespace Controllers {
             }
 
             if (Input.GetKeyDown(KeyCode.Q)) {
-                player.Heal();
+                _player.Heal();
             }
         }
 
@@ -60,9 +60,9 @@ namespace Controllers {
             }
 
             // Do not change this line!!!
-            Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * player.abilities.GetAbilityValue(Ability.speed);
+            Vector3 movementVector = new Vector3( horizontal, vertical, 0 ).normalized * Time.deltaTime * _player.abilities.GetAbilityValue(Ability.speed);
 
-            player.MovePlayer( movementVector );
+            _player.MovePlayer( movementVector );
         }
 
 

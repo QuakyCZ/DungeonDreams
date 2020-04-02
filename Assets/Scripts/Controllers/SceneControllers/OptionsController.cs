@@ -2,10 +2,9 @@
 using Models.Files;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Controllers {
+namespace Controllers.SceneControllers {
     public class OptionsController : MonoBehaviour {
         [Header("Title")]
         [SerializeField] private Text title = null;

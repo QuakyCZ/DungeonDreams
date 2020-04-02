@@ -59,12 +59,6 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="AI" t="Include">
-            <e p="DemageArea.cs" t="Include" />
-          </e>
-          <e p="BossBattle" t="Include">
-            <e p="BossBattleController.cs" t="Include" />
-          </e>
           <e p="Console" t="Include">
             <e p="DeveloperConsole.cs" t="Include" />
           </e>
@@ -73,13 +67,15 @@
             <e p="InputController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
             <e p="MainController.cs" t="Include" />
-            <e p="OptionsController.cs" t="Include" />
             <e p="PlayerStatsController.cs" t="Include" />
             <e p="RoomController.cs" t="Include" />
+            <e p="SceneControllers" t="Include">
+              <e p="CreditsController.cs" t="Include" />
+              <e p="MainMenuController.cs" t="Include" />
+              <e p="OptionsController.cs" t="Include" />
+            </e>
             <e p="UIController.cs" t="Include" />
           </e>
-          <e p="CreditsController.cs" t="Include" />
-          <e p="Damage.cs" t="Include" />
           <e p="Interaction" t="Include">
             <e p="Collectable.cs" t="Include" />
             <e p="Collidable.cs" t="Include" />
@@ -93,15 +89,17 @@
             </e>
           </e>
           <e p="LanguageSelector.cs" t="Include" />
-          <e p="MainMenuController.cs" t="Include" />
           <e p="Models" t="Include">
+            <e p="Character.cs" t="Include" />
             <e p="Characters" t="Include">
-              <e p="Character.cs" t="Include" />
-              <e p="Dragon.cs" t="Include" />
+              <e p="Enemies" t="Include">
+                <e p="Dragon.cs" t="Include" />
+              </e>
               <e p="Enemy.cs" t="Include" />
               <e p="Player.cs" t="Include" />
             </e>
             <e p="ClonedTile.cs" t="Include" />
+            <e p="Damage.cs" t="Include" />
             <e p="Files" t="Include">
               <e p="ConfigFile.cs" t="Include" />
               <e p="Language.cs" t="Include" />
@@ -114,6 +112,7 @@
               <e p="Abilities.cs" t="Include" />
               <e p="CharacterStats.cs" t="Include" />
             </e>
+            <e p="Weapon.cs" t="Include" />
             <e p="WorldGraph.cs" t="Include" />
           </e>
           <e p="Trello Poster" t="Include">
@@ -127,7 +126,6 @@
               <e p="TrelloUI.cs" t="Include" />
             </e>
           </e>
-          <e p="Weapon.cs" t="Include" />
           <e p="YamlDotNet2013Sep" t="Include">
             <e p="YamlDotNet2013SepTest.cs" t="Include" />
           </e>

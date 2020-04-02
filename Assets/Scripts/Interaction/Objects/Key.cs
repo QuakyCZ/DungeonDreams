@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Models.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

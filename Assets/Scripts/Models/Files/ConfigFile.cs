@@ -11,7 +11,7 @@ using YamlDotNet.RepresentationModel;
 using JsonReader = Newtonsoft.Json.JsonReader;
 
 namespace Models.Files {
-    public class ConfigFile {
+    public static class ConfigFile {
         private static Config config;
         private static string configJson;
         private static string path;
