@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Collectable : Collidable
 {
-    [Header("GFX")]
+    [Header("Sprites")]
     [SerializeField] protected Sprite spriteUncollided;
     [SerializeField] protected Sprite spriteCollided;
     [SerializeField] protected Sprite spriteCollected;
@@ -17,9 +17,9 @@ public class Collectable : Collidable
         if (coll.name == "Player") {        
             objectSprite = GetComponent<SpriteRenderer>();
             objectSprite.sprite = spriteCollided;
-            uiController.Log( "Stiskni F pro interakci." );
+            uiController.Log( Language.GetString(GameDictionaryType.log,"interact"),new string[1]{"E"});
 
-            if (coll.name == "Player" && Input.GetKey( KeyCode.F )) {
+            if (coll.name == "Player" && Input.GetKey( KeyCode.E )) {
                 OnCollect();
             }
         }

@@ -4,29 +4,36 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using YamlDotNet;
 using YamlDotNet.RepresentationModel;
+using JsonReader = Newtonsoft.Json.JsonReader;
 
 namespace Models.Files {
     public class ConfigFile {
-        private static string configJson;
         private static Config config;
+        private static string configJson;
         private static string path;
         public static Config SetUp() {
             path = Application.streamingAssetsPath + "/config.json";
             configJson = File.ReadAllText(path);
-            config = JsonUtility.FromJson<Config>(configJson);
-            if (config.HasDebug("all")) {
+            config = (Config)JsonConvert.DeserializeObject(configJson,typeof(Config));
+            //Debug.Log(JsonFormatter.SerializeObject(config));
+            Debug.Log(config.language);
+            if (config.GetDebug("all")) {
                 foreach (var debug in config.debug) {
-                    Debug.Log(debug);
+                    Debug.Log(debug.Key);
                 }
 
                 foreach (var option in config.options) {
-                    Debug.Log(option);
+                    Debug.Log(option.Key);
+                }
+
+                foreach (var language in config.languages) {
+                    Debug.Log(language.Key);
                 }
             }
-
             return config;
         }
 
@@ -38,8 +45,9 @@ namespace Models.Files {
         /// Saves and reloads the file.
         /// </summary>
         public static void Save() {
-            configJson = JsonUtility.ToJson(config);
-            Debug.Log("ConfigFile:Save(): " + configJson);
+            JsonSerializerSettings settings= new JsonSerializerSettings();
+            settings.Formatting = Formatting.Indented;
+            configJson = JsonConvert.SerializeObject(config,settings);
             StreamWriter sw = new StreamWriter(path);
             sw.Write(configJson);
             sw.Close();
@@ -54,12 +62,12 @@ namespace Models.Files {
     [Serializable]
     public class Config {
         public string language;
-        
-        public List<string> debug;
-        public List<string> options;
+        public int healPotion;
 
-        
-        
+        public Dictionary<string,string> languages;
+        public Dictionary<string,bool> debug;
+        public Dictionary<string,bool> options;
+
         /// <summary>
         /// 
         /// </summary>
@@ -83,27 +91,27 @@ namespace Models.Files {
         private void SetOption(string key, bool value) {
             Debug.Log($"Config:SetOption({key},{value})");
             key = key.ToLower();
-
-            switch (value) {
-                case true: {
-                    if (HasOption(key) == false) {
-                        options.Add(key);
-                    }
-
-                    break;
-                }
-                case false: {
-                    if (HasOption(key) == true) {
-                        options.Remove(key);
-                    }
-
-                    break;
-                }
+            if (HasOption(key)) {
+                options[key] = value;
+            }
+            else {
+                Debug.LogWarning("Options doesn't contain " + key);
             }
         }
 
+        public bool GetOption(string key) {
+            if (HasOption(key)) {
+                return options[key];
+            }
+            Debug.LogWarning("Options doesn't contain " + key);
+            return false;
+        }
+
         public bool HasOption(string key) {
-            return options.Contains(key);
+            if (options.ContainsKey(key)) {
+                return true;
+            }
+            return false;
         }
 
         /// <summary>
@@ -117,20 +125,16 @@ namespace Models.Files {
                 key = key.Replace("d_", "");
             }
 
-            if (value) {
-                if (!HasExactDebug(key)) {
-                    debug.Add(key);
-                }
+            if (debug.ContainsKey(key)) {
+                debug[key] = value;
             }
             else {
-                if (HasExactDebug(key)) {
-                    debug.Remove(key);
-                }
+                Debug.LogWarning("Debug doesn't contain " + key);
             }
         }
 
-        public bool HasDebug(string name) {
-            if (debug.Contains("all")) {
+        public bool GetDebug(string name) {
+            if (debug["all"]==true) {
                 return true;
             }
 
@@ -138,17 +142,29 @@ namespace Models.Files {
             if (name.StartsWith("d_")) {
                 name = name.Replace("d_", "");
             }
-
-            return debug.Contains(name);
+            if(HasDebug(name))
+                return debug[name];
+            
+            Debug.Log("Debug doesn't contain " + name);
+            return false;
         }
 
-        public bool HasExactDebug(string name) {
+        public bool GetExactDebug(string name) {
             name = name.ToLower();
             if (name.StartsWith("d_")) {
                 name = name.Replace("d_", "");
             }
+            if(HasDebug(name))
+                return debug[name];
+            Debug.Log("Debug doesn't contain " + name);
+            return false;
+        }
 
-            return debug.Contains(name);
+        public bool HasDebug(string key) {
+            if (debug.ContainsKey(key)) {
+                return true;
+            }
+            return false;
         }
     }
 }

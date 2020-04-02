@@ -58,14 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BayatGames\JsonFormatter\Examples\Scripts\Example01.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Examples\Scripts\Example02.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonExtensions.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonFormatter.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonReader.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonTextReader.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonTextWriter.cs" />
-     <Compile Include="Assets\BayatGames\JsonFormatter\Scripts\JsonWriter.cs" />
      <Compile Include="Assets\InventoryController.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\DrawKeyAsPropertyAttribute.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\Example\DataBaseExample.cs" />
@@ -94,7 +86,6 @@
      <Compile Include="Assets\Scripts\Interaction\Objects\EnemySpawner.cs" />
      <Compile Include="Assets\Scripts\Interaction\Objects\HealthPotion.cs" />
      <Compile Include="Assets\Scripts\Interaction\Objects\Key.cs" />
-     <Compile Include="Assets\Scripts\Language.cs" />
      <Compile Include="Assets\Scripts\LanguageSelector.cs" />
      <Compile Include="Assets\Scripts\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Models\Characters\Character.cs" />
@@ -103,6 +94,7 @@
      <Compile Include="Assets\Scripts\Models\Characters\Player.cs" />
      <Compile Include="Assets\Scripts\Models\ClonedTile.cs" />
      <Compile Include="Assets\Scripts\Models\Files\ConfigFile.cs" />
+     <Compile Include="Assets\Scripts\Models\Files\Language.cs" />
      <Compile Include="Assets\Scripts\Models\Inventory\Inventory.cs" />
      <Compile Include="Assets\Scripts\Models\Room.cs" />
      <Compile Include="Assets\Scripts\Models\Stats\Abilities.cs" />
@@ -116,27 +108,32 @@
      <Compile Include="Assets\Scripts\YamlDotNet2013Sep\YamlDotNet2013SepTest.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
+     <None Include="Assets\Resources\Dialogues\en\prologue.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+     <None Include="Assets\Resources\Dialogues\cs\prologue.txt" />
      <None Include="Assets\Music\JRPG OST (Rev 2)\readme.txt" />
-     <None Include="Assets\BayatGames\JsonFormatter\Documentation\JsonFormatter Documentation.txt" />
+     <None Include="Assets\Resources\Dialogues\de\bossfight.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface-Mobile.shader" />
-     <None Include="Assets\BayatGames\JsonFormatter\Readme.txt" />
+     <None Include="Assets\JsonDotNet\link.xml" />
+     <None Include="Assets\Resources\Dialogues\en\bossfight.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
      <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF.shader" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Properties.cginc" />
+     <None Include="Assets\Resources\Dialogues\en\princess.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <None Include="Assets\Resources\Dialogues\bossfight.txt" />
+     <None Include="Assets\Resources\Dialogues\cs\bossfight.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Masking.shader" />
-     <None Include="Assets\Resources\Dialogues\prologue.txt" />
+     <None Include="Assets\Resources\Dialogues\cs\princess.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF Overlay.shader" />
-     <None Include="Assets\Resources\Dialogues\princess.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Mobile.shader" />
+     <None Include="Assets\Resources\Dialogues\de\prologue.txt" />
      <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile.shader" />
+     <None Include="Assets\Resources\Dialogues\de\princess.txt" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Sprite.shader" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
@@ -359,6 +356,9 @@
  </Reference>
  <Reference Include="YamlDotNet.RepresentationModel">
  <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Assets/Scripts/YamlDotNet2013Sep/YamlDotNet.RepresentationModel.2.2.0/lib/net35/YamlDotNet.RepresentationModel.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.5f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

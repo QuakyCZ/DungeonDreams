@@ -310,6 +310,9 @@
  <Reference Include="YamlDotNet.RepresentationModel">
  <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Assets/Scripts/YamlDotNet2013Sep/YamlDotNet.RepresentationModel.2.2.0/lib/net35/YamlDotNet.RepresentationModel.dll</HintPath>
  </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>E:/Dokumenty/Tom/DevLib/Unity/Dungeon Dreams/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>

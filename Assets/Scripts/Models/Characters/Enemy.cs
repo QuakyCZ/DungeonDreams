@@ -35,7 +35,9 @@ namespace Models.Characters {
         protected GameObject targetGO;
 
         protected Vector2 localScale;
-
+        
+        private float pathCountDown = 5;
+        private bool findPath = true;
         #endregion
 
         protected void InstantiateEnemyParameters() {
@@ -70,13 +72,28 @@ namespace Models.Characters {
             if (stacked == false) {
                 if (Vector2.Distance(transform.position, targetGO.transform.position) > minRange) {
                     if (path == null) {
-                        path = MainController.Instance.worldGraph.FindVectorPath(transform.position,
-                            targetGO.transform.position);
-                        currentPathIndex = 0;
+                        if (findPath) {
+                            path = MainController.Instance.worldGraph.FindVectorPath(transform.position,
+                                targetGO.transform.position);
+                            if (path == null) {
+                                findPath = false;
+                            }
+                            else {
+                                currentPathIndex = 0;
+                            }
+                        }
+                        else {
+                            if (pathCountDown > 0) {
+                                pathCountDown -= Time.deltaTime;
+                            }
+                            else {
+                                findPath = true;
+                                pathCountDown = 5;
+                            }
+                        }
                     }
                     else {
-                        
-                        if (ConfigFile.Get().HasDebug("path_lines")) {
+                        if (ConfigFile.Get().GetDebug("path_lines")) {
                             line.positionCount = path.Count;
 
                             for (int i = 0; i < path.Count; i++) {
@@ -85,10 +102,7 @@ namespace Models.Characters {
                         }
 
                         Vector3 targetPosition = path[currentPathIndex];
-                        /*if (CheckEmptyTile(targetPosition)||CheckEmptyTile(transform.position)) {
-                            StopMovement();
-                            return;
-                        }*/
+                        
                         if (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
                             Vector3 moveDir = (targetPosition - transform.position).normalized;
                             Move(moveDir);
@@ -97,8 +111,7 @@ namespace Models.Characters {
                             currentPathIndex++;
                             
                             if (currentPathIndex >= path.Count ||
-                                CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false ||
-                                CheckEmptyTile(new Vector3(path[currentPathIndex].x,path[currentPathIndex].y))) {
+                                CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false) {
                                 StopMovement();
                             }
                         }

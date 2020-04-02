@@ -3,7 +3,7 @@
   "dics": {
     "buttons": {
       "play": "Hrát",
-      "credits": "Titulky",
+      "credits": "Reference",
       "options": "Možnosti",
       "feedback": "Zpětná vazba",
       "exit": "Ukončit hru",
@@ -19,11 +19,31 @@
       "moveUp": "pohyb nahoru",
       "moveDown": "pohyb dolu",
       "moveLeft": "pohyb doleva",
-      "moveRight": "pohyb doprava"
+      "moveRight": "pohyb doprava",
+      "potion": "pouzit léčivý lektvar",
+      "interact": "interakce",
+      "dialogue_continue": "mezernik"
+      
     },
     "titles": {
-      "credits": "TITULKY",
-      "controls": "OVLADANI"
+      "credits": "REFERENCE",
+      "controls": "OVLADANI",
+      "options": "MOZNOSTI",
+      "continue": "POKRACOVAT"
+    },
+    "log": {
+      "interact": "Stiskni {0} pro interakci.",
+      "notEnoughKeys": "Dveře jsou zamčené. K odemčení potřebuji {0} klíčů.",
+      "maxHealth": "Mám maximální počet života.",
+      "noPotion":"Nemám žádný {0}."
+    },
+    "options": {
+      "d_console": "konzole",
+      "d_all": "debug vse",
+      "d_dialogue_file_content": "debug obsah dialogu",
+      "d_path_lines": "debug cesta nepritele",
+      "open_doors": "vsechny dvere otevrene",
+      "immune": "nezranitelnost"
     }
   }
 }

@@ -1,0 +1,6 @@
+Dalimil>Oh no, we've lost in the Forbidden forest and someone kidnapped princess Isabelle.
+Dalimil>Immediatly, I run towards her but the monster was faster. It brought her into the cave.
+Evil>Who is here snivelling? Today's dinner?
+Dalimil>Damn, I must save her as fast as I can. Otherwise I endup on the plate.
+Evil>Woaaaa...here's a gift for you...
+$SpawnEnemies>Hound>1

@@ -1,0 +1,5 @@
+Isabelle>Dalimil, you saved me!
+Dalimil>Izabelle, it's nice to see you too. I hope, it didn't hurt you?!?
+Isabelle>I don't think so. But we must hurry up.
+Dalimil>You're right. We're going home.
+$GameOverWin

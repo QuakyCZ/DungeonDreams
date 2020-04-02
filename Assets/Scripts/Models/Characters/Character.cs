@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Controllers;
+using UnityEngine;
 
 namespace Models.Characters {
     public class Character : MonoBehaviour {

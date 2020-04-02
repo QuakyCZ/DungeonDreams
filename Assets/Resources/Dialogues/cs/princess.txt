@@ -1,0 +1,5 @@
+Izabela>Dalimile, ty jsi me zachranil!
+Dalimil>Izabelo, taky te rad vidim. Doufam, ze ti to nic neudelalo?!?
+Izabela>Myslim, ze ne. Ale musime si pospisit.
+Dalimil>Mas pravdu. Jdeme domu.
+$GameOverWin

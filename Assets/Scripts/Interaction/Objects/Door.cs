@@ -25,10 +25,10 @@ public class Door : Collectable
     {
         base.Start();
         animator = GetComponent<Animator>();
-        if (ConfigFile.Get().HasOption("open_doors")) {
+        if (ConfigFile.Get().GetOption("open_doors")) {
             locked = false;
         }
-        Debug.Log($"Door: {Mathf.FloorToInt(transform.position.x)} {Mathf.FloorToInt(transform.position.y)}");
+        //Debug.Log($"Door: {Mathf.FloorToInt(transform.position.x)} {Mathf.FloorToInt(transform.position.y)}");
        
         tile = MainController.Instance.roomController.worldGraph
             .GetTileAt(
@@ -62,7 +62,8 @@ public class Door : Collectable
     protected override void OnCollect() {
         if (locked) {
             if (player.inventory.GetValue( InventoryDefault.key ) < keyParts) {
-                uiController.Log( $"Dveře jsou zamčeny. Nejdříve najdi {keyParts} částí klíče." );
+                string[] arr = {keyParts.ToString()};
+                uiController.Log(Language.GetString(GameDictionaryType.log,"notEnoughKeys"),arr);
                 return;
             }
             else {

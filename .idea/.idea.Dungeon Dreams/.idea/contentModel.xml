@@ -7,29 +7,10 @@
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="BayatGames" t="Include">
-          <e p="JsonFormatter" t="Include">
-            <e p="Documentation" t="Include">
-              <e p="JsonFormatter Documentation.txt" t="Include" />
-            </e>
-            <e p="Examples" t="Include">
-              <e p="Scripts" t="Include">
-                <e p="Example01.cs" t="Include" />
-                <e p="Example02.cs" t="Include" />
-              </e>
-            </e>
-            <e p="readme.txt" t="Include" />
-            <e p="Scripts" t="Include">
-              <e p="JsonExtensions.cs" t="Include" />
-              <e p="JsonFormatter.cs" t="Include" />
-              <e p="JsonReader.cs" t="Include" />
-              <e p="JsonTextReader.cs" t="Include" />
-              <e p="JsonTextWriter.cs" t="Include" />
-              <e p="JsonWriter.cs" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="InventoryController.cs" t="Include" />
+        <e p="JsonDotNet" t="Include">
+          <e p="link.xml" t="Include" />
+        </e>
         <e p="Music" t="Include">
           <e p="JRPG OST (Rev 2)" t="Include">
             <e p="readme.txt" t="Include" />
@@ -37,9 +18,21 @@
         </e>
         <e p="Resources" t="Include">
           <e p="Dialogues" t="Include">
-            <e p="bossfight.txt" t="Include" />
-            <e p="princess.txt" t="Include" />
-            <e p="prologue.txt" t="Include" />
+            <e p="cs" t="Include">
+              <e p="bossfight.txt" t="Include" />
+              <e p="princess.txt" t="Include" />
+              <e p="prologue.txt" t="Include" />
+            </e>
+            <e p="de" t="Include">
+              <e p="bossfight.txt" t="Include" />
+              <e p="princess.txt" t="Include" />
+              <e p="prologue.txt" t="Include" />
+            </e>
+            <e p="en" t="Include">
+              <e p="bossfight.txt" t="Include" />
+              <e p="princess.txt" t="Include" />
+              <e p="prologue.txt" t="Include" />
+            </e>
           </e>
         </e>
         <e p="Rotary Heart" t="Include">
@@ -99,7 +92,6 @@
               <e p="Key.cs" t="Include" />
             </e>
           </e>
-          <e p="Language.cs" t="Include" />
           <e p="LanguageSelector.cs" t="Include" />
           <e p="MainMenuController.cs" t="Include" />
           <e p="Models" t="Include">
@@ -112,6 +104,7 @@
             <e p="ClonedTile.cs" t="Include" />
             <e p="Files" t="Include">
               <e p="ConfigFile.cs" t="Include" />
+              <e p="Language.cs" t="Include" />
             </e>
             <e p="Inventory" t="Include">
               <e p="Inventory.cs" t="Include" />

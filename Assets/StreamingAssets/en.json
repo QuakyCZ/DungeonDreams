@@ -19,24 +19,30 @@
       "moveUp": "move up",
       "moveDown": "move down",
       "moveLeft": "move left",
-      "moveRight": "move right"
+      "moveRight": "move right",
+      "potion": "use health potion",
+      "interact": "interakct",
+      "dialogue_continue": "spacebar"
     },
     "titles": {
       "credits": "CREDITS",
-      "controls": "CONTROLS"
+      "controls": "CONTROLS",
+      "options": "OPTIONS",
+      "continue": "CONTINUE"
     },
-    "stats": {
-      "health": "HEALTH",
-      "level": "LEVEL" 
+    "log": {
+      "interact": "Press {0} to interact.",
+      "notEnoughKeys": "The door is locked. I need {0} keys to unlock them.",
+      "maxHealth": "I have maximum number of health.",
+      "notEnough":"I don't have {0}."
     },
-    "inventory": {
-      "gold": "GOLD",
-      "keys": "KEYS"
-    },
-    "abilities": {
-      "armor": "ARMOR",
-      "weaponRange": "Weapon range"
+    "options": {
+      "d_console": "console",
+      "d_all": "debug all",
+      "d_dialogue_file_content": "debug dialogue content",
+      "d_path_lines": "debug path lines",
+      "open_doors": "all door opened",
+      "immune": "immune"
     }
-    
   }
 }

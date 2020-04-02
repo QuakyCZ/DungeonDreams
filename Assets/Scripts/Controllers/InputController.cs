@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Controllers;
 using Models.Characters;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -27,6 +28,10 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1)) {
             console.gameObject.SetActive(!console.isActiveAndEnabled);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) {
+            player.Heal();
         }
     }
 

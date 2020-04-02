@@ -1,6 +1,0 @@
-Dalimil>Ach ne, ztratili jsme se v Zakazanem lese a princeznu Izabelu nekdo unesl.
-Dalimil>Ihned jsem bezel za ni, ale prizrak byl rychlejsi. Vtahl ji do teto jeskyne.
-Dabel>Kdo to tady knoura? Ze by dnesni vecere?
-Dalimil>Sakra, musim ji zachranit co nejdrive. Jinak skoncim na taliri.
-Dabel>Woaaaa...tady mas darecek...
-$SpawnEnemies>Hound>1
