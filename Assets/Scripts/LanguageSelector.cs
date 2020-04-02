@@ -4,11 +4,17 @@ using System.Collections.Generic;
 using Models.Files;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class LanguageSelector : MonoBehaviour
-{
+public class LanguageSelector : MonoBehaviour {
+    [SerializeField] private Text text = null; 
     public void Start() {
-        ConfigFile.SetUp();
+        try {
+            ConfigFile.SetUp();
+        }
+        catch (Exception e) {
+            text.text = e.Message;
+        }
     }
 
     public void SelectLanguage(string language) {

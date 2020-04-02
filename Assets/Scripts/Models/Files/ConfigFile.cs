@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Xml.Linq;
 using Newtonsoft.Json;
 using UnityEngine;
-using YamlDotNet;
-using YamlDotNet.RepresentationModel;
-using JsonReader = Newtonsoft.Json.JsonReader;
 
 namespace Models.Files {
     public static class ConfigFile {
@@ -16,25 +10,31 @@ namespace Models.Files {
         private static string configJson;
         private static string path;
         public static Config SetUp() {
-            path = Application.streamingAssetsPath + "/config.json";
-            configJson = File.ReadAllText(path);
-            config = (Config)JsonConvert.DeserializeObject(configJson,typeof(Config));
-            //Debug.Log(JsonFormatter.SerializeObject(config));
-            Debug.Log(config.language);
-            if (config.GetDebug("all")) {
-                foreach (var debug in config.debug) {
-                    Debug.Log(debug.Key);
+            try {
+                path = Application.streamingAssetsPath + "/config.json";
+                configJson = File.ReadAllText(path);
+                config = (Config) JsonConvert.DeserializeObject(configJson, typeof(Config));
+                //Debug.Log(JsonFormatter.SerializeObject(config));
+                Debug.Log(config.language);
+                if (config.GetDebug("all")) {
+                    foreach (var debug in config.debug) {
+                        Debug.Log(debug.Key);
+                    }
+
+                    foreach (var option in config.options) {
+                        Debug.Log(option.Key);
+                    }
+
+                    foreach (var language in config.languages) {
+                        Debug.Log(language.Key);
+                    }
                 }
 
-                foreach (var option in config.options) {
-                    Debug.Log(option.Key);
-                }
-
-                foreach (var language in config.languages) {
-                    Debug.Log(language.Key);
-                }
+                return config;
             }
-            return config;
+            catch (Exception e) {
+                throw e;
+            }
         }
 
         public static Config Get() {
@@ -45,8 +45,7 @@ namespace Models.Files {
         /// Saves and reloads the file.
         /// </summary>
         public static void Save() {
-            JsonSerializerSettings settings= new JsonSerializerSettings();
-            settings.Formatting = Formatting.Indented;
+            JsonSerializerSettings settings = new JsonSerializerSettings {Formatting = Formatting.Indented};
             configJson = JsonConvert.SerializeObject(config,settings);
             StreamWriter sw = new StreamWriter(path);
             sw.Write(configJson);

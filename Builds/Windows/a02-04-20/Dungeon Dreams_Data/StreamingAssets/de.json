@@ -1,0 +1,48 @@
+﻿{
+  "language": "de",
+  "dics": {
+    "buttons": {
+      "play": "Spiel",
+      "credits": "Referenzen",
+      "options": "Optionen",
+      "feedback": "Feedback",
+      "exit": "Beenden",
+      "mainMenu": "Hauptmenü",
+      "close": "schließen"
+    },
+    "credits": {
+      "developer": "Haupt Entwickler",
+      "graphics": "Grafik"
+    },
+    "controls": {
+      "attack": "Attacke",
+      "moveUp": "nach oben bewegen",
+      "moveDown": "sich abwärts bewegen",
+      "moveLeft": "geh nach links",
+      "moveRight": "geh nach rechts",
+      "potion": "einen Heiltrank verwenden",
+      "interact": "interaktion",
+      "dialogue_continue": "leertaste"
+    },
+    "titles": {
+      "credits": "REFERENZEN",
+      "controls": "STEUERUNG",
+      "options": "OPTIONEN",
+      "continue": "WEITER"
+    },
+    "log": {
+      "interact": "Drück {0}, um zu interagieren.",
+      "notEnoughKeys": "Die Tür sind gesperrt. Ich brauche {0} Schlüssel, um aufzuschließen.",
+      "maxHealth": "Mám maximální počet života.",
+      "notEnough":"Ich habe kein {0}."
+    },
+    "options": {
+      "d_console": "console",
+      "d_all": "debug all",
+      "d_dialogue_file_content": "debug dialogue content",
+      "d_path_lines": "debug path lines",
+      "open_doors": "all door opened",
+      "immune": "immune"
+    }
+  }
+}
