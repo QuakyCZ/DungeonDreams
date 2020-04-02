@@ -12,11 +12,8 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 71296d75229907b48a0c7d1ee10670c1
   - enabled: 1
-    path: Assets/Scenes/Credits.unity
-    guid: 54307f11ffd72644c8cc3981a0e0cf6d
-  - enabled: 1
     path: Assets/Scenes/Floor_0.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: ea7ec27bc84e31d4bbd72ef236e06a3a
   - enabled: 1
     path: Assets/Scenes/GameOverLose.unity
     guid: 933086e149aa42847b51c7f7142904f3
@@ -26,6 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Options.unity
     guid: cb62b29f11ac5bf43984ab6dd2014668
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 54307f11ffd72644c8cc3981a0e0cf6d
   - enabled: 1
     path: Assets/Scenes/BugReport.unity
     guid: bb8dc1bd7f2e930438cf0f15745cd3ea

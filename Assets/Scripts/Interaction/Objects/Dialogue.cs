@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Controllers;
+using Interaction.Objects;
 using Models.Files;
 using UnityEngine;
 using UnityEngine.UI;

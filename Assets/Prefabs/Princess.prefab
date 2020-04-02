@@ -68,7 +68,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 920011225
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 6370753274989361108, guid: a7ebcc8fca175a744858c03de63c7d2f,
     type: 3}
@@ -151,8 +151,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1148526387
-  m_SortingLayer: 5
+  m_SortingLayerID: -2099852059
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 6415540238422794301, guid: 103b89c68d38f4a4cb7865cd8acecc23,
     type: 3}
@@ -196,9 +196,11 @@ MonoBehaviour:
   spriteUncollided: {fileID: 0}
   spriteCollided: {fileID: 0}
   spriteCollected: {fileID: 0}
-  dialogGO: {fileID: 0}
+  dialogGo: {fileID: 0}
   typingSpeed: 0.02
+  continueText: {fileID: 0}
   dialogueName: princess
+  spawnPosition: {x: 0, y: 0}
   enemyPrefabs:
     reorderableList:
       canAdd: 1
@@ -225,4 +227,3 @@ MonoBehaviour:
     _keyValues: 
     _keys: 
     _values: []
-  spawnPosition: {x: 0, y: 0}

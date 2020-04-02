@@ -24,9 +24,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4206147443582244486}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 19.407501, y: 8.19, z: -10}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -40,8 +40,8 @@ Camera:
   m_GameObject: {fileID: 4206147443582244486}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.81960785}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.49056602, g: 0.3877633, b: 0.27999285, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -56,15 +56,15 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 837.39
-  field of view: 17
+  field of view: 90
   orthographic: 1
-  orthographic size: 7.1
+  orthographic size: 10.12
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 9984
   m_RenderingPath: -1
-  m_TargetTexture: {fileID: 8400000, guid: 5fa7b4b9947cbf44386a5ab2aad55d4b, type: 2}
+  m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
