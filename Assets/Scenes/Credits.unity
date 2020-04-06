@@ -504,8 +504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.025013}
+  m_SizeDelta: {x: 0, y: -0.049988}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &473530186
 MonoBehaviour:
@@ -1721,8 +1721,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Matou\u0161 Kyli\u0161\nPetr Vondrovic\nPetr Milt\nKarol\xEDna Veltrubsk\xE1\nBonsaiheldin
-    | http://bonsaiheld.org"
+  m_text: "Petr Milt\nMatou\u0161 Kyli\u0161\nPetr Vondrovic\nKarol\xEDna Veltrubsk\xE1\nBonsaiheldin
+    | http://bonsaiheld.org\ndontmind8.blogspot.com"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1788,15 +1788,15 @@ MonoBehaviour:
   m_firstVisibleCharacter: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: 0, w: -48.401627}
   m_textInfo:
     textComponent: {fileID: 2142681249}
-    characterCount: 94
+    characterCount: 117
     spriteCount: 0
-    spaceCount: 10
-    wordCount: 12
+    spaceCount: 11
+    wordCount: 15
     linkCount: 0
-    lineCount: 5
+    lineCount: 6
     pageCount: 1
     materialCount: 2
   m_isUsingLegacyAnimationComponent: 0

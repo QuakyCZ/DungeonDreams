@@ -46,8 +46,11 @@ namespace Controllers {
         [SerializeField] private Text usePotionHint = null;
         [SerializeField] private Text interactHint = null;
         [SerializeField] private Button closeHint = null;
-        
 
+        [Header("Pause Menu")] 
+        [SerializeField] private Button continueButton = null;
+        [SerializeField] private Button mainMenuButton = null;
+        
         #region Dictionaries
 
         public Dictionary<Stats, GameObject> lifeStatsGO = null;
@@ -72,6 +75,7 @@ namespace Controllers {
         }
 
         private void SetUpLanguage() {
+            // Hint
             titleHint.text = Language.GetString(GameDictionaryType.titles, "controls");
             attackHint.text = Language.GetString(GameDictionaryType.controls, "attack");
             moveUpHint.text = Language.GetString(GameDictionaryType.controls, "moveUp");
@@ -82,6 +86,12 @@ namespace Controllers {
             interactHint.text = Language.GetString(GameDictionaryType.controls, "interact");
             closeHint.gameObject.GetComponentInChildren<Text>().text =
                 Language.GetString(GameDictionaryType.buttons, "close");
+            
+            // Pause Menu
+            continueButton.GetComponentInChildren<Text>().text =
+                Language.GetString(GameDictionaryType.buttons, "continue");
+            mainMenuButton.GetComponentInChildren<Text>().text =
+                Language.GetString(GameDictionaryType.buttons, "mainMenu");
         }
 
         // Update is called once per frame

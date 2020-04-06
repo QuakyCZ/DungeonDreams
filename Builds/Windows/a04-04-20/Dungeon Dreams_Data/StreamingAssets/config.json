@@ -1,0 +1,18 @@
+{
+  "language": "en",
+  "healPotion": 5,
+  "languages": {
+    "cs": "cesky",
+    "en": "english"
+  },
+  "debug": {
+    "all": false,
+    "console": false,
+    "dialogue_file_content": false,
+    "path_lines": false
+  },
+  "options": {
+    "open_doors": true,
+    "immune": true
+  }
+}

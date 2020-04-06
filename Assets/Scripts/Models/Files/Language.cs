@@ -14,7 +14,8 @@ namespace Models.Files {
         titles,
         controls,
         log,
-        options
+        options,
+        other
     }
 
 
@@ -27,6 +28,11 @@ namespace Models.Files {
         public static void SetUp() {
             Debug.Log("Language SetUp");
             string fileName = ConfigFile.Get().language + ".json";
+            if (ConfigFile.Get().language.Equals("")) {
+                Debug.LogWarning("Language was not specified. Loading en");
+                fileName = "en.json";
+            }
+            
             string path = Application.streamingAssetsPath + "/" + fileName;
             string json = File.ReadAllText(path);
             Debug.Log(json);

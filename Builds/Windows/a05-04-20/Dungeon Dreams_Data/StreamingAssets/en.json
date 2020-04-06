@@ -1,0 +1,55 @@
+﻿{
+  "language": "en",
+  "dics": {    
+    "buttons": {
+      "play": "Play",
+      "credits": "Credits",
+      "options": "Options",
+      "feedback": "Feedback",
+      "exit": "Exit",
+      "mainMenu": "Main Menu",
+      "close": "Close",
+      "continue": "Continue",
+      "send": "Send"
+    },
+    "credits": {      
+      "developer": "Main Developer",
+      "graphics": "Graphics"
+    },
+    "controls": {
+      "attack": "attack",
+      "moveUp": "move up",
+      "moveDown": "move down",
+      "moveLeft": "move left",
+      "moveRight": "move right",
+      "potion": "use health potion",
+      "interact": "interakct",
+      "dialogue_continue": "spacebar"
+    },
+    "titles": {
+      "credits": "CREDITS",
+      "controls": "CONTROLS",
+      "options": "OPTIONS",
+      "gameOverWin": "You saved Isabelle!",
+      "gameOverLose": "They killed you!",
+      "feedback": "Feedback"
+    },
+    "log": {
+      "interact": "Press {0} to interact.",
+      "notEnoughKeys": "The door is locked. I need {0} keys to unlock them.",
+      "maxHealth": "I have maximum number of health.",
+      "notEnough":"I don't have {0}."
+    },
+    "options": {
+      "d_console": "console",
+      "d_all": "debug all",
+      "d_dialogue_file_content": "debug dialogue content",
+      "d_path_lines": "debug path lines",
+      "open_doors": "all door opened",
+      "immune": "immune"
+    },
+    "other": {
+      "gameOverWinContent": "This game is my work for final exams at high school. I would like to thank everyone, who helped me make this game on time and done things I couldn't. In the case of any question contact me on email tom.kratschmer@seznam.cz."
+    }
+  }
+}

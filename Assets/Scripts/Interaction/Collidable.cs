@@ -36,6 +36,6 @@ namespace Interaction {
         protected virtual void OnCollide(Collider2D coll) {
 
         }
-
+        
     }
 }

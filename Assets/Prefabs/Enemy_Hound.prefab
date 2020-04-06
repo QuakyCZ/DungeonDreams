@@ -69,7 +69,7 @@ MonoBehaviour:
   dropItemsPrefabs:
   - {fileID: 2119944965809648186, guid: 90cf7bc9c43e45a428676fc4cdf88177, type: 3}
   dropAmount: 1
-  dropChanceInPercent: 40
+  dropChanceInPercent: 25
   healthBar: {fileID: 5364686522888673076}
   healthText: {fileID: 7222141702167244642}
   maxFollowDistance: 5
