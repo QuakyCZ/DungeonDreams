@@ -35,13 +35,19 @@ namespace Models.Characters {
         protected GameObject targetGO;
 
         protected Vector2 localScale;
-        
+        protected Vector2 healthBarLocalScale;
+        protected Vector2 healthTextLocalScale;
+
         private float pathCountDown = 5;
         private bool findPath = true;
+
         #endregion
 
         protected void InstantiateEnemyParameters() {
             localScale = transform.localScale;
+            healthBarLocalScale = healthBar.transform.localScale;
+            healthTextLocalScale = healthText.transform.localScale;
+                
             targetGO = GameObject.Find("Player");
             target = targetGO.transform;
             healthBar.maxValue = stats.GetValue(Stats.maxHealth);
@@ -102,21 +108,21 @@ namespace Models.Characters {
                         }
 
                         Vector3 targetPosition = path[currentPathIndex];
-                        
+
                         if (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
                             Vector3 moveDir = (targetPosition - transform.position).normalized;
                             Move(moveDir);
                         }
                         else {
                             currentPathIndex++;
-                            
+
                             if (currentPathIndex >= path.Count ||
                                 CheckPlayerPosition(new Vector2(path.Last().x, path.Last().y)) == false) {
                                 StopMovement();
                             }
                         }
                     }
-                } 
+                }
                 else {
                     StopMovement();
                 }
@@ -124,11 +130,14 @@ namespace Models.Characters {
         }
 
         private bool CheckPlayerPosition(Vector3 position) {
-            ClonedTile playerTile = MainController.Instance.worldGraph.GetTileAt((int)targetGO.transform.position.x, (int)targetGO.transform.position.y);
+            ClonedTile playerTile =
+                MainController.Instance.worldGraph.GetTileAt((int) targetGO.transform.position.x,
+                    (int) targetGO.transform.position.y);
             ClonedTile lastTile = MainController.Instance.worldGraph.GetTileAt((int) position.x, (int) position.y);
             if (playerTile != lastTile) {
                 return false;
             }
+
             return true;
         }
 
@@ -146,6 +155,7 @@ namespace Models.Characters {
                 );
                 if (tile == enemyTile) return true;
             }
+
             return false;
         }
 
@@ -177,12 +187,17 @@ namespace Models.Characters {
 
             Vector2 playerVector = target.transform.position;
             float deltaX = playerVector.x - transform.position.x;
-
+            
             if (deltaX < 0) {
                 transform.localScale = new Vector2(-localScale.x, localScale.y);
+                healthBar.transform.localScale = new Vector2(-healthBarLocalScale.x, healthBarLocalScale.y);
+                healthText.transform.localScale = new Vector2(-healthTextLocalScale.x, healthTextLocalScale.y);
             }
             else if (deltaX > 0) {
+                
                 transform.localScale = new Vector2(localScale.x, localScale.y);
+                healthBar.transform.localScale = new Vector2(healthBarLocalScale.x, healthBarLocalScale.y);
+                healthText.transform.localScale = new Vector2(healthTextLocalScale.x, healthTextLocalScale.y);
             }
         }
 

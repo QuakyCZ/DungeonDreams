@@ -15,6 +15,10 @@
             <e p="readme.txt" t="Include" />
           </e>
         </e>
+        <e p="Pixelate" t="Include">
+          <e p="Pixelate.cs" t="Include" />
+          <e p="Pixelate.shader" t="Include" />
+        </e>
         <e p="Resources" t="Include">
           <e p="Dialogues" t="Include">
             <e p="cs" t="Include">
@@ -70,9 +74,13 @@
             <e p="PlayerStatsController.cs" t="Include" />
             <e p="RoomController.cs" t="Include" />
             <e p="SceneControllers" t="Include">
+              <e p="BugReportController.cs" t="Include" />
               <e p="CreditsController.cs" t="Include" />
+              <e p="GameOverLose.cs" t="Include" />
+              <e p="GameOverWin.cs" t="Include" />
               <e p="MainMenuController.cs" t="Include" />
               <e p="OptionsController.cs" t="Include" />
+              <e p="SceneController.cs" t="Include" />
             </e>
             <e p="UIController.cs" t="Include" />
           </e>
