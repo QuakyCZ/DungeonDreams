@@ -138,6 +138,7 @@
             <e p="YamlDotNet2013SepTest.cs" t="Include" />
           </e>
         </e>
+        <e p="SoundController.cs" t="Include" />
         <e p="TextMesh Pro" t="Include">
           <e p="Fonts" t="Include">
             <e p="LiberationSans - OFL.txt" t="Include" />

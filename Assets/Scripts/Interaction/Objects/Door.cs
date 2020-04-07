@@ -4,8 +4,10 @@ using Models.Inventory;
 using UnityEngine;
 
 namespace Interaction.Objects {
-    public class Door : Collectable
-    {
+    public class Door : Collectable {
+        [SerializeField] private AudioSource lockedSound = null;
+        [SerializeField] private AudioSource unlockSound = null;
+        
         [Header("Door Security")]
         [SerializeField] protected bool locked = false;
         [SerializeField] protected int keyParts;
@@ -53,7 +55,7 @@ namespace Interaction.Objects {
                 GetComponent<SpriteRenderer>().sprite = openedSprite;
                 forbiddenArea.SetActive( false );
                 tile.isWalkable = true;
-            
+                interacting = false;
             }
             else {
                 Debug.Log( "Door are closed." );            
@@ -62,23 +64,43 @@ namespace Interaction.Objects {
                 animator.SetBool( Opened, false );
                 _opened = false;
                 tile.isWalkable = false;
+                interacting = false;
+            }
+        }
+
+        protected override void PlaySound() {
+            Debug.Log("Play sound");
+            if (IsLocked()) {
+                lockedSound.Play();
+            }
+            else {
+                openSound.Play();
             }
         }
 
         protected override void OnCollect() {
+            if (interacting) {
+                return;
+            }
+            interacting = true;
             if (locked) {
                 if (player.inventory.GetValue( InventoryDefault.key ) < keyParts) {
+                    PlaySound();
                     string[] arr = {keyParts.ToString()};
                     uiController.Log(Language.GetString(GameDictionaryType.log,"notEnoughKeys"),arr);
+                    interacting = false;
                     return;
                 }
                 else {
+                    unlockSound.Play();
                     locked = false;
                     lockGameObject.SetActive(false);
-                    OnCollect();
+                    interacting = false;
+                    return;
                 }
             }
             if(_opened == false) {
+                PlaySound();
                 Debug.Log( "Opening the door." );
                 animator.SetInteger( OpenDoorAnim, 1 );
             }

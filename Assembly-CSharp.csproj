@@ -109,6 +109,7 @@
      <Compile Include="Assets\Scripts\Trello Poster\Scripts\TrelloPoster.cs" />
      <Compile Include="Assets\Scripts\Trello Poster\Scripts\TrelloUI.cs" />
      <Compile Include="Assets\Scripts\YamlDotNet2013Sep\YamlDotNet2013SepTest.cs" />
+     <Compile Include="Assets\SoundController.cs" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
      <None Include="Assets\Pixelate\Pixelate.shader" />
      <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />

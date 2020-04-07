@@ -6,8 +6,12 @@ namespace Interaction {
         [Header("Sprites")] [SerializeField] protected Sprite spriteUncollided;
         [SerializeField] protected Sprite spriteCollided;
         [SerializeField] protected Sprite spriteCollected;
-        private bool _collected;
+        protected SpriteRenderer objectSprite;
+        protected bool interacting = false;
 
+        [Header("Sound")] [SerializeField] protected AudioSource openSound = null;
+        
+        private bool _collected;
         protected bool Collected {
             get => _collected;
             set {
@@ -18,7 +22,7 @@ namespace Interaction {
             }
         }
 
-        protected SpriteRenderer objectSprite;
+        
 
         protected override void OnCollide(Collider2D coll) {
             if (coll.name == "Player") {
@@ -26,15 +30,25 @@ namespace Interaction {
                 objectSprite.sprite = spriteCollided;
                 uiController.Log(Language.GetString(GameDictionaryType.log, "interact"), new string[1] {"E"});
 
-                if (coll.name == "Player" && Input.GetKey(KeyCode.E)) {
+                if (coll.name == "Player" && Input.GetKeyDown(KeyCode.E)) {
                     OnCollect();
                 }
             }
         }
 
         protected virtual void OnCollect() {
+            if (interacting) {
+                return;
+            }
+            interacting = true;
+            PlaySound();
             objectSprite.sprite = spriteCollected;
             Collected = true;
+        }
+
+        protected virtual void PlaySound() {
+            if(openSound!=null)
+                openSound.Play();
         }
     }
 }

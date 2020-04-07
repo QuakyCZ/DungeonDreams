@@ -3,70 +3,67 @@ using UnityEngine;
 
 namespace Interaction.Objects {
     public class Chest : Collectable {
-        protected Animator animator;
-        protected bool isOppened = false;
-        protected bool isLooted = false;
+        private Animator _animator;
+        private bool _isOpened = false;
+        private bool _isLooted = false;
         private bool _interacting = false;
 
         protected override void Start() {
             base.Start();
-            animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
         }
 
-        protected void Loot() {
+        private void Loot() {
             int amnt = Random.Range(1, 5) * player.stats.GetValue(Stats.level);
-            isLooted = true;
+            _isLooted = true;
             player.inventory.ChangeValue(InventoryDefault.gold, amnt, MathOperation.Add);
             uiController.RefreshVisibleValue(InventoryDefault.gold);
-            Debug.Log("Gained " + amnt + " gold. Now you have " + player.inventory.GetValue(InventoryDefault.gold) +
-                      " gold");
+            Debug.Log(
+                "Gained " + amnt + " gold. Now you have "
+                + player.inventory.GetValue(InventoryDefault.gold) + " gold");
         }
 
         protected override void OnCollect() {
-            if (_interacting) {
+            if (interacting) {
                 return;
             }
-
-            _interacting = true;
-            if (isOppened == true) {
-                animator.SetBool("isLooted", true);
-                animator.SetBool("isOppened", true);
-                if (isLooted == false) {
+            interacting = true;
+            if (_isOpened) {
+                // The chest is opened but not looted.
+                _animator.SetBool("isLooted", true);
+                _animator.SetBool("isOpened", true);
+                if (_isLooted == false) {
                     Loot();
-                    animator.SetInteger("isOppening", 0);
+                    _animator.SetInteger("isOpening", 0);
+                    doUpdate = false;
                 }
-                else {
-                    animator.SetInteger("isOppening", -1);
-                }
-            }
-            else if (isOppened == false) {
-                animator.SetInteger("isOppening", 1);
-                animator.SetBool("isOppened", false);
-                if (isLooted) {
-                    animator.SetBool("isLooted", true);
-                }
-                else {
-                    animator.SetBool("isLooted", false);
-                }
-            }
-        }
-
-        public void IsOppened(int oppened = 0) {
-            _interacting = false;
-            if (oppened == 1) {
-                animator.SetInteger("isOppening", 0);
-                animator.SetBool("isOppened", true);
-                isOppened = true;
-            }
-            else if (oppened == 0) {
-                animator.SetInteger("isOppening", 0);
-                animator.SetBool("isOppened", false);
-                isOppened = false;
             }
             else {
-                animator.SetInteger("isOppening", -1);
-                animator.SetBool("isOppened", true);
-                animator.SetBool("isLooted", true);
+                // The chest is closed.
+                PlaySound();
+                _animator.SetInteger("isOpening", 1);
+            }
+        }
+        
+        public void IsOpened(int opened = 0) {
+            _interacting = false;
+            if (opened == 1) {
+                _animator.SetInteger("isOpening", 0);
+                _animator.SetBool("isOpened", true);
+                _isOpened = true;
+                interacting = false;
+            }
+            else if (opened == 0) {
+                _animator.SetInteger("isOpening", 0);
+                _animator.SetBool("isOpened", false);
+                _isOpened = false;
+                interacting = false;
+            }
+            else {
+                _animator.SetInteger("isOpening", -1);
+                _animator.SetBool("isOpened", true);
+                _animator.SetBool("isLooted", true);
+                interacting = false;
             }
         }
     }

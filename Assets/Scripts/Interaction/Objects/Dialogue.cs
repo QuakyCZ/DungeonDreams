@@ -77,6 +77,9 @@ namespace Interaction.Objects {
 
         protected override void Update() {
             base.Update();
+            if (openSound.time >= 1) {
+                openSound.Stop();
+            }
             // If the sentence was written and player pressed space.
             if (_nameText.text + '>' + _sentenceText.text == _dialogueList[_index] && Input.GetKeyDown(KeyCode.Space)) {
                 typingSpeed = 0.02f;
