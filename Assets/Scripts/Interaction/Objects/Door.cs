@@ -105,9 +105,9 @@ namespace Interaction.Objects {
                 animator.SetInteger( OpenDoorAnim, 1 );
             }
             else {
-                Debug.Log( "Closing the door." );
-                forbiddenArea.SetActive( true );
-                animator.SetInteger( OpenDoorAnim, -1 );
+                Debug.Log("Closing the door.");
+                forbiddenArea.SetActive(true);
+                animator.SetInteger(OpenDoorAnim, -1);
             }
         }
 
