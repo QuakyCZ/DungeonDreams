@@ -80,6 +80,7 @@
      <Compile Include="Assets\Scripts\Controllers\SceneControllers\MainMenuController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SceneControllers\OptionsController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SceneControllers\SceneController.cs" />
+     <Compile Include="Assets\Scripts\Controllers\SceneControllers\VersionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collectable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collidable.cs" />

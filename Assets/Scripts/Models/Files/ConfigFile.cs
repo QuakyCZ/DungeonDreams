@@ -14,6 +14,7 @@ namespace Models.Files {
                 path = Application.streamingAssetsPath + "/config.json";
                 configJson = File.ReadAllText(path);
                 config = (Config) JsonConvert.DeserializeObject(configJson, typeof(Config));
+                config.version = Application.version;
                 //Debug.Log(JsonFormatter.SerializeObject(config));
                 Debug.Log(config.language);
                 if (config.GetDebug("all")) {
@@ -29,7 +30,7 @@ namespace Models.Files {
                         Debug.Log(language.Key);
                     }
                 }
-
+                Save();
                 return config;
             }
             catch (Exception e) {
@@ -60,6 +61,8 @@ namespace Models.Files {
 
     [Serializable]
     public class Config {
+        public string version;
+        public string versionUrl;
         public string language;
         public int healPotion;
 

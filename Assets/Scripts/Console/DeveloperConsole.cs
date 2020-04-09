@@ -52,8 +52,10 @@ namespace Console {
         }
 
         public void Log(string message) {
-            consoleOutput.text += message + "\n";
-            scrollRect.verticalNormalizedPosition = 0f;
+            if (consoleOutput != null) {
+                consoleOutput.text += message + "\n";
+                scrollRect.verticalNormalizedPosition = 0f;
+            }
         }
 
         public static void LogStatic(string message) {

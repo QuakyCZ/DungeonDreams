@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Models.Files;
 using TMPro;
 using UnityEngine;
@@ -15,11 +16,12 @@ namespace Controllers.SceneControllers {
     
         [SerializeField] private TextMeshProUGUI progress = null;
 
-        // Start is called before the first frame update
-        void Start() {
+        private void Awake() {
             ConfigFile.SetUp();
             Language.SetUp();
-        
+        }
+
+        void Start() {
             playButton.gameObject.GetComponentInChildren<Text>().text =
                 Language.GetString(GameDictionaryType.buttons, "play");
         

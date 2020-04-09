@@ -81,6 +81,7 @@
               <e p="MainMenuController.cs" t="Include" />
               <e p="OptionsController.cs" t="Include" />
               <e p="SceneController.cs" t="Include" />
+              <e p="VersionController.cs" t="Include" />
             </e>
             <e p="UIController.cs" t="Include" />
           </e>
