@@ -772,7 +772,6 @@ Transform:
   - {fileID: 865394301}
   - {fileID: 654099831}
   - {fileID: 572645549}
-  - {fileID: 860360407}
   - {fileID: 1256171042}
   - {fileID: 969519098}
   m_Father: {fileID: 0}
@@ -1063,9 +1062,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
+  currentHealth: 0
   speed: 2
   minRange: 0.97
-  maxPathLength: 10
+  maxPathLength: 5
   attackChargeTime: 2
   isCharged: 0
   isWalking: 0
@@ -1098,6 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBarFillImage: {fileID: 606856677}
+  healthText: {fileID: 0}
 --- !u!1 &172446408
 GameObject:
   m_ObjectHideFlags: 0
@@ -4040,95 +4041,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1018344066}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &860360406
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 860360407}
-  - component: {fileID: 860360408}
-  m_Layer: 0
-  m_Name: EnemyController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &860360407
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860360406}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 98012363}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &860360408
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860360406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fde61d5f7937e344a566e90a68ce573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyGOs: []
-  enemyPrefabs:
-    reorderableList:
-      canAdd: 1
-      canRemove: 1
-      draggable: 1
-      expandable: 1
-      multipleSelection: 1
-      isExpanded: 1
-      label:
-        m_Text: Keys
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      headerHeight: 18
-      footerHeight: 13
-      slideEasing: 0.15
-      verticalSpacing: 2
-      showDefaultBackground: 1
-      elementDisplayType: 0
-      elementNameProperty: 
-      elementNameOverride: 
-      elementIcon: {fileID: 0}
-      controlID: 0
-      elementRects: []
-      elementLabel:
-        m_Text: 
-        m_Image: {fileID: 0}
-        m_Tooltip: 
-      pressIndex: 0
-      dragging: 0
-      pressPosition: 0
-      dragPosition: 0
-      dragDirection: 0
-      dragDropControlID: 0
-      enablePages: 0
-      perPageCount: 0
-      currentPage: 0
-      pagesCount: 0
-      showPage: 0
-    reqReferences: {fileID: 0}
-    isExpanded: 1
-    _keyValues: 0100000000000000
-    _keys: 0100000000000000
-    _values:
-    - {fileID: 469791512382245316, guid: 0b527c9355b0fda27b698adedeb2b2c7, type: 3}
-    - {fileID: 7825109678318489515, guid: 0ca3cf398538894ce9688ebb29d66f47, type: 3}
 --- !u!1 &865394300
 GameObject:
   m_ObjectHideFlags: 0
@@ -4866,7 +4778,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98012363}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &969519099
 MonoBehaviour:
@@ -5982,7 +5894,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 98012363}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1256171043
 MonoBehaviour:
@@ -8406,6 +8318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDamage: 1
   maxDamage: 5
+  chargeTime: 2
+  _charged: 1
 --- !u!95 &1531281504
 Animator:
   serializedVersion: 3

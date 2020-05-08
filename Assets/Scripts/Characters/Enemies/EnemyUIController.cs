@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class EnemyUIController : MonoBehaviour{
     [SerializeField] private Image healthBarFillImage = null;
+    [SerializeField] private Text healthText = null;
+    
     private EnemyController _enemyController;
     // Start is called before the first frame update
     void Start() {
@@ -15,6 +17,7 @@ public class EnemyUIController : MonoBehaviour{
         }
 
         _enemyController.OnHealthChanged += OnHealthStatusChanged;
+        healthText.text = $"{_enemyController.CurrentHealth}/{_enemyController.MaxHealth}";
     }
 
     private void OnHealthStatusChanged() {
@@ -22,5 +25,6 @@ public class EnemyUIController : MonoBehaviour{
         float fillAmount = (float)_enemyController.CurrentHealth / _enemyController.MaxHealth;
         Debug.Log(fillAmount);
         healthBarFillImage.fillAmount = fillAmount;
+        healthText.text = $"{_enemyController.CurrentHealth}/{_enemyController.MaxHealth}";
     }
 }

@@ -66,6 +66,10 @@
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\References\RequiredReferences.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\ReorderableList\ReorderableList.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\SerializableDictionaryBase.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyAnimationController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyUIController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyWeaponController.cs" />
      <Compile Include="Assets\Scripts\Console\DeveloperConsole.cs" />
      <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
      <Compile Include="Assets\Scripts\Controllers\InventoryController.cs" />
@@ -81,10 +85,6 @@
      <Compile Include="Assets\Scripts\Controllers\SceneControllers\SceneController.cs" />
      <Compile Include="Assets\Scripts\Controllers\SceneControllers\VersionController.cs" />
      <Compile Include="Assets\Scripts\Controllers\UIController.cs" />
-     <Compile Include="Assets\Scripts\EnemyAnimationController.cs" />
-     <Compile Include="Assets\Scripts\EnemyController.cs" />
-     <Compile Include="Assets\Scripts\EnemyUIController.cs" />
-     <Compile Include="Assets\Scripts\EnemyWeaponController.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collectable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Collidable.cs" />
      <Compile Include="Assets\Scripts\Interaction\Objects\Chest.cs" />
