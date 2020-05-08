@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Models {
     public class Character : MonoBehaviour {
-        #region Parameters
         [SerializeField]
         protected float minRange;
         protected Transform target;
@@ -12,6 +11,10 @@ namespace Models {
 
         [SerializeField] protected float immuneTime;
         private float lastImmune;
+
+        private WorldGraph _worldGraph => MainController.Instance.worldGraph;
+        public ClonedTile TileUnderMe => _worldGraph.GetTileAt(Mathf.FloorToInt(transform.position.x),
+            Mathf.FloorToInt(transform.position.y));
 
         #region Abilities
         [Header("Abilities")]
@@ -56,8 +59,6 @@ namespace Models {
         #endregion
 
 
-
-        #endregion
         protected virtual void Start() {
             charged = true;
         }

@@ -1,0 +1,215 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using Controllers;
+using Models;
+using Models.Characters;
+using UnityEngine;
+
+public class EnemyController : MonoBehaviour{
+    
+    [Header("Basic Stats")]
+    [SerializeField] private int health = 10;
+    [ReadOnly][SerializeField]private int currentHealth;
+    
+    public int MaxHealth => health;
+    public int CurrentHealth => currentHealth;
+    
+    [Header("Movement")]
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float minRange = 0;
+    [SerializeField] private int maxPathLength = 10;
+
+    [Header("Cooldowns")]
+    [SerializeField] private float attackChargeTime = 2f;
+    private float attackChargeCooldown;
+    [ReadOnly][SerializeField] private bool isCharged = false;
+    
+    [Header("Animations (For debug)")]
+    [ReadOnly][SerializeField] private bool isWalking = false;
+    [ReadOnly][SerializeField] private bool isAttacking = false;
+    [ReadOnly][SerializeField] private bool isTakingHit = false;
+    [ReadOnly][SerializeField] private bool isDying = false;
+    [ReadOnly][SerializeField] private bool isDead = false;
+    
+    
+    private MainController _mainController => MainController.Instance;
+    private WorldGraph _worldGraph;
+    private Player player;
+    
+    private List<Vector2> path = null;
+    private int currentPathIndex = 0;
+    
+    private ClonedTile _tileUnderMe => _worldGraph.GetTileAt(Mathf.FloorToInt(transform.position.x),Mathf.FloorToInt(transform.position.y));
+
+    public Action OnWalkingBegin;
+    public Action OnWalkingEnd;
+
+    public Action OnAttackBegin;
+    public Action OnAttackEnd;
+
+    public Action OnTakingHitBegin;
+    public Action OnTakingHitEnd;
+
+    public Action OnDyingBegin;
+    public Action OnDyingEnd;
+
+    public Action OnDie;
+
+    public Action OnHealthChanged;
+    
+    void Start() {
+        _worldGraph = _mainController.worldGraph;
+        player = _mainController.player;
+        attackChargeCooldown = attackChargeTime;
+        currentHealth = health;
+    }
+
+    // Update is called once per frame
+    void Update() {
+        if (isDead) return;
+        if (isAttacking) return;
+        if (isTakingHit) return;
+        
+        if (isCharged == false) {
+            attackChargeCooldown -= Time.deltaTime;
+            if (attackChargeCooldown <= 0) {
+                isCharged = true;
+                attackChargeCooldown = attackChargeTime;
+            }
+        }
+
+        if (player.transform.position.x < transform.position.x) {
+            transform.localScale = new Vector3(-1,1,1);
+        }
+        else {
+            transform.localScale = new Vector3(1,1,1);
+        }
+    }
+
+    void FixedUpdate() {
+        if (isDead) return;
+        
+        // I can't move when I do something else.
+        if (isTakingHit) return;
+        if (isAttacking) return;
+        
+        // Am I next to the player?
+        if (Vector2.Distance(transform.position, player.transform.position) > minRange) {
+            // Do I have path?
+            if (path == null) {
+                // No -> find it.
+                path = _worldGraph.FindVectorPath(transform.position, player.transform.position);
+                if (path.Count > maxPathLength) path = null;
+                return;
+            }
+            
+            Vector3 targetPosition = path[currentPathIndex];
+
+            if (Vector3.Distance(transform.position, targetPosition) > 0.1f) {
+                if (isWalking == false) StartMovement();
+                Vector3 moveDir = (targetPosition - transform.position).normalized;
+                Move(moveDir);
+            }
+            else {
+                currentPathIndex++;
+
+                if (currentPathIndex >= path.Count ||
+                    CheckPlayerPosition() == false) {
+                    StopMovement();
+                }
+            }
+        }
+        else {
+            if(isWalking) StopMovement();
+            if(isCharged && !isAttacking) StartAttack();
+        }
+    }
+    private void StartMovement() {
+        isWalking = true;
+        OnWalkingBegin?.Invoke();
+    }
+
+    private void StopMovement() {
+        isWalking = false;
+        OnWalkingEnd?.Invoke();
+        path = null;
+        currentPathIndex = 0;
+    }
+
+    private void StartAttack() {
+        isCharged = false;
+        OnAttackBegin?.Invoke();
+        isAttacking = true;
+    }
+    
+    /// <summary>
+    /// Called from animation.
+    /// </summary>
+    private void StopAttack() {
+        OnAttackEnd?.Invoke();
+        isAttacking = false;
+    }
+
+    private void StartTakingHit() {
+        isTakingHit = true;
+        OnTakingHitBegin?.Invoke();
+        
+    }
+
+    /// <summary>
+    /// Called from animation.
+    /// </summary>
+    private void StopTakingHit() {
+        OnTakingHitEnd?.Invoke();
+        isTakingHit = false;
+    }
+    
+    private void StartDying() {
+        OnDyingBegin?.Invoke();
+        isDying = true;
+        GetComponent<PolygonCollider2D>().enabled = false;
+    }
+
+    private void EndDying() {
+        OnDie?.Invoke();
+        isDying = false;
+        isDead = true;
+    }
+    
+    private void Move(Vector3 moveDir) {
+        transform.position += moveDir * (speed * Time.deltaTime);
+    }
+    
+    /// <summary>
+    /// Checks if the player is still at the end of the founded path.
+    /// </summary>
+    /// <returns>True if player is still there, otherwise false.</returns>
+    private bool CheckPlayerPosition() {
+        if (_worldGraph.GetTileAt(Mathf.FloorToInt(path.Last().x), Mathf.FloorToInt(path.Last().y)) !=
+            player.TileUnderMe) {
+            return false;
+        }
+        return true;
+    }
+
+    public void ReceiveDamage(Damage damage) {
+        StopMovement();
+        StopAttack();
+        StartTakingHit();
+        
+        currentHealth -= damage.damageAmount;
+        if (currentHealth <= 0) {
+            StartDying();
+        }
+        OnHealthChanged?.Invoke();
+    }
+    
+    
+    public void OnDrawGizmosSelected() {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position,minRange);
+    }
+}

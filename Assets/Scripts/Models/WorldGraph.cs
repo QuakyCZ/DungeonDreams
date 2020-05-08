@@ -265,7 +265,7 @@ namespace Models {
 
             path.Reverse();
 
-            Debug.Log("Path length: " + path.Count);
+            //Debug.Log("Path length: " + path.Count);
             return path;
         }
 

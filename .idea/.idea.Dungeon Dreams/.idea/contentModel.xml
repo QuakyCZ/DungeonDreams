@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\tomkr\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\tomkr\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Dungeon Dreams.420531940.00" t="ExcludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_Dungeon Dreams.420531940.00" t="ExcludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
     <e p="E:\Dokumenty\Tom\DevLib\Unity\Dungeon Dreams" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
@@ -67,7 +68,6 @@
             <e p="DeveloperConsole.cs" t="Include" />
           </e>
           <e p="Controllers" t="Include">
-            <e p="EnemyController.cs" t="Include" />
             <e p="InputController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
             <e p="MainController.cs" t="Include" />
@@ -85,6 +85,10 @@
             </e>
             <e p="UIController.cs" t="Include" />
           </e>
+          <e p="EnemyAnimationController.cs" t="Include" />
+          <e p="EnemyController.cs" t="Include" />
+          <e p="EnemyUIController.cs" t="Include" />
+          <e p="EnemyWeaponController.cs" t="Include" />
           <e p="Interaction" t="Include">
             <e p="Collectable.cs" t="Include" />
             <e p="Collidable.cs" t="Include" />
@@ -124,6 +128,7 @@
             <e p="Weapon.cs" t="Include" />
             <e p="WorldGraph.cs" t="Include" />
           </e>
+          <e p="ReadOnly.cs" t="Include" />
           <e p="Trello Poster" t="Include">
             <e p="Scripts" t="Include">
               <e p="Editor" t="Include">
