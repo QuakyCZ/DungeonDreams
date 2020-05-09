@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
-    <e p="C:\Users\tomkr\.Rider2019.3\system\extResources" t="IncludeRecursive" />
-    <e p="C:\Users\tomkr\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_Dungeon Dreams.420531940.00" t="ExcludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\local\JetBrains\Rider2020.1\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\local\JetBrains\Rider2020.1\resharper-host\local\Transient\ReSharperHost\v201\SolutionCaches\_Dungeon Dreams.420531940.00" t="ExcludeRecursive" />
+    <e p="C:\Users\tomkr\AppData\Roaming\JetBrains\Rider2020.1\scratches" t="IncludeRecursive" />
     <e p="E:\Dokumenty\Tom\DevLib\Unity\Dungeon Dreams" t="IncludeRecursive">
       <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
+        <e p="Editor" t="Include">
+          <e p="DeleteStreamingAssetsOnBuild.cs" t="Include" />
+          <e p="ReadOnly.cs" t="Include" />
+        </e>
         <e p="JsonDotNet" t="Include">
           <e p="link.xml" t="Include" />
         </e>
@@ -63,11 +68,23 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="Characters" t="Include">
+            <e p="Enemies" t="Include">
+              <e p="EnemyAnimationController.cs" t="Include" />
+              <e p="EnemyController.cs" t="Include" />
+              <e p="EnemyLootController.cs" t="Include" />
+              <e p="EnemyUIController.cs" t="Include" />
+              <e p="EnemyWeaponController.cs" t="Include" />
+            </e>
+          </e>
           <e p="Console" t="Include">
             <e p="DeveloperConsole.cs" t="Include" />
           </e>
+          <e p="Containers" t="Include">
+            <e p="EnemiesContainer.cs" t="Include" />
+            <e p="LootContainer.cs" t="Include" />
+          </e>
           <e p="Controllers" t="Include">
-            <e p="EnemyController.cs" t="Include" />
             <e p="InputController.cs" t="Include" />
             <e p="InventoryController.cs" t="Include" />
             <e p="MainController.cs" t="Include" />
@@ -109,6 +126,7 @@
             </e>
             <e p="ClonedTile.cs" t="Include" />
             <e p="Damage.cs" t="Include" />
+            <e p="Enums.cs" t="Include" />
             <e p="Files" t="Include">
               <e p="ConfigFile.cs" t="Include" />
               <e p="Language.cs" t="Include" />
@@ -117,6 +135,7 @@
               <e p="Inventory.cs" t="Include" />
             </e>
             <e p="Room.cs" t="Include" />
+            <e p="SerializableDictionaries.cs" t="Include" />
             <e p="Stats" t="Include">
               <e p="Abilities.cs" t="Include" />
               <e p="CharacterStats.cs" t="Include" />
@@ -124,6 +143,7 @@
             <e p="Weapon.cs" t="Include" />
             <e p="WorldGraph.cs" t="Include" />
           </e>
+          <e p="ReadOnlyAttribute.cs" t="Include" />
           <e p="Trello Poster" t="Include">
             <e p="Scripts" t="Include">
               <e p="Editor" t="Include">

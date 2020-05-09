@@ -57,11 +57,11 @@ TagManager:
   - name: Interactable
     uniqueID: 1529311393
     locked: 0
-  - name: Player
-    uniqueID: 2195115237
-    locked: 0
   - name: Enemy
     uniqueID: 384295845
+    locked: 0
+  - name: Player
+    uniqueID: 2195115237
     locked: 0
   - name: Debug
     uniqueID: 2922926087

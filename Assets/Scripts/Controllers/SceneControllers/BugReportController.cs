@@ -1,8 +1,7 @@
-﻿using Models.Files;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Controllers.SceneControllers {
+
     public class BugReportController : SceneController {
         [SerializeField] private Button sendButton = null;
         [SerializeField] private Button mainMenuButton = null;
@@ -18,4 +17,4 @@ namespace Controllers.SceneControllers {
                 );
         }
     }
-}
+
