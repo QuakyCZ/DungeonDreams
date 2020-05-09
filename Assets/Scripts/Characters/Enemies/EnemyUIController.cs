@@ -17,7 +17,6 @@ public class EnemyUIController : MonoBehaviour{
         }
 
         _enemyController.OnHealthChanged += OnHealthStatusChanged;
-        healthText.text = $"{_enemyController.CurrentHealth}/{_enemyController.MaxHealth}";
     }
 
     private void OnHealthStatusChanged() {

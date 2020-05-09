@@ -68,9 +68,12 @@
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\SerializableDictionaryBase.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyAnimationController.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyLootController.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyUIController.cs" />
      <Compile Include="Assets\Scripts\Characters\Enemies\EnemyWeaponController.cs" />
      <Compile Include="Assets\Scripts\Console\DeveloperConsole.cs" />
+     <Compile Include="Assets\Scripts\Containers\EnemiesContainer.cs" />
+     <Compile Include="Assets\Scripts\Containers\LootContainer.cs" />
      <Compile Include="Assets\Scripts\Controllers\InputController.cs" />
      <Compile Include="Assets\Scripts\Controllers\InventoryController.cs" />
      <Compile Include="Assets\Scripts\Controllers\MainController.cs" />
@@ -100,10 +103,12 @@
      <Compile Include="Assets\Scripts\Models\Characters\Player.cs" />
      <Compile Include="Assets\Scripts\Models\ClonedTile.cs" />
      <Compile Include="Assets\Scripts\Models\Damage.cs" />
+     <Compile Include="Assets\Scripts\Models\Enums.cs" />
      <Compile Include="Assets\Scripts\Models\Files\ConfigFile.cs" />
      <Compile Include="Assets\Scripts\Models\Files\Language.cs" />
      <Compile Include="Assets\Scripts\Models\Inventory\Inventory.cs" />
      <Compile Include="Assets\Scripts\Models\Room.cs" />
+     <Compile Include="Assets\Scripts\Models\SerializableDictionaries.cs" />
      <Compile Include="Assets\Scripts\Models\Stats\Abilities.cs" />
      <Compile Include="Assets\Scripts\Models\Stats\CharacterStats.cs" />
      <Compile Include="Assets\Scripts\Models\Weapon.cs" />
