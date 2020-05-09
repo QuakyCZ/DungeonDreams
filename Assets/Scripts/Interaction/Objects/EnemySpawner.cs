@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using RotaryHeart.Lib.SerializableDictionary;
+﻿using System.Collections.Generic;
+using Containers;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
 public class EnemySpawner : Collidable{
-    [SerializeField] protected EnemiesToSpawn enemiesToSpawn;
-    [SerializeField] protected EnemyPrefabs enemyPrefabs;
-
+    [SerializeField] private EnemiesContainer enemyPrefabs = null;
+    [SerializeField] private int enemiesToSpawn = 3;
     protected List<GameObject> enemyGOList;
     protected bool triggered;
     [SerializeField] protected Vector3 spawnRange;
@@ -30,38 +29,20 @@ public class EnemySpawner : Collidable{
         triggered = true;
     }
 
-    protected void InstantiateEnemies() {
-        foreach (EnemyType type in enemiesToSpawn.Keys) {
-            int n = enemiesToSpawn[type];
-            for (int i = 0; i < n; i++) {
-                SpawnEnemy(type);
-            }
+    private void InstantiateEnemies() {
+        for (int i = 0; i < enemiesToSpawn; i++) {
+            Vector3 newPosition = new Vector3(transform.position.x + Random.Range(-spawnRange.x, spawnRange.x),
+                transform.position.y + Random.Range(-spawnRange.y, spawnRange.y), 0);
+            GameObject newEnemy = Instantiate(enemyPrefabs.GetRandomEnemy(), newPosition, Quaternion.identity);
+            enemyGOList.Add(newEnemy);
+            newEnemy.SetActive(false);
+            newEnemy.transform.SetParent(transform);
         }
     }
 
-    protected void ActivateEnemies() {
+    private void ActivateEnemies() {
         foreach (GameObject enemy in enemyGOList) {
             enemy.SetActive(true);
-        }
-    }
-
-    /// <summary>
-    /// Instantiates the enemy at a random position in the given range from the spawner.
-    /// Game object is NOT active!
-    /// </summary>
-    /// <param name="enemyType">Enemy type.</param>
-    protected void SpawnEnemy(EnemyType enemyType) {
-        if (enemyPrefabs.ContainsKey(enemyType)) {
-            GameObject enemyGO = Instantiate(enemyPrefabs[enemyType]);
-            enemyGOList.Add(enemyGO);
-            enemyGO.name = "enemy_" + enemyType.ToString() + "_" + (enemyGOList.Count - 1).ToString();
-            enemyGO.transform.SetParent(this.transform);
-            //enemyGO.transform.position = new Vector2( 0, 0 );
-            float x = this.transform.position.x + Random.Range(-spawnRange.x, spawnRange.x);
-            float y = this.transform.position.y + Random.Range(-spawnRange.y, spawnRange.y);
-            //Debug.Log( "Spawning " + enemyType.ToString() + " at " + x + " " + y + " coordinates." );
-            enemyGO.transform.position = new Vector2(x, y);
-            enemyGO.gameObject.SetActive(false);
         }
     }
 

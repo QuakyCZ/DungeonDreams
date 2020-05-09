@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EnemyUIController : MonoBehaviour{
+    [SerializeField] private GameObject canvas = null;
     [SerializeField] private Image healthBarFillImage = null;
     [SerializeField] private Text healthText = null;
     
@@ -17,12 +18,19 @@ public class EnemyUIController : MonoBehaviour{
         }
 
         _enemyController.OnHealthChanged += OnHealthStatusChanged;
+        _enemyController.OnDie += HideUI;
+        
+        OnHealthStatusChanged();
+    }
+
+    private void HideUI() {
+        canvas.SetActive(false);
     }
 
     private void OnHealthStatusChanged() {
         // ReSharper disable once PossibleLossOfFraction
         float fillAmount = (float)_enemyController.CurrentHealth / _enemyController.MaxHealth;
-        Debug.Log(fillAmount);
+        //Debug.Log(fillAmount);
         healthBarFillImage.fillAmount = fillAmount;
         healthText.text = $"{_enemyController.CurrentHealth}/{_enemyController.MaxHealth}";
     }

@@ -58,6 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Editor\DeleteStreamingAssetsOnBuild.cs" />
+     <Compile Include="Assets\Editor\ReadOnly.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\Editor\Constants.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\Editor\Definer.cs" />
      <Compile Include="Assets\Rotary Heart\SerializableDictionary\Editor\DictionaryPropertyDrawer.cs" />

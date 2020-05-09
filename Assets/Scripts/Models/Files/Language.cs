@@ -20,6 +20,11 @@ public static class Language{
         }
 
         string path = Application.streamingAssetsPath + "/" + fileName;
+        if (File.Exists(path) == false) {
+            var file = (TextAsset) Resources.Load(ConfigFile.Get().language);
+            var content = file.text;
+            File.WriteAllText(path,content);
+        }
         string json = File.ReadAllText(path);
         Debug.Log(json);
         dictionary = (GameDictionary) JsonConvert.DeserializeObject(json, typeof(GameDictionary));

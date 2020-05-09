@@ -5,11 +5,11 @@ using UnityEngine;
 
 
 public class EnemyController : MonoBehaviour{
-    [Header("Basic Stats")] [SerializeField]
+    [Header("Basic Settings")] [SerializeField]
+    private bool destroyOnDeath = false;
+    [SerializeField]
     private int health = 10;
-
     [ReadOnly] [SerializeField] private int currentHealth;
-
     public int MaxHealth => health;
     public int CurrentHealth => currentHealth;
 
@@ -55,12 +55,14 @@ public class EnemyController : MonoBehaviour{
 
     public System.Action OnHealthChanged;
 
+    private void Awake() {
+        currentHealth = health;
+        attackChargeCooldown = attackChargeTime;
+    }
+
     void Start() {
         _worldGraph = _mainController.worldGraph;
         player = _mainController.player;
-        attackChargeCooldown = attackChargeTime;
-        currentHealth = health;
-        OnHealthChanged?.Invoke();
     }
 
     // Update is called once per frame
@@ -98,7 +100,7 @@ public class EnemyController : MonoBehaviour{
             if (path == null) {
                 // No -> find it.
                 path = _worldGraph.FindVectorPath(transform.position, player.transform.position);
-                if (path.Count > maxPathLength) path = null;
+                if (path!=null && path.Count > maxPathLength) path = null;
                 return;
             }
 
@@ -205,7 +207,8 @@ public class EnemyController : MonoBehaviour{
         OnDie?.Invoke();
         isDying = false;
         isDead = true;
-        Destroy(gameObject);
+        if(destroyOnDeath)
+            Destroy(gameObject);
     }
 
     public void ReceiveDamage(Damage damage) {

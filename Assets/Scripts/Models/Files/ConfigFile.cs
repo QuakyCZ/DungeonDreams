@@ -12,7 +12,15 @@ public static class ConfigFile{
 
     public static Config SetUp() {
         try {
+            if (Directory.Exists(Application.streamingAssetsPath) == false) {
+                Directory.CreateDirectory(Application.streamingAssetsPath);
+            }
             path = Application.streamingAssetsPath + "/config.json";
+            if (File.Exists(path) == false) {
+                var file = (TextAsset) Resources.Load("config");
+                var content = file.text;
+                File.WriteAllText(path,content);
+            }
             configJson = File.ReadAllText(path);
             config = (Config) JsonConvert.DeserializeObject(configJson, typeof(Config));
             config.version = Application.version;

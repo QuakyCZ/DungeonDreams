@@ -34,7 +34,7 @@ public class VersionController : MonoBehaviour{
         _version = (Version) JsonConvert.DeserializeObject(webRequest.downloadHandler.text, typeof(Version));
         string newestVersion = _version.version;
         Debug.Log(newestVersion);
-        if (!ConfigFile.Get().version.Equals(newestVersion)) {
+        if (!ConfigFile.Get().version.Equals(newestVersion) && !Application.version.Contains("dev")) {
             //if (ConfigFile.Get().version.Contains("Dev")) yield break;
 
             Tranlate();

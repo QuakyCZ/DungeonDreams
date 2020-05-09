@@ -1,14 +1,21 @@
 ﻿using System.Linq;
 using UnityEngine;
-using RotaryHeart.Lib.SerializableDictionary;
 
 namespace Containers{
     [CreateAssetMenu(fileName = "NewEnemies", menuName = "CustomContainers/Enemies")]
     public class EnemiesContainer : ScriptableObject{
-        [SerializeField] private EnemyPrefabs enemyPrefabs = null;
+        [SerializeField] private EnemyPrefabs enemyPrefabs = new EnemyPrefabs();
 
-        public GameObject GetRandomLoot() {
-            return enemyPrefabs.ElementAt(Random.Range(0,enemyPrefabs.Count-1)).Value;
+        public GameObject GetRandomEnemy() {
+            return enemyPrefabs.ElementAt(Random.Range(0, enemyPrefabs.Keys.Count)).Value;
+        }
+
+        public GameObject GetEnemy(EnemyType type) {
+            if (enemyPrefabs.ContainsKey(type)) {
+                return enemyPrefabs[type];
+            }
+
+            return null;
         }
     }
 }
