@@ -114,6 +114,7 @@
      <Compile Include="Assets\Scripts\Models\Weapon.cs" />
      <Compile Include="Assets\Scripts\Models\WorldGraph.cs" />
      <Compile Include="Assets\Scripts\ReadOnlyAttribute.cs" />
+     <Compile Include="Assets\Scripts\Screenshots.cs" />
      <Compile Include="Assets\Scripts\Trello Poster\Scripts\TrelloCard.cs" />
      <Compile Include="Assets\Scripts\Trello Poster\Scripts\TrelloCardOption.cs" />
      <Compile Include="Assets\Scripts\Trello Poster\Scripts\TrelloPoster.cs" />

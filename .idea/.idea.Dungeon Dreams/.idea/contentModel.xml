@@ -144,6 +144,7 @@
             <e p="WorldGraph.cs" t="Include" />
           </e>
           <e p="ReadOnlyAttribute.cs" t="Include" />
+          <e p="Screenshots.cs" t="Include" />
           <e p="Trello Poster" t="Include">
             <e p="Scripts" t="Include">
               <e p="Editor" t="Include">
