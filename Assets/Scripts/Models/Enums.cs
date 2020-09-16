@@ -7,7 +7,9 @@
 public enum EnemyType {
     Dragon,
     Hound,
-    Skeleton
+    Skeleton,
+    FlyingEye,
+    Goblin
 }
 
 ////////////////////////

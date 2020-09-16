@@ -11,7 +11,7 @@
     "all": false,
     "console": false,
     "dialogue_file_content": false,
-    "path_lines": false
+    "path_lines": true
   },
   "options": {
     "open_doors": false,

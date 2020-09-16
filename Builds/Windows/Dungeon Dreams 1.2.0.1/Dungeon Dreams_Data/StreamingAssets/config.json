@@ -8,13 +8,13 @@
     "en": "english"
   },
   "debug": {
-    "all": false,
+    "all": true,
     "console": false,
     "dialogue_file_content": false,
-    "path_lines": false
+    "path_lines": true
   },
   "options": {
-    "open_doors": false,
-    "immune": false
+    "open_doors": true,
+    "immune": true
   }
 }
