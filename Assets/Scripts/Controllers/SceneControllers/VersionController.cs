@@ -31,7 +31,14 @@ public class VersionController : MonoBehaviour{
         yield return webRequest.SendWebRequest();
 
         Debug.Log(webRequest.downloadHandler.text);
-        _version = (Version) JsonConvert.DeserializeObject(webRequest.downloadHandler.text, typeof(Version));
+        try {
+            _version = (Version) JsonConvert.DeserializeObject(webRequest.downloadHandler.text, typeof(Version));
+        }
+        catch {
+            Debug.LogWarning("JSON File with latest version was not found!");
+            yield break;
+        }
+
         string newestVersion = _version.version;
         Debug.Log(newestVersion);
         if (!ConfigFile.Get().version.Equals(newestVersion) && !Application.version.Contains("dev")) {
