@@ -1,7 +1,7 @@
 # =============== #
 # Unity generated #
 # =============== #
-!Assets/Sprites/Icons/*
+
 [Tt]emp/
 [Oo]bj/
 /[Ll]ibrary/
@@ -36,7 +36,7 @@ sysinfo.txt
 ._*
 .Spotlight-V100
 .Trashes
-Icon?
+!Assets/Sprites/Icons/*
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
