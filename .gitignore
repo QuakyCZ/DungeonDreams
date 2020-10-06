@@ -1,6 +1,7 @@
 # =============== #
 # Unity generated #
 # =============== #
+!Assets/Sprites/Icons/*
 [Tt]emp/
 [Oo]bj/
 /[Ll]ibrary/
@@ -26,6 +27,7 @@ sysinfo.txt
 /*.tmp
 /*.svd
 .idea/
+*.csproj
  
 # ============ #
 # OS generated #
@@ -42,3 +44,4 @@ Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 
 Assets/Scripts/cloc.exe
+
