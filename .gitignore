@@ -28,6 +28,7 @@ sysinfo.txt
 /*.svd
 .idea/
 *.csproj
+*.sln
  
 # ============ #
 # OS generated #
