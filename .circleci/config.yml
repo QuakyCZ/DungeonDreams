@@ -1,123 +1,270 @@
 # This code is licensed from CircleCI to the user under the MIT license.
 # See here for details: https://circleci.com/developer/orbs/licensing
-version: "2.1"
+version: 2.1
 orbs:
-  unity-build: w3d/unity-build@0.0.7
-description: "Unity Build Orb"
+  unity-ci: mizotake/unity-ci@0.1.3
+description: 'Unity CI Orb'
 
 commands:
-  unity-build:
-    description: "Build Unity Project"
+  unity_activate:
+    description: 'Unity License Activate'
     parameters:
-      unity_build_method:
+      licenseFromEnv:
+        description: 'Get from env'
+        type: env_var_name
+        default: UNITY_LICENSE_BASE64
+      licenseFromPath:
+        description: 'Get from path'
         type: string
-      unity_appversion:
+        default: '/activateTools/Unity.ulf'
+    steps:
+      - run:
+          name: activate
+          command: |
+            if [ -e "<< parameters.licenseFromPath >>" ]; then
+              cat << parameters.licenseFromPath >> | tr -d '\r' > Unity.ulf
+            else
+              apt update && apt install cl-base64 -y
+              echo ${<< parameters.licenseFromEnv >>} | base64 -di | tr -d '\r' > Unity.ulf
+            fi
+            /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -manualLicenseFile Unity.ulf || exit 0
+  build:
+    description: 'Unity Build'
+    parameters:
+      platform:
+        description: 'Build Target Platform'
         type: string
-      unity_bundleversioncode:
+      method:
+        description: 'Build Execute Method'
+        type: string
+      no_output_timeout:
+        description: 'No Output Timeout'
+        type: string
+        default: 10m
+    steps:
+      - run:
+          name: build run
+          command: |
+            /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod << parameters.method >> -buildTarget << parameters.platform >>
+          working_directory: ~/project/
+          no_output_timeout: << parameters.no_output_timeout >>
+  test:
+    description: 'Unity Test'
+    parameters:
+      mode:
+        description: 'Test Target Platform'
         type: string
     steps:
       - run:
-          name: Building Unity Project
-          command: xvfb-run -a /opt/Unity/Editor/Unity -quit -nographics -batchmode -logfile /root/project/UnityBuildLog.log -projectPath /root/project/ -executeMethod << parameters.unity_build_method >> -appVersion << parameters.unity_appversion >> -bundleVersionCode << parameters.unity_bundleversioncode >> -serial $UNITY_SERIAL -username $UNITY_USERNAME -password $UNITY_PASSWORD
-          no_output_timeout: 60m
-
-  store-unity-build-log:
-    description: "Store Unity Build Log Artifact"
+          name: test run
+          command: |
+            mkdir ./test-results
+            touch ./test-results/results.xml
+            xvfb-run --auto-servernum --server-args='-screen 0 640x480x24' /opt/Unity/Editor/Unity -batchmode -nographics -silent-crashes -logFile -projectPath . -runTests -testPlatform << parameters.mode >> -testResults ./test-results/results.xml
+          working_directory: ~/project/
+  execute_method:
+    description: 'Build Execute Method'
+    parameters:
+      method:
+        description: 'Target Method'
+        type: string
     steps:
-      - store_artifacts:
-          path: /root/project/UnityBuildLog.log
-          destination: UnityBuildLog.log
-
-  store-artifacts:
-    description: "Store Artifacts"
+      - run:
+          name: execute method
+          command: |
+            /opt/Unity/Editor/Unity -quit -batchmode -nographics -silent-crashes -logFile -projectPath . -executeMethod << parameters.method >> -buildTarget standalone
+          working_directory: ~/project/
+  zip:
+    description: 'Build Content Archive'
+    parameters:
+      directory:
+        description: 'Target Directory'
+        type: string
     steps:
-      - store_artifacts:
-          path: Build/
+      - run:
+          name: zip archive
+          command: |
+            apt update && apt-get install -y zip
+            zip archive -r << parameters.directory >>
+            mv ./archive.zip << parameters.directory >>
+          working_directory: .
 
 jobs:
-  build-unity:
-    description: Job That Builds a Unity Project.
+  build:
     parameters:
       exec:
         type: executor
-      android_build:
+      licenseFromEnv:
+        description: 'Unity License'
+        type: env_var_name
+        default: UNITY_LICENSE_BASE64
+      licenseFromPath:
+        description: 'Get from path'
+        type: string
+        default: '/activateTools/Unity.ulf'
+      method:
+        description: 'Build Execute Method'
+        type: string
+      platform:
+        description: 'Test Target Platform'
+        type: string
+      zip:
+        description: 'Archive Build Contents'
+        default: false
         type: boolean
-        default: true
-      app_version:
-        description: "App Version"
+      no_output_timeout:
+        description: 'No Output Timeout'
         type: string
-      app_name:
-        description: "App Name"
+        default: 10m
+      directory:
+        description: 'Target Directory'
         type: string
-      unity_build_method:
-        description: "Unity Build Method to Execute"
+        default: .
+    executor: << parameters.exec >>
+    steps:
+      - attach_workspace:
+          at: /activateTools
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - unity_activate:
+          licenseFromEnv: << parameters.licenseFromEnv >>
+          licenseFromPath: << parameters.licenseFromPath >>
+      - build:
+          platform: << parameters.platform >>
+          method: << parameters.method >>
+          no_output_timeout: << parameters.no_output_timeout >>
+      - when:
+          condition: << parameters.zip >>
+          steps:
+            - zip:
+                directory: << parameters.directory >>
+      - store_artifacts:
+          path: << parameters.directory >>
+  test:
+    parameters:
+      exec:
+        type: executor
+      licenseFromEnv:
+        description: 'Unity License'
+        type: env_var_name
+        default: UNITY_LICENSE_BASE64
+      licenseFromPath:
+        description: 'Get from path'
         type: string
-      unity_bundleversioncode:
-        description: "Unity bundleVersionCode"
+        default: '/activateTools/Unity.ulf'
+      mode:
+        description: 'Test Target Mode'
         type: string
     executor: << parameters.exec >>
     steps:
+      - attach_workspace:
+          at: /activateTools
+      - setup_remote_docker:
+          docker_layer_caching: true
       - checkout
-      - run:
-          name: Install Git LFS
-          command: |
-            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
-            apt-get update
-            apt-get install -y git-lfs openssh-client
-            git lfs install
-            mkdir -p ~/.ssh
-            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
-            ssh git@github.com git-lfs-authenticate "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" download
-      - run:
-          name: "Git LFS Pull"
-          command: "git lfs pull"
-      - unity-build:
-          unity_build_method: << parameters.unity_build_method >>
-          unity_appversion: << parameters.app_version >>
-          unity_bundleversioncode: << parameters.unity_bundleversioncode >>
-      - store-unity-build-log
-      - when:
-          condition: << parameters.android_build >>
-          steps:
-            - run: mv Build/Android/build_android.apk Build/Android/<< parameters.app_name >>_<< parameters.app_version >>.apk
-      - run:
-          name: Store Persistent Environment Variables
-          command: echo "export W3D_APK_PATH=Build/Android/<< parameters.app_name >>_<< parameters.app_version >>.apk" >> Build/persistent_env_vars
-      - store-artifacts
-      - persist_to_workspace:
-          root: Build
-          paths:
-            - iOS
-            - Android
-            - persistent_env_vars
-
-  fastlane:
+      - unity_activate:
+          licenseFromEnv: << parameters.licenseFromEnv >>
+          licenseFromPath: << parameters.licenseFromPath >>
+      - test:
+          mode: << parameters.mode >>
+  execute_method:
     parameters:
-      fastlane_lane:
-        description: Fastlane Lane to Run
+      exec:
+        type: executor
+      licenseFromEnv:
+        description: 'Unity License'
+        type: env_var_name
+        default: UNITY_LICENSE_BASE64
+      licenseFromPath:
+        description: 'Get from path'
         type: string
+        default: '/activateTools/Unity.ulf'
+      method:
+        description: 'Build Execute Method'
+        type: string
+    executor: << parameters.exec >>
+    steps:
+      - attach_workspace:
+          at: /activateTools
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - checkout
+      - unity_activate:
+          licenseFromEnv: << parameters.licenseFromEnv >>
+          licenseFromPath: << parameters.licenseFromPath >>
+      - execute_method:
+          method: << parameters.method >>
+  outputAlf:
+    parameters:
       exec:
         type: executor
     executor: << parameters.exec >>
-    shell: /bin/bash --login -o pipefail
     steps:
+      - setup_remote_docker:
+          docker_layer_caching: true
       - checkout
-      - attach_workspace:
-          at: Build
+      - restore_cache:
+          key: unity-license
       - run:
-          name: Source Persistent Environment Variables
-          command: source ./Build/persistent_env_vars && echo $W3D_APK_PATH
-      - run:
-          name: "Configure Bundler"
+          name: ifneed create alf
           command: |
-            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
-            source $BASH_ENV
-            sudo gem install bundler
+            trap 'find . -name '*.alf' -exec mv '{}' "/activateTools/Unity.alf"  \;' 0
+            [ -e "/activateTools/Unity.ulf" ] && EXISTS_ULF=true || EXISTS_ULF=false
+            mkdir -p /activateTools
+            echo ${EXISTS_ULF} > /activateTools/exists.txt
+            if [ -n "/activateTools/Unity.ulf" ]; then
+              (/opt/Unity/Editor/Unity -quit -batchmode -nographics -logFile -createManualActivationFile || exit 0)
+            fi
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
+  cloneActivateTool:
+    docker:
+      - image: alpine/git
+    steps:
+      - attach_workspace:
+          at: /activateTools
       - run:
-          name: "Bundle Install"
-          command: bundle install
+          name: ifneed clone activate tool
+          command: |
+            if ! $(cat /activateTools/exists.txt); then
+              cd /activateTools
+              git clone https://github.com/MizoTake/unity-license-activate.git
+            fi
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
+  outputUlf:
+    docker:
+      - image: buildkite/puppeteer
+    steps:
+      - attach_workspace:
+          at: /activateTools
+      - restore_cache:
+          key: dependency-cache-{{ checksum "/activateTools/unity-license-activate/package-lock.json" }}
       - run:
-          name: "Run Fastlane"
-          command: source ./Build/persistent_env_vars && bundle exec fastlane << parameters.fastlane_lane >>
-          no_output_timeout: 20m
-      - store-artifacts
+          name: ifneed npm install
+          command: |
+            if ! $(cat /activateTools/exists.txt); then
+              cd /activateTools/unity-license-activate
+              npm install
+            fi
+      - save_cache:
+          key: dependency-cache-{{ checksum "/activateTools/unity-license-activate/package-lock.json" }}
+          paths:
+            - /activateTools/unity-license-activate/node_modules
+      - run:
+          name: ifneed alf to ulf
+          command: |
+            if ! $(cat /activateTools/exists.txt); then
+              cd /activateTools/unity-license-activate
+              node activate.js $EMAIL $PASSWORD /activateTools/Unity.alf
+              find . -name '*.ulf' -exec mv '{}' "/activateTools/Unity.ulf"  \;
+            fi
+      - persist_to_workspace:
+          root: /activateTools
+          paths:
+            - .
