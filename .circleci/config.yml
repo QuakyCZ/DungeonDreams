@@ -1,0 +1,123 @@
+# This code is licensed from CircleCI to the user under the MIT license.
+# See here for details: https://circleci.com/developer/orbs/licensing
+version: "2.1"
+orbs:
+  unity-build: w3d/unity-build@0.0.7
+description: "Unity Build Orb"
+
+commands:
+  unity-build:
+    description: "Build Unity Project"
+    parameters:
+      unity_build_method:
+        type: string
+      unity_appversion:
+        type: string
+      unity_bundleversioncode:
+        type: string
+    steps:
+      - run:
+          name: Building Unity Project
+          command: xvfb-run -a /opt/Unity/Editor/Unity -quit -nographics -batchmode -logfile /root/project/UnityBuildLog.log -projectPath /root/project/ -executeMethod << parameters.unity_build_method >> -appVersion << parameters.unity_appversion >> -bundleVersionCode << parameters.unity_bundleversioncode >> -serial $UNITY_SERIAL -username $UNITY_USERNAME -password $UNITY_PASSWORD
+          no_output_timeout: 60m
+
+  store-unity-build-log:
+    description: "Store Unity Build Log Artifact"
+    steps:
+      - store_artifacts:
+          path: /root/project/UnityBuildLog.log
+          destination: UnityBuildLog.log
+
+  store-artifacts:
+    description: "Store Artifacts"
+    steps:
+      - store_artifacts:
+          path: Build/
+
+jobs:
+  build-unity:
+    description: Job That Builds a Unity Project.
+    parameters:
+      exec:
+        type: executor
+      android_build:
+        type: boolean
+        default: true
+      app_version:
+        description: "App Version"
+        type: string
+      app_name:
+        description: "App Name"
+        type: string
+      unity_build_method:
+        description: "Unity Build Method to Execute"
+        type: string
+      unity_bundleversioncode:
+        description: "Unity bundleVersionCode"
+        type: string
+    executor: << parameters.exec >>
+    steps:
+      - checkout
+      - run:
+          name: Install Git LFS
+          command: |
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+            apt-get update
+            apt-get install -y git-lfs openssh-client
+            git lfs install
+            mkdir -p ~/.ssh
+            ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+            ssh git@github.com git-lfs-authenticate "${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}" download
+      - run:
+          name: "Git LFS Pull"
+          command: "git lfs pull"
+      - unity-build:
+          unity_build_method: << parameters.unity_build_method >>
+          unity_appversion: << parameters.app_version >>
+          unity_bundleversioncode: << parameters.unity_bundleversioncode >>
+      - store-unity-build-log
+      - when:
+          condition: << parameters.android_build >>
+          steps:
+            - run: mv Build/Android/build_android.apk Build/Android/<< parameters.app_name >>_<< parameters.app_version >>.apk
+      - run:
+          name: Store Persistent Environment Variables
+          command: echo "export W3D_APK_PATH=Build/Android/<< parameters.app_name >>_<< parameters.app_version >>.apk" >> Build/persistent_env_vars
+      - store-artifacts
+      - persist_to_workspace:
+          root: Build
+          paths:
+            - iOS
+            - Android
+            - persistent_env_vars
+
+  fastlane:
+    parameters:
+      fastlane_lane:
+        description: Fastlane Lane to Run
+        type: string
+      exec:
+        type: executor
+    executor: << parameters.exec >>
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - checkout
+      - attach_workspace:
+          at: Build
+      - run:
+          name: Source Persistent Environment Variables
+          command: source ./Build/persistent_env_vars && echo $W3D_APK_PATH
+      - run:
+          name: "Configure Bundler"
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            sudo gem install bundler
+      - run:
+          name: "Bundle Install"
+          command: bundle install
+      - run:
+          name: "Run Fastlane"
+          command: source ./Build/persistent_env_vars && bundle exec fastlane << parameters.fastlane_lane >>
+          no_output_timeout: 20m
+      - store-artifacts
