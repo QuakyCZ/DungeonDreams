@@ -26,10 +26,10 @@ public static class Language{
             File.WriteAllText(path,content);
         }
         string json = File.ReadAllText(path);
-        Debug.Log(json);
+        //Debug.Log(json);
         dictionary = (GameDictionary) JsonConvert.DeserializeObject(json, typeof(GameDictionary));
         language = dictionary.language;
-        Debug.Log(dictionary.language);
+        //Debug.Log(dictionary.language);
     }
 
     public static string GetString(GameDictionaryType type, string key) {

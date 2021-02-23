@@ -25,7 +25,7 @@ public static class ConfigFile{
             config = (Config) JsonConvert.DeserializeObject(configJson, typeof(Config));
             config.version = Application.version;
             //Debug.Log(JsonFormatter.SerializeObject(config));
-            Debug.Log(config.language);
+            Debug.Log("Selected language: " + config.language);
             if (config.GetDebug("all")) {
                 foreach (var debug in config.debug) {
                     Debug.Log(debug.Key);
