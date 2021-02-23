@@ -5,4 +5,4 @@
 # Dungeon Dreams
 * Tomas Kratschmer's work for final exams 2020
 * 2D Pixel Art Top Down RPG game
-###### © Tomáš Kratschmer all rights reserved
+###### Tomáš Kratschmer © 2019 - 2021  all rights reserved
