@@ -1,4 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Bson;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class GameOverWin : SceneController{
@@ -10,5 +14,10 @@ public class GameOverWin : SceneController{
         content.text = Language.GetString(GameDictionaryType.other, "gameOverWinContent");
         mainMenuButton.GetComponentInChildren<Text>().text =
             Language.GetString(GameDictionaryType.buttons, "mainMenu");
+    }
+
+    protected override void Start() {
+        base.Start();
+        LevelManager.CompleteLevel(PlayerPrefs.GetInt("current-level",-1));
     }
 }

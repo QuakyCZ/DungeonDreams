@@ -122,4 +122,8 @@ public class OptionsController : MonoBehaviour{
         ConfigFile.Save();
         SceneManager.LoadScene("Options");
     }
+
+    public void DeletePlayerPrefs() {
+        PlayerPrefs.DeleteAll();
+    }
 }
