@@ -30,7 +30,7 @@ public class VersionController : MonoBehaviour{
         UnityWebRequest webRequest = UnityWebRequest.Get(ConfigFile.Get().versionUrl);
         yield return webRequest.SendWebRequest();
 
-        Debug.Log(webRequest.downloadHandler.text);
+        //Debug.Log(webRequest.downloadHandler.text);
         try {
             _version = (Version) JsonConvert.DeserializeObject(webRequest.downloadHandler.text, typeof(Version));
         }

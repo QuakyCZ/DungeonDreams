@@ -11,6 +11,7 @@ public class SceneController : MonoBehaviour{
         ConfigFile.SetUp();
         Language.SetUp();
         Translate();
+        LevelManager.Init();
     }
 
     protected virtual void Translate() {

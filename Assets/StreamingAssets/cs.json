@@ -40,7 +40,8 @@
       "continue": "Pokračovat",
       "newVersionAvailable": "Nová verze k dispozici",
       "outdated": "Zastaralé",
-      "version": "Verze"
+      "version": "Verze",
+      "level": "Zvol úroveň"
     },
     "log": {
       "interact": "Stiskni {0} pro interakci.",

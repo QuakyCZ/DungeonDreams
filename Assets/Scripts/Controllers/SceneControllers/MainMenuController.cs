@@ -37,22 +37,10 @@ public class MainMenuController : MonoBehaviour{
             Language.GetString(GameDictionaryType.buttons, "exit");
     }
 
-    // Update is called once per frame
-    void Update() { }
-
     #region MainMenuButtons
 
     public void ButtonPlayGame() {
-        Debug.Log("Button: Play Game");
-        playButton.interactable = false;
-        creditsButton.interactable = false;
-        optionsButton.interactable = false;
-        feedbackButton.interactable = false;
-        exitButton.interactable = false;
-        string sceneName = "Floor_0";
-        StartCoroutine(LoadLevelAsync(sceneName));
-
-        Debug.Log("Loading of '" + sceneName + "' Completed.");
+        SceneManager.LoadScene("Levels");
     }
 
     public void ButtonCredits() {
@@ -72,14 +60,4 @@ public class MainMenuController : MonoBehaviour{
     }
 
     #endregion
-
-    IEnumerator LoadLevelAsync(string sceneName) {
-        Debug.Log("Loading Level '" + sceneName + "'");
-        AsyncOperation gameLevel = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-        progress.enabled = true;
-        while (gameLevel.progress < 1) {
-            progress.text = Mathf.FloorToInt(gameLevel.progress * 100).ToString() + "%";
-            yield return new WaitForEndOfFrame();
-        }
-    }
 }

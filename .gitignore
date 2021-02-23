@@ -29,6 +29,7 @@ sysinfo.txt
 .idea/
 *.csproj
 *.sln
+*.log
  
 # ============ #
 # OS generated #
@@ -45,4 +46,6 @@ Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 
 Assets/Scripts/cloc.exe
+Assets/screens/
 
+Logs/ApiUpdaterCheck.txt
