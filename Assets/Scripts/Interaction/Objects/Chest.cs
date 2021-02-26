@@ -6,6 +6,7 @@ public class Chest : Collectable{
     private bool _isOpened = false;
     private bool _isLooted = false;
     private bool _interacting = false;
+    [SerializeField] private GameObject minimapPicture = null;
 
     protected override void Start() {
         base.Start();
@@ -20,6 +21,7 @@ public class Chest : Collectable{
         Debug.Log(
             "Gained " + amnt + " gold. Now you have "
             + player.inventory.GetValue(InventoryDefault.gold) + " gold");
+        minimapPicture.SetActive(false);
     }
 
     protected override void OnCollect() {

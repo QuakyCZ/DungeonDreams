@@ -46,6 +46,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -95,6 +96,7 @@ GameObject:
   - component: {fileID: 7913031081127815675}
   - component: {fileID: 7913031081127815668}
   - component: {fileID: 6906109096264511402}
+  - component: {fileID: 105312978339264106}
   m_Layer: 14
   m_Name: Chest
   m_TagString: Collectable
@@ -150,6 +152,8 @@ MonoBehaviour:
     type: 3}
   spriteCollected: {fileID: 8428519007909978992, guid: cb449455a25cb4f45bf4dd8fab1cdcf7,
     type: 3}
+  openSound: {fileID: 0}
+  minimapPicture: {fileID: 6475885922087995697}
 --- !u!212 &7913031081127815675
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -165,6 +169,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -323,3 +328,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &105312978339264106
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7913031081127815672}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a1e7f48025ab1543a694c8a19e7fe00, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
