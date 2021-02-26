@@ -47,6 +47,7 @@ public class MainController : MonoBehaviour{
     public void PauseGameTime(bool pause = true) {
         InputController.doUpdate = !pause;
         doUpdate = !pause;
+        Weapon.TogglePause(pause);
     }
 
     #endregion

@@ -3,7 +3,9 @@ using Unity.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class Weapon : MonoBehaviour{
+public class Weapon : MonoBehaviour {
+    private static bool isPaused = false;
+    
     [SerializeField] private int minDamage;
     [SerializeField] private int maxDamage;
     [SerializeField] private float chargeTime = 2f;
@@ -19,6 +21,9 @@ public class Weapon : MonoBehaviour{
     }
 
     private void Update() {
+        if(isPaused)
+            return;
+        
         if (!_charged) {
             chargeCooldown -= Time.deltaTime;
             if (chargeCooldown <= 0) {
@@ -55,5 +60,13 @@ public class Weapon : MonoBehaviour{
         _animator.SetBool("IsAttacking", false);
         _charged = true;
         GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    public static void TogglePause() {
+        isPaused = !isPaused;
+    }
+
+    public static void TogglePause(bool pause) {
+        isPaused = pause;
     }
 }

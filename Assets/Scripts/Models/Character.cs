@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
-public class Character : MonoBehaviour{
+public class Character : MonoBehaviour {
+    private bool isPaused = false;
+    
     [SerializeField] protected float minRange;
     protected Transform target;
     [SerializeField] protected Animator animator;
@@ -70,7 +72,8 @@ public class Character : MonoBehaviour{
     }
 
     protected virtual void Update() {
-        DoCooldowns();
+        if(!isPaused)
+            DoCooldowns();
     }
 
     /// <summary>

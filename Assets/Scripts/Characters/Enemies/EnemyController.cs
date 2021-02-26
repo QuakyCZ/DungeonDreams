@@ -67,6 +67,10 @@ public class EnemyController : MonoBehaviour{
 
     // Update is called once per frame
     void Update() {
+        
+        if(!_mainController.doUpdate)
+            return;
+        
         if (isDead) return;
         if (isAttacking) return;
         if (isTakingHit) return;
@@ -88,18 +92,26 @@ public class EnemyController : MonoBehaviour{
     }
 
     void FixedUpdate() {
+        if(!_mainController.doUpdate)
+            return;
+        
         if (isDead) return;
 
         // I can't move when I do something else.
         if (isTakingHit) return;
         if (isAttacking) return;
+       
+        MoveOnPath();
+    }
 
+    private void MoveOnPath() {
         // Am I next to the player?
         if (Vector2.Distance(transform.position, player.transform.position) > minRange) {
             // Do I have path?
             if (path == null) {
                 // No -> find it.
                 path = _worldGraph.FindVectorPath(transform.position, player.transform.position);
+                
                 if (path!=null && path.Count > maxPathLength) path = null;
                 return;
             }
@@ -116,7 +128,7 @@ public class EnemyController : MonoBehaviour{
 
                 if (currentPathIndex >= path.Count ||
                     CheckPlayerPosition() == false) {
-                    StopMovement();
+                    ResetPath();
                 }
             }
         }
@@ -131,11 +143,15 @@ public class EnemyController : MonoBehaviour{
         OnWalkingBegin?.Invoke();
     }
 
+    private void ResetPath() {
+        path = null;
+        currentPathIndex = 0;
+    }
+
     private void StopMovement() {
         isWalking = false;
         OnWalkingEnd?.Invoke();
-        path = null;
-        currentPathIndex = 0;
+        ResetPath();
     }
 
     private void Move(Vector3 moveDir) {

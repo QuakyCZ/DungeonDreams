@@ -5,7 +5,7 @@ public class Player : Character{
     [SerializeField] protected Camera minimapCamera;
     private UIController _uiController;
 
-    #region metody
+    #region methods
 
     protected override void Start() {
         base.Start();

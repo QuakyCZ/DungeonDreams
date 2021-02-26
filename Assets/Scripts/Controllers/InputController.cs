@@ -54,8 +54,7 @@ public class InputController : MonoBehaviour{
         }
 
         // Do not change this line!!!
-        Vector3 movementVector = new Vector3(horizontal, vertical, 0).normalized * Time.deltaTime *
-                                 _player.abilities.GetAbilityValue(Ability.speed);
+        Vector3 movementVector = new Vector3(horizontal, vertical, 0).normalized * (Time.deltaTime * _player.abilities.GetAbilityValue(Ability.speed));
 
         _player.MovePlayer(movementVector);
     }
